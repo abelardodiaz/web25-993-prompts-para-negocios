@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultados Encuesta - La Tiendita</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            padding: 30px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        h1 {
+            color: #2E7D32;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: #666;
+            font-size: 1.1rem;
+        }
+        
+        .stats-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            border-left: 4px solid #4CAF50;
+        }
+        
+        .stat-card.A {
+            border-left-color: #4CAF50;
+        }
+        
+        .stat-card.B {
+            border-left-color: #2196F3;
+        }
+        
+        .stat-card.no-response {
+            border-left-color: #9E9E9E;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .stat-card.A .stat-number {
+            color: #4CAF50;
+        }
+        
+        .stat-card.B .stat-number {
+            color: #2196F3;
+        }
+        
+        .stat-card.no-response .stat-number {
+            color: #9E9E9E;
+        }
+        
+        .stat-label {
+            font-size: 1.1rem;
+            color: #555;
+        }
+        
+        .results-section {
+            margin-bottom: 30px;
+        }
+        
+        .section-title {
+            color: #2E7D32;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .responses {
+            display: grid;
+            gap: 15px;
+        }
+        
+        .response-item {
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #f8f9fa;
+            border-left: 4px solid #4CAF50;
+        }
+        
+        .response-item.B {
+            border-left-color: #2196F3;
+        }
+        
+        .response-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .response-option {
+            font-weight: bold;
+            color: #2E7D32;
+        }
+        
+        .response-item.B .response-option {
+            color: #2196F3;
+        }
+        
+        .response-reason {
+            color: #555;
+            font-style: italic;
+        }
+        
+        .colonia-tag {
+            display: inline-block;
+            background-color: #E8F5E9;
+            color: #2E7D32;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-left: 10px;
+        }
+        
+        .la-cantera .colonia-tag {
+            background-color: #E3F2FD;
+            color: #1565C0;
+        }
+        
+        .no-responses {
+            text-align: center;
+            padding: 30px;
+            color: #9E9E9E;
+            font-style: italic;
+        }
+        
+        .conclusion {
+            background-color: #E8F5E9;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 30px;
+        }
+        
+        .conclusion h3 {
+            color: #2E7D32;
+            margin-bottom: 15px;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .response-header {
+                flex-direction: column;
+            }
+            
+            .colonia-tag {
+                margin-left: 0;
+                margin-top: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Resultados de Encuesta - Preferencia de Entrega</h1>
+            <p class="subtitle">Encuesta enviada a la mitad de los prospectos de Puerta Natura y La Cantera</p>
+        </header>
+        
+        <div class="stats-overview">
+            <div class="stat-card A">
+                <div class="stat-number">61%</div>
+                <div class="stat-label">Prefieren Delivery Express ($25)</div>
+            </div>
+            <div class="stat-card B">
+                <div class="stat-number">10%</div>
+                <div class="stat-label">Prefieren Ventana Express</div>
+            </div>
+            <div class="stat-card no-response">
+                <div class="stat-number">29%</div>
+                <div class="stat-label">No respondieron</div>
+            </div>
+        </div>
+        
+        <div class="results-section">
+            <h2 class="section-title">Respuestas - Opción A: Delivery Express ($25)</h2>
+            <div class="responses">
+                <div class="response-item A">
+                    <div class="response-header">
+                        <span class="response-option">Opción A: Delivery Express</span>
+                        <span class="colonia-tag">Puerta Natura</span>
+                    </div>
+                    <div class="response-reason">"Prefiero pagar los $25 para no salir de casa, especialmente de noche."</div>
+                </div>
+                
+                <div class="response-item A">
+                    <div class="response-header">
+                        <span class="response-option">Opción A: Delivery Express</span>
+                        <span class="colonia-tag la-cantera">La Cantera</span>
+                    </div>
+                    <div class="response-reason">"Valoro más mi tiempo y comodidad. $25 es razonable por no tener que salir."</div>
+                </div>
+                
+                <div class="response-item A">
+                    <div class="response-header">
+                        <span class="response-option">Opción A: Delivery Express</span>
+                        <span class="colonia-tag">Puerta Natura</span>
+                    </div>
+                    <div class="response-reason">"Cuando llueve o hace frío, definitivamente prefiero que me lo lleven."</div>
+                </div>
+                
+                <div class="response-item A">
+                    <div class="response-header">
+                        <span class="response-option">Opción A: Delivery Express</span>
+                        <span class="colonia-tag la-cantera">La Cantera</span>
+                    </div>
+                    <div class="response-reason">"Trabajo hasta tarde y no tengo energía para salir a recoger."</div>
+                </div>
+                
+                <div class="response-item A">
+                    <div class="response-header">
+                        <span class="response-option">Opción A: Delivery Express</span>
+                        <span class="colonia-tag">Puerta Natura</span>
+                    </div>
+                    <div class="response-reason">"Tengo niños pequeños y es complicado salir con ellos por las noches."</div>
+                </div>
+                
+                <div class="response-item A">
+                    <div class="response-header">
+                        <span class="response-option">Opción A: Delivery Express</span>
+                        <span class="colonia-tag la-cantera">La Cantera</span>
+                    </div>
+                    <div class="response-reason">"Me da pereza salir, prefiero pagar por la comodidad."</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="results-section">
+            <h2 class="section-title">Respuestas - Opción B: Ventana Express (Sin costo)</h2>
+            <div class="responses">
+                <div class="response-item B">
+                    <div class="response-header">
+                        <span class="response-option">Opción B: Ventana Express</span>
+                        <span class="colonia-tag">Puerta Natura</span>
+                    </div>
+                    <div class="response-reason">"Prefiero ahorrar el dinero y recogerlo, además es rápido."</div>
+                </div>
+                
+                <div class="response-item B">
+                    <div class="response-header">
+                        <span class="response-option">Opción B: Ventana Express</span>
+                        <span class="colonia-tag la-cantera">La Cantera</span>
+                    </div>
+                    <div class="response-reason">"$25 me parece demasiado para una compra de $150. Prefiero recoger."</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="results-section">
+            <h2 class="section-title">No Respondieron</h2>
+            <div class="no-responses">
+                <p>29% de los contactados no respondieron a la encuesta.</p>
+                <p>Esto incluye 2 prospectos de Puerta Natura y 1 de La Cantera.</p>
+            </div>
+        </div>
+        
+        <div class="conclusion">
+            <h3>Conclusiones de la Encuesta</h3>
+            <p>La mayoría de los clientes (61%) están dispuestos a pagar $25 por el servicio de delivery express, valorando principalmente la comodidad y el ahorro de tiempo.</p>
+            <p>Solo un 10% prefiere la opción de ventana express sin costo, principalmente por motivos de ahorro.</p>
+            <p>Estos resultados sugieren que el modelo de delivery con tarifa es viable y preferido por la mayoría de los clientes potenciales.</p>
+        </div>
+    </div>
+</body>
+</html>

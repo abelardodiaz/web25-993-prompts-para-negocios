@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modelo de Negocio - La Tiendita</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: linear-gradient(135deg, #4CAF50, #2E7D32);
+            color: white;
+            border-radius: 10px;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .section {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        h2 {
+            color: #2E7D32;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #E8F5E9;
+        }
+        
+        .canvas-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .canvas-item {
+            margin-bottom: 25px;
+        }
+        
+        .canvas-item h3 {
+            color: #2E7D32;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .canvas-item ul {
+            padding-left: 20px;
+        }
+        
+        .canvas-item li {
+            margin-bottom: 8px;
+        }
+        
+        .highlight {
+            background-color: #E8F5E9;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 10px;
+            border-left: 4px solid #4CAF50;
+        }
+        
+        .revenue-model {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .model-card {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #2196F3;
+        }
+        
+        .model-card h3 {
+            color: #2196F3;
+            margin-bottom: 15px;
+        }
+        
+        .cost-breakdown {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .cost-card {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #FF9800;
+        }
+        
+        .cost-card h3 {
+            color: #FF9800;
+            margin-bottom: 15px;
+        }
+        
+        .numbers {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #2E7D32;
+            margin: 10px 0;
+        }
+        
+        .justification {
+            background-color: #E3F2FD;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            font-size: 0.95rem;
+        }
+        
+        @media (max-width: 768px) {
+            .canvas-grid, .revenue-model, .cost-breakdown {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Modelo de Negocio - La Tiendita</h1>
+            <p class="subtitle">Validado con encuestas a residentes de Puerta Natura y La Cantera</p>
+        </header>
+        
+        <div class="section">
+            <h2>1. Lean Canvas Parcial</h2>
+            <div class="canvas-grid">
+                <div class="canvas-item">
+                    <h3>Problema</h3>
+                    <ul>
+                        <li>Acceso limitado o nulo a productos esenciales (abarrotes, farmacia básica) durante la noche en zonas residenciales</li>
+                        <li>Las soluciones existentes son inseguras (salir de noche), lentas (recorridos largos) o muy caras (apps de delivery con altas tarifas)</li>
+                        <li>Incertidumbre y frustración al no poder resolver necesidades urgentes o imprevistos del hogar</li>
+                    </ul>
+                    <div class="highlight">
+                        <strong>Validación:</strong> 80 registros en 48 horas solo con publicación en grupos de Facebook
+                    </div>
+                </div>
+                
+                <div class="canvas-item">
+                    <h3>Segmento de Clientes</h3>
+                    <ul>
+                        <li><strong>Beachhead:</strong> "María" (32-42 años, NSE C/C+), madre trabajadora con hijos, residente de colonias como Puerta Natura y La Cantera</li>
+                        <li>Valora la seguridad y el tiempo por encima del costo, ya usa apps de delivery y se siente desatendida por los comercios locales</li>
+                    </ul>
+                    <div class="highlight">
+                        <strong>Perfil confirmado:</strong> 61% de encuestados prefieren pagar $25 por delivery vs. 10% que prefieren recoger
+                    </div>
+                </div>
+                
+                <div class="canvas-item">
+                    <h3>Solución (Propuesta de Valor Única)</h3>
+                    <ul>
+                        <li>"Tu 'tiendita de la esquina' disponible 24/7 en el celular, con entrega en tu puerta en menos de 15 minutos"</li>
+                        <li>Un servicio de delivery express híper-local, seguro y confiable para compras de conveniencia y emergencia</li>
+                    </ul>
+                    <div class="highlight">
+                        <strong>Diferencial:</strong> 15 minutos vs. 30-45 minutos de Rappi/Uber Eats en la zona
+                    </div>
+                </div>
+                
+                <div class="canvas-item">
+                    <h3>Canales</h3>
+                    <ul>
+                        <li><strong>Canal de Adquisición Validado:</strong> Grupos de Facebook de colonias objetivo (80 registros en 48 horas)</li>
+                        <li><strong>Canal de Venta/Relación Principal:</strong> App Móvil propia (visión futura)</li>
+                        <li><strong>Canal Secundario/Inicial:</strong> WhatsApp Business como MVP</li>
+                        <li><strong>Canal de Crecimiento:</strong> Programa de Referidos entre vecinos</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>2. Modelo de Ingresos</h2>
+            <div class="revenue-model">
+                <div class="model-card">
+                    <h3>Tarifa de Delivery</h3>
+                    <div class="numbers">$25 MXN por pedido</div>
+                    <p>Tarifa fija independientemente del monto del pedido</p>
+                    
+                    <div class="justification">
+                        <h4>Justificación con Benchmarks:</h4>
+                        <ul>
+                            <li><strong>Rappi:</strong> Cobra $29-$39 MXN por pedidos similares + incrementos por lluvia/noche</li>
+                            <li><strong>Uber Eats:</strong> $25-$35 MXN + costo de servicio (10-15%)</li>
+                            <li><strong>Costo taxi local:</strong> $40-$50 MXN por trayectos similares</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="model-card">
+                    <h3>Proyección de Ingresos</h3>
+                    <p><strong>Meta inicial:</strong> 15 pedidos/día × $25 = $375 MXN/día</p>
+                    <p><strong>Meta mes 3:</strong> 40 pedidos/día × $25 = $1,000 MXN/día</p>
+                    <p><strong>Ingreso mensual proyectado (mes 3):</strong> $30,000 MXN</p>
+                    
+                    <div class="justification">
+                        <strong>Nota:</strong> Basado en 61% de 80 registros iniciales (49 clientes potenciales) con frecuencia de compra de 2-3 veces por semana
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>3. Costo por Servir (COGS)</h2>
+            <div class="cost-breakdown">
+                <div class="cost-card">
+                    <h3>Costo del Repartidor</h3>
+                    <div class="numbers">$12.50 MXN por pedido</div>
+                    <p>50% de la tarifa de delivery ($25)</p>
+                    
+                    <div class="justification">
+                        <h4>Desglose del costo:</h4>
+                        <ul>
+                            <li><strong>Salario repartidor:</strong> $12.50 por entrega</li>
+                            <li><strong>Ventaja competitiva:</strong> El repartidor no necesita invertir en moto</li>
+                            <li><strong>Rentabilidad repartidor:</strong> 15-20 entregas/día = $187-$250 MXN/día</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="cost-card">
+                    <h3>Costo de Operación y Transacción</h3>
+                    <div class="numbers">$10.25 MXN por pedido</div>
+                    <p>41% de la tarifa de delivery</p>
+                    
+                    <div class="justification">
+                        <h4>Desglose detallado:</h4>
+                        <ul>
+                            <li><strong>Moto mantenimiento/gasolina:</strong> $12.50 (50% de $25)</li>
+                            <li><strong>Procesamiento de pagos (3%):</strong> $0.75 (sobre $25)</li>
+                            <li><strong>Costo operativo neto:</strong> -$2.25 MXN por pedido</li>
+                        </ul>
+                        <p><strong>Nota:</strong> Se requiere margen adicional de productos o pedido mínimo para rentabilidad</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="highlight" style="margin-top: 20px;">
+                <h3>Resumen de Rentabilidad por Pedido</h3>
+                <p><strong>Ingreso por delivery:</strong> $25.00 MXN</p>
+                <p><strong>Costo repartidor:</strong> -$12.50 MXN</p>
+                <p><strong>Costo moto/operación:</strong> -$12.50 MXN</p>
+                <p><strong>Costo procesamiento pago (3%):</strong> -$0.75 MXN</p>
+                <p><strong>Resultado:</strong> -$0.75 MXN por pedido</p>
+                <p><strong>Solución:</strong> Margen en productos (15-20%) o pedido mínimo de $150 MXN</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

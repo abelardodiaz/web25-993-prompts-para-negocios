@@ -1,0 +1,13 @@
+# Idea Inicial: tiendita-nocturna
+
+## Descripción de la Idea
+
+Existen dark kitchens que cocinan sin atender al publico directamente, yo quiero dark stores, tiendas de abarrotes y suministros basicos como tiendas de conveniencia donde el usuario final pide en linea y pasa por las cosas en una ventana pequeña que solo trabaja a puerta cerrada, y tambien mediante delivery como uber eats o rapi, no hay manejo de efectivo y se requeire poco personal, reduciendo costos de logistica y de exhibicion....todo manejado desde una app donde los clientes hacen sus pedidos....sin faltantes in robo hotmiga, sin manejo de efectivo, y en un segundo paso, generar diferentes puntos de distribucion unificados en la misma app pero atendidos por terceros....es decir concesionar dark stores donde el concesaionario pone el local y lo prepara, pero no se preocua por el modelo de negocio, en ese caso el conesionario es un socio por que tuvo que conseguir y acondicionar unj local, para esto primero se debe definir y probar todo lo necesario en una tienda propia.....ademas de venta de menudeo me gustaria tener venta de kits o (similar al mayoreo) donde agrupoamos vrias piezas de un mismo producto o de productos similares aumentando el valor de la venta pero generando un descuento adicional....
+
+el objtivo predominante es reducir costos,,,,,operar 24/7.....no manejar efectuivo......tener mucha seguridad para reducir mermas, robos inluso asaltos...poco personal.....todo en una prueba piloto y despues poder abrir mas tiendas o concesionarlas......
+
+el secreto de esto es la app....la modalidad en linea, comoda, programable....amigable.....facil de usar.....ahorrar tiempo al usuario.....esos algoritmos son los que van a hacernos ir adelante de la competencia, cualquiera podra imitar algo similar pero si podemos tener buena logistica, ahorrar costos y bajar los precios y atender 24/7 ......no habra competencia al menos un buen tiempo...
+
+esto es por que es obsoleto que por las noches es difcil de comprar cosas basicas y mas en zonas peligrosas donde nadiequire abrir sus negocios.
+
+una caracteristica adicional importante...poder pgoramar compras con dias de anticipacion......incluso de ivnentario que no tenemos actualmente......teniendo la opcion de conseguirselo desde otras tiendas....(aunque se a precio no tan barato) pero dando el servicio de consewfuir cosas que el usuario no puede comprar por falta de tiempo , (no importa si se slaen del inventario, como ferreteria o medicinas etc, solo que en esta modalidad no hay que ofrecer perecederos)

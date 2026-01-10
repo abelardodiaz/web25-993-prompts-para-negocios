@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Priorización de Canales - ICE Score</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 30px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            color: #2E7D32;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: #666;
+            font-size: 1.1rem;
+        }
+        
+        .ice-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        .ice-table th {
+            background-color: #2E7D32;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-weight: bold;
+        }
+        
+        .ice-table td {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .ice-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        .ice-table tr:hover {
+            background-color: #e8f5e9;
+        }
+        
+        .canal-name {
+            font-weight: bold;
+            text-align: left;
+            color: #2E7D32;
+        }
+        
+        .score-input {
+            width: 60px;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            text-align: center;
+            font-size: 1rem;
+        }
+        
+        .ice-score {
+            font-weight: bold;
+            color: #2E7D32;
+            font-size: 1.1rem;
+        }
+        
+        .calculate-btn {
+            display: block;
+            margin: 30px auto 0;
+            background: linear-gradient(135deg, #4CAF50, #2E7D32);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .calculate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+        }
+        
+        .explanation {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #E8F5E9;
+            border-radius: 8px;
+            border-left: 4px solid #4CAF50;
+        }
+        
+        .explanation h3 {
+            color: #2E7D32;
+            margin-bottom: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .ice-table {
+                font-size: 0.9rem;
+            }
+            
+            .score-input {
+                width: 50px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Priorización de Canales - ICE Score</h1>
+            <p class="subtitle">Evaluación objetiva de canales de adquisición de clientes</p>
+        </header>
+        
+        <table class="ice-table">
+            <thead>
+                <tr>
+                    <th>Canal</th>
+                    <th>Impacto (1-10)</th>
+                    <th>Confianza (1-10)</th>
+                    <th>Facilidad (1-10)</th>
+                    <th>ICE Score</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="canal-name">1. Grupos de FB/WhatsApp</td>
+                    <td>
+                        <input type="number" class="score-input" id="impacto1" min="1" max="10" value="8">
+                    </td>
+                    <td>
+                        <input type="number" class="score-input" id="confianza1" min="1" max="10" value="8">
+                    </td>
+                    <td>
+                        <input type="number" class="score-input" id="facilidad1" min="1" max="10" value="8">
+                    </td>
+                    <td class="ice-score" id="ice1">-</td>
+                </tr>
+                <tr>
+                    <td class="canal-name">2. Volanteo (Flyers)</td>
+                    <td>
+                        <input type="number" class="score-input" id="impacto2" min="1" max="10" value="6">
+                    </td>
+                    <td>
+                        <input type="number" class="score-input" id="confianza2" min="1" max="10" value="5">
+                    </td>
+                    <td>
+                        <input type="number" class="score-input" id="facilidad2" min="1" max="10" value="5">
+                    </td>
+                    <td class="ice-score" id="ice2">-</td>
+                </tr>
+                <tr>
+                    <td class="canal-name">3. Programa de Referidos</td>
+                    <td>
+                        <input type="number" class="score-input" id="impacto3" min="1" max="10" value="9">
+                    </td>
+                    <td>
+                        <input type="number" class="score-input" id="confianza3" min="1" max="10" value="9">
+                    </td>
+                    <td>
+                        <input type="number" class="score-input" id="facilidad3" min="1" max="10" value="9">
+                    </td>
+                    <td class="ice-score" id="ice3">-</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <button class="calculate-btn" onclick="calculateICE()">Calcular ICE Scores</button>
+        
+        <div class="explanation">
+            <h3>¿Cómo funciona el ICE Score?</h3>
+            <p><strong>Impacto (I):</strong> Si funciona, ¿qué tan grande será el impacto para conseguir tus primeros 100 clientes?</p>
+            <p><strong>Confianza (C):</strong> ¿Qué tan seguro estás de que funcionará, basado en lo que ya sabes de tu cliente y la zona?</p>
+            <p><strong>Facilidad (E):</strong> ¿Qué tan fácil es de ejecutar en términos de tiempo, dinero y esfuerzo?</p>
+            <p><strong>ICE Score = (I + C + E) / 3</strong> - El promedio de las tres puntuaciones</p>
+        </div>
+    </div>
+
+    <script>
+        function calculateICE() {
+            // Calcular ICE Score para cada canal
+            for (let i = 1; i <= 3; i++) {
+                const impacto = parseFloat(document.getElementById(`impacto${i}`).value);
+                const confianza = parseFloat(document.getElementById(`confianza${i}`).value);
+                const facilidad = parseFloat(document.getElementById(`facilidad${i}`).value);
+                
+                const iceScore = ((impacto + confianza + facilidad) / 3).toFixed(2);
+                document.getElementById(`ice${i}`).textContent = iceScore;
+            }
+        }
+        
+        // Calcular automáticamente al cargar la página
+        document.addEventListener('DOMContentLoaded', calculateICE);
+    </script>
+</body>
+</html>
