@@ -1,0 +1,6 @@
+meta:
+  project: Minisitios Inmobiliarios
+  version: 1.0
+prompts[2]{id,concept,prompt_text,style}:
+  1,Interior Minimalista,"Fotografía profesional de una sala de estar moderna y minimalista, estilo escandinavo. Grandes ventanales con luz natural, sofá beige, plantas verdes vibrantes. Sensación de amplitud y hogar acogedor. Alta resolución, 8k, iluminación suave.","Fotografía Interiorismo"
+  2,Exterior Moderno,"Render arquitectónico fotorrealista de una casa moderna de dos pisos con fachada blanca y detalles en madera. Jardín delantero cuidado, cielo azul despejado. Perspectiva a nivel de calle, iluminación de atardecer dorada.","Render 3D"

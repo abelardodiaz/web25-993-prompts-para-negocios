@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Casas Picacho | Laura Martínez</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+        }
+    </style>
+</head>
+
+<body class="bg-[#F8F7F5] text-[#333333]">
+
+    <!-- Header -->
+    <header class="bg-[#0D3B66] text-white shadow-md relative z-50">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold tracking-tight">casas-picacho.com</a>
+
+            <!-- Desktop Nav -->
+            <nav class="hidden md:flex gap-6">
+                <a href="#" class="hover:text-gray-300 font-semibold">Inicio</a>
+                <a href="#" class="hover:text-gray-300 font-semibold">Propiedades</a>
+                <a href="#" class="hover:text-gray-300 font-semibold">Contacto</a>
+            </nav>
+
+            <!-- Mobile Nav Icon -->
+            <button id="mobile-menu-btn" class="md:hidden text-2xl focus:outline-none">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu (Hidden by default) -->
+        <div id="mobile-menu" class="hidden md:hidden bg-[#0a2e52] border-t border-[#1a4066]">
+            <a href="#" class="block px-4 py-3 hover:bg-[#1a4066]">Inicio</a>
+            <a href="#" class="block px-4 py-3 hover:bg-[#1a4066]">Propiedades</a>
+            <a href="#" class="block px-4 py-3 hover:bg-[#1a4066]">Contacto</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <div class="relative bg-gray-900 h-96">
+        <img src="images/casa_colonial_san_miguel_1763852911823.png" alt="Hero"
+            class="w-full h-full object-cover opacity-50">
+        <div class="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
+            <h1 class="text-4xl md:text-5xl font-bold text-white mb-4 drop-shadow-lg">Tu asesora de confianza en San
+                Luis Potosí</h1>
+            <p class="text-xl text-gray-200 max-w-2xl drop-shadow-md">Encuentra tu hogar ideal con Laura Martínez. Trato
+                directo y personalizado.</p>
+        </div>
+    </div>
+
+    <!-- Filtros (Fake) -->
+    <div class="bg-white shadow-sm py-6 border-b border-gray-200">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-4 items-end">
+                <div>
+                    <label class="block text-sm font-bold text-gray-600 mb-1">Ubicación</label>
+                    <select class="w-full border border-gray-300 rounded-md p-2 text-gray-600 bg-white">
+                        <option>Todas las zonas</option>
+                        <option>Lomas</option>
+                        <option>Centro</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-bold text-gray-600 mb-1">Precio</label>
+                    <select class="w-full border border-gray-300 rounded-md p-2 text-gray-600 bg-white">
+                        <option>Cualquier precio</option>
+                        <option>$10k - $20k</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-bold text-gray-600 mb-1">Tipo</label>
+                    <select class="w-full border border-gray-300 rounded-md p-2 text-gray-600 bg-white">
+                        <option>Casa</option>
+                        <option>Departamento</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-bold text-gray-600 mb-1">Recámaras</label>
+                    <select class="w-full border border-gray-300 rounded-md p-2 text-gray-600 bg-white">
+                        <option>2+</option>
+                        <option>3+</option>
+                    </select>
+                </div>
+                <div>
+                    <button
+                        class="w-full bg-[#D45D32] hover:bg-[#b84d28] text-white font-bold py-2 px-4 rounded-md transition duration-300">
+                        Buscar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Grid de Propiedades -->
+    <main class="container mx-auto px-4 py-12">
+        <h2 class="text-3xl font-bold text-[#0D3B66] mb-8 text-center">Propiedades Destacadas</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+            <!-- Propiedad 1 -->
+            <a href="property.html"
+                class="block bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 relative group cursor-pointer">
+                <span
+                    class="bg-[#D45D32] text-white text-xs font-bold px-3 py-1 absolute top-4 left-4 rounded shadow-sm z-10">RENTA</span>
+                <div class="relative overflow-hidden h-64">
+                    <img src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                        alt="Casa en Lomas 4ta"
+                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold text-[#0D3B66] mb-2 line-clamp-1">Casa Familiar en Lomas 4ta</h3>
+                    <p class="text-2xl font-bold text-[#D45D32] mb-4">$18,500 <span
+                            class="text-sm text-gray-500 font-normal">MXN</span></p>
+
+                    <div class="flex justify-between text-gray-500 text-sm mb-6 border-t border-b border-gray-100 py-3">
+                        <div class="flex flex-col items-center gap-1">
+                            <i class="fas fa-bed text-lg"></i>
+                            <span>3 Rec.</span>
+                        </div>
+                        <div class="flex flex-col items-center gap-1">
+                            <i class="fas fa-bath text-lg"></i>
+                            <span>2.5 Baños</span>
+                        </div>
+                        <div class="flex flex-col items-center gap-1">
+                            <i class="fas fa-car text-lg"></i>
+                            <span>2 Autos</span>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-3 mb-6 text-xs text-gray-500">
+                        <span class="bg-gray-100 px-2 py-1 rounded"><i class="fas fa-tree mr-1"></i>Jardín</span>
+                        <span class="bg-gray-100 px-2 py-1 rounded"><i class="fas fa-sun mr-1"></i>Iluminada</span>
+                    </div>
+
+                    <span
+                        class="block w-full text-center bg-[#0D3B66] group-hover:bg-[#0a2e52] text-white font-bold py-3 rounded-lg transition duration-300">
+                        Ver Detalles
+                    </span>
+                </div>
+            </a>
+
+            <!-- Propiedad 2 -->
+            <a href="property.html"
+                class="block bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 relative group cursor-pointer">
+                <span
+                    class="bg-[#D45D32] text-white text-xs font-bold px-3 py-1 absolute top-4 left-4 rounded shadow-sm z-10">RENTA</span>
+                <div class="relative overflow-hidden h-64">
+                    <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                        alt="Departamento en Tequis"
+                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold text-[#0D3B66] mb-2 line-clamp-1">Departamento Ejecutivo en Tequis</h3>
+                    <p class="text-2xl font-bold text-[#D45D32] mb-4">$12,500 <span
+                            class="text-sm text-gray-500 font-normal">MXN</span></p>
+
+                    <div class="flex justify-between text-gray-500 text-sm mb-6 border-t border-b border-gray-100 py-3">
+                        <div class="flex flex-col items-center gap-1">
+                            <i class="fas fa-bed text-lg"></i>
+                            <span>2 Rec.</span>
+                        </div>
+                        <div class="flex flex-col items-center gap-1">
+                            <i class="fas fa-bath text-lg"></i>
+                            <span>1 Baño</span>
+                        </div>
+                        <div class="flex flex-col items-center gap-1">
+                            <i class="fas fa-car text-lg"></i>
+                            <span>1 Auto</span>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-3 mb-6 text-xs text-gray-500">
+                        <span class="bg-gray-100 px-2 py-1 rounded"><i
+                                class="fas fa-map-marker-alt mr-1"></i>Céntrico</span>
+                        <span class="bg-gray-100 px-2 py-1 rounded"><i class="fas fa-building mr-1"></i>Moderno</span>
+                    </div>
+
+                    <span
+                        class="block w-full text-center bg-[#0D3B66] group-hover:bg-[#0a2e52] text-white font-bold py-3 rounded-lg transition duration-300">
+                        Ver Detalles
+                    </span>
+                </div>
+            </a>
+
+            <!-- Propiedad 3 -->
+            <a href="property.html"
+                class="block bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 relative group cursor-pointer">
+                <span
+                    class="bg-[#0D3B66] text-white text-xs font-bold px-3 py-1 absolute top-4 left-4 rounded shadow-sm z-10">VENTA</span>
+                <div class="relative overflow-hidden h-64">
+                    <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                        alt="Residencia en Villamagna"
+                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold text-[#0D3B66] mb-2 line-clamp-1">Residencia en Villamagna</h3>
+                    <p class="text-2xl font-bold text-[#D45D32] mb-4">$3,250,000 <span
+                            class="text-sm text-gray-500 font-normal">MXN</span></p>
+
+                    <div class="flex justify-between text-gray-500 text-sm mb-6 border-t border-b border-gray-100 py-3">
+                        <div class="flex flex-col items-center gap-1">
+                            <i class="fas fa-bed text-lg"></i>
+                            <span>3 Rec.</span>
+                        </div>
+                        <div class="flex flex-col items-center gap-1">
+                            <i class="fas fa-bath text-lg"></i>
+                            <span>3 Baños</span>
+                        </div>
+                        <div class="flex flex-col items-center gap-1">
+                            <i class="fas fa-tv text-lg"></i>
+                            <span>Hall TV</span>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-3 mb-6 text-xs text-gray-500">
+                        <span class="bg-gray-100 px-2 py-1 rounded"><i class="fas fa-shield-alt mr-1"></i>Privada</span>
+                        <span class="bg-gray-100 px-2 py-1 rounded"><i class="fas fa-star mr-1"></i>Lujo</span>
+                    </div>
+
+                    <span
+                        class="block w-full text-center bg-[#0D3B66] group-hover:bg-[#0a2e52] text-white font-bold py-3 rounded-lg transition duration-300">
+                        Ver Detalles
+                    </span>
+                </div>
+            </a>
+
+        </div>
+    </main>
+
+    <!-- Sobre Mí Section -->
+    <section class="bg-white py-16">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center gap-12">
+                <div class="w-full md:w-1/2">
+                    <h2 class="text-3xl font-bold text-[#0D3B66] mb-6">Hola, soy Laura Martínez</h2>
+                    <p class="text-gray-600 text-lg leading-relaxed mb-6">
+                        Soy tu asesora de confianza. Me especializo en ayudar a familias y ejecutivos a encontrar la
+                        propiedad perfecta en las mejores zonas de San Luis Potosí. Trato directo y personalizado.
+                    </p>
+                    <a href="https://wa.me/524448123456" target="_blank"
+                        class="inline-flex items-center bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold py-3 px-8 rounded-lg transition duration-300 shadow-lg">
+                        <i class="fab fa-whatsapp text-2xl mr-3"></i>
+                        Enviar WhatsApp
+                    </a>
+                </div>
+                <div class="w-full md:w-1/2 flex justify-center">
+                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                        alt="Laura Martínez" class="rounded-xl shadow-2xl w-full max-w-md object-cover h-96">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <div id="footer"></div>
+
+    <!-- Scripts -->
+    <script src="footer.js"></script>
+    <script>
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Departamento en Lomas 4ta | casas-picacho.com</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+        }
+    </style>
+</head>
+
+<body class="bg-[#F8F7F5] text-[#333333]">
+
+    <!-- Header -->
+    <header class="bg-[#0D3B66] text-white shadow-md">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold tracking-tight">casas-picacho.com</a>
+            <nav class="hidden md:flex gap-6">
+                <a href="index.html" class="hover:text-gray-300 font-semibold">Inicio</a>
+                <a href="#" class="hover:text-gray-300 font-semibold">Propiedades</a>
+                <a href="#" class="hover:text-gray-300 font-semibold">Contacto</a>
+            </nav>
+            <button class="md:hidden text-2xl"><i class="fas fa-bars"></i></button>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+
+        <!-- Breadcrumb -->
+        <div class="text-sm text-gray-500 mb-6">
+            <a href="index.html" class="hover:text-[#D45D32]">Inicio</a> <span class="mx-2">/</span>
+            <a href="#" class="hover:text-[#D45D32]">Renta</a> <span class="mx-2">/</span>
+            <span class="text-gray-700 font-semibold">Departamento en Lomas 4ta</span>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+            <!-- Columna Izquierda: Galería y Detalles -->
+            <div class="lg:col-span-2">
+
+                <!-- Galería -->
+                <div class="mb-8">
+                    <!-- Imagen Grande -->
+                    <div id="mainImageContainer" class="rounded-xl overflow-hidden shadow-lg h-96 mb-4 cursor-pointer"
+                        onclick="openModal(0)">
+                        <img id="mainImage"
+                            src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
+                            alt="Foto 1" class="w-full h-full object-cover">
+                    </div>
+
+                    <!-- Miniaturas -->
+                    <div class="grid grid-cols-4 gap-4">
+                        <img data-index="1"
+                            src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+                            alt="Foto 2"
+                            class="thumbnail rounded-lg h-24 w-full object-cover cursor-pointer hover:opacity-80 transition"
+                            onclick="swapImage(1)">
+                        <img data-index="2"
+                            src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+                            alt="Foto 3"
+                            class="thumbnail rounded-lg h-24 w-full object-cover cursor-pointer hover:opacity-80 transition"
+                            onclick="swapImage(2)">
+                        <img data-index="3"
+                            src="https://images.unsplash.com/photo-1505873242700-f289a29e1e0f?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+                            alt="Foto 4"
+                            class="thumbnail rounded-lg h-24 w-full object-cover cursor-pointer hover:opacity-80 transition"
+                            onclick="swapImage(3)">
+                        <div onclick="openModal(0)"
+                            class="rounded-lg h-24 w-full bg-gray-200 flex items-center justify-center text-gray-500 cursor-pointer hover:bg-gray-300 transition font-bold">
+                            +6 Fotos
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal Carousel -->
+                <div id="photoModal"
+                    class="hidden fixed inset-0 bg-black bg-opacity-95 z-50 flex items-center justify-center">
+                    <!-- Botón Cerrar -->
+                    <button onclick="closeModal()"
+                        class="absolute top-4 right-4 text-white text-4xl font-bold hover:text-gray-300 z-10">
+                        ×
+                    </button>
+
+                    <!-- Flecha Anterior -->
+                    <button onclick="navigateModal(-1)"
+                        class="absolute left-4 text-white text-5xl font-bold hover:text-gray-300 z-10">
+                        ‹
+                    </button>
+
+                    <!-- Imagen del Modal -->
+                    <div class="max-w-5xl max-h-[90vh] px-16">
+                        <img id="modalImage" src="" alt="Foto" class="max-w-full max-h-[90vh] object-contain">
+                    </div>
+
+                    <!-- Flecha Siguiente -->
+                    <button onclick="navigateModal(1)"
+                        class="absolute right-4 text-white text-5xl font-bold hover:text-gray-300 z-10">
+                        ›
+                    </button>
+
+                    <!-- Contador de Fotos -->
+                    <div id="photoCounter"
+                        class="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-white text-lg font-semibold bg-black bg-opacity-50 px-4 py-2 rounded-lg">
+                        1 / 10
+                    </div>
+                </div>
+
+                <!-- Título y Ubicación -->
+                <div class="mb-8">
+                    <h1 class="text-3xl font-bold text-[#0D3B66] mb-2">Departamento de Lujo en Lomas 4ta Sección</h1>
+                    <div class="flex items-center text-gray-500">
+                        <i class="fas fa-map-marker-alt mr-2 text-[#D45D32]"></i>
+                        <span>Cordillera de los Himalaya, San Luis Potosí</span>
+                    </div>
+                </div>
+
+                <!-- Características Grid -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                    <div class="bg-white p-4 rounded-lg shadow-sm text-center border border-gray-100">
+                        <i class="fas fa-bed text-2xl text-[#0D3B66] mb-2"></i>
+                        <p class="font-bold text-gray-700">2 Recámaras</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm text-center border border-gray-100">
+                        <i class="fas fa-bath text-2xl text-[#0D3B66] mb-2"></i>
+                        <p class="font-bold text-gray-700">2 Baños</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm text-center border border-gray-100">
+                        <i class="fas fa-ruler-combined text-2xl text-[#0D3B66] mb-2"></i>
+                        <p class="font-bold text-gray-700">110 m²</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm text-center border border-gray-100">
+                        <i class="fas fa-parking text-2xl text-[#0D3B66] mb-2"></i>
+                        <p class="font-bold text-gray-700">2 Autos</p>
+                    </div>
+                </div>
+
+                <!-- Descripción -->
+                <div class="bg-white p-8 rounded-xl shadow-md mb-8">
+                    <h2 class="text-xl font-bold text-[#0D3B66] mb-4">Descripción de la Propiedad</h2>
+                    <p class="text-gray-600 mb-4 leading-relaxed">
+                        Hermoso departamento totalmente amueblado y equipado en una de las mejores zonas de la ciudad.
+                        Cuenta con acabados de lujo, pisos de mármol y una vista espectacular a la ciudad.
+                    </p>
+                    <p class="text-gray-600 mb-4 leading-relaxed">
+                        La cocina es abierta tipo americana con barra de granito. La recámara principal tiene vestidor y
+                        baño propio. El edificio cuenta con seguridad 24/7, gimnasio y salón de usos múltiples.
+                    </p>
+
+                    <h3 class="text-lg font-bold text-[#0D3B66] mt-6 mb-3">Servicios Incluidos</h3>
+                    <ul class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                        <li class="flex items-center text-gray-600"><i
+                                class="fas fa-check text-green-500 mr-3"></i>Mantenimiento del edificio</li>
+                        <li class="flex items-center text-gray-600"><i class="fas fa-check text-green-500 mr-3"></i>Agua
+                            potable</li>
+                        <li class="flex items-center text-gray-600"><i
+                                class="fas fa-check text-green-500 mr-3"></i>Internet de Alta Velocidad</li>
+                        <li class="flex items-center text-gray-600"><i
+                                class="fas fa-check text-green-500 mr-3"></i>Seguridad 24/7</li>
+                    </ul>
+                </div>
+
+                <!-- Mapa OpenStreetMap -->
+                <div class="bg-white p-4 rounded-xl shadow-md">
+                    <h2 class="text-xl font-bold text-[#0D3B66] mb-4">Ubicación</h2>
+                    <iframe width="100%" height="300"
+                        src="https://www.openstreetmap.org/export/embed.html?bbox=-100.99714223043146%2C22.13275514769192%2C-100.95929089681330%2C22.15998335989422&layer=mapnik"
+                        style="border: 1px solid #ddd; border-radius: 8px;">
+                    </iframe>
+                    <small class="text-gray-500 text-xs mt-2 block">
+                        <a href="https://www.openstreetmap.org/#map=15/22.14637/-100.97822" target="_blank"
+                            class="hover:text-[#D45D32]">
+                            Ver mapa más grande
+                        </a>
+                    </small>
+                </div>
+
+            </div>
+
+            <!-- Columna Derecha: Sidebar Sticky -->
+            <div class="lg:col-span-1">
+                <div class="sticky top-8">
+                    <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100">
+                        <div class="mb-6 text-center border-b border-gray-100 pb-6">
+                            <p class="text-gray-500 text-sm font-semibold uppercase tracking-wide">Precio de Renta</p>
+                            <p class="text-4xl font-bold text-[#D45D32]">$18,500</p>
+                            <p class="text-gray-400 text-sm">MXN / Mensual</p>
+                        </div>
+
+                        <div class="space-y-4">
+                            <a href="#"
+                                class="block w-full bg-[#D45D32] hover:bg-[#b84d28] text-white text-center font-bold py-3 rounded-lg transition duration-300 shadow-md">
+                                Agenda tu Cita
+                            </a>
+
+                            <a href="https://wa.me/524448123456?text=Hola,%20me%20interesa%20el%20departamento%20en%20Lomas"
+                                target="_blank"
+                                class="flex items-center justify-center w-full bg-[#25D366] hover:bg-[#1da851] text-white font-bold py-3 rounded-lg transition duration-300 shadow-md gap-2">
+                                <i class="fab fa-whatsapp text-xl"></i>
+                                Contactar por WhatsApp
+                            </a>
+                        </div>
+
+                        <div class="mt-6 text-center">
+                            <p class="text-xs text-gray-400">Respuesta promedio: <span
+                                    class="text-green-600 font-bold">10 minutos</span></p>
+                        </div>
+                    </div>
+
+                    <!-- Tarjeta de Agente -->
+                    <a href="index.html"
+                        class="block bg-white p-4 rounded-xl shadow-md mt-6 border border-gray-100 hover:shadow-lg transition-shadow duration-300">
+                        <div class="flex items-center gap-4">
+                            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80"
+                                alt="Laura Martínez"
+                                class="w-16 h-16 rounded-full object-cover border-2 border-[#D45D32]">
+                            <div class="flex-1">
+                                <p class="font-bold text-[#0D3B66]">Laura Martínez</p>
+                                <p class="text-xs text-gray-500 mb-1">Asesora Inmobiliaria</p>
+                                <p class="text-xs text-[#D45D32] font-semibold hover:underline">Ver todas las
+                                    propiedades →</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <div id="footer"></div>
+
+    <!-- Scripts -->
+    <script src="footer.js"></script>
+    <script>
+        // Array de todas las fotos (10 fotos) - URLS CORREGIDAS
+        const photos = [
+            'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+            'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+            'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+            'https://images.unsplash.com/photo-1505873242700-f289a29e1e0f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+            'https://images.unsplash.com/photo-1493809842364-78817add7ffb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+            'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+            'https://images.unsplash.com/photo-1613490493576-7fde63acd811?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+            'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+            'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+            'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80'
+        ];
+
+        let currentMainIndex = 0;
+        let currentModalIndex = 0;
+
+        // Intercambiar imagen grande con miniatura
+        function swapImage(thumbnailIndex) {
+            const mainImg = document.getElementById('mainImage');
+            const thumbnail = document.querySelector(`img[data-index="${thumbnailIndex}"]`);
+
+            // Intercambiar URLs
+            const tempSrc = mainImg.src;
+            mainImg.src = thumbnail.src;
+            thumbnail.src = tempSrc;
+
+            // Actualizar índice actual
+            currentMainIndex = thumbnailIndex;
+        }
+
+        // Abrir modal
+        function openModal(startIndex) {
+            currentModalIndex = startIndex;
+            document.getElementById('photoModal').classList.remove('hidden');
+            updateModalImage();
+        }
+
+        // Cerrar modal
+        function closeModal() {
+            document.getElementById('photoModal').classList.add('hidden');
+        }
+
+        // Navegar en el modal
+        function navigateModal(direction) {
+            currentModalIndex += direction;
+
+            // Wrap around
+            if (currentModalIndex < 0) currentModalIndex = photos.length - 1;
+            if (currentModalIndex >= photos.length) currentModalIndex = 0;
+
+            updateModalImage();
+        }
+
+        // Actualizar imagen del modal
+        function updateModalImage() {
+            document.getElementById('modalImage').src = photos[currentModalIndex];
+            document.getElementById('photoCounter').textContent = `${currentModalIndex + 1} / ${photos.length}`;
+        }
+
+        // Cerrar modal con tecla ESC
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') closeModal();
+            if (e.key === 'ArrowLeft') navigateModal(-1);
+            if (e.key === 'ArrowRight') navigateModal(1);
+        });
+    </script>
+
+</body>
+
+</html>

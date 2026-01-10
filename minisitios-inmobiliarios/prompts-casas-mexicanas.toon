@@ -1,0 +1,10 @@
+meta:
+  project: Minisitios Inmobiliarios
+  category: Generación de Imágenes
+  version: 1.0
+prompts[5]{id,style,description,visual_tags}:
+  1,Colonial San Miguel,"Fachada de casa colonial mexicana en calle empedrada. Muros de estuco color terracota o amarillo ocre, grandes puertas de madera tallada, balcones con barandales de hierro forjado y macetas con geranios. Iluminación cálida de atardecer.","Colonial, Tradicional, Colorido"
+  2,Hacienda Rústica,"Exterior de una hacienda mexicana restaurada. Muros de piedra natural y adobe, arcos de medio punto, techo de teja roja. Un gran jardín frontal con una fuente de cantera en el centro y agaves azules. Cielo despejado y luz brillante.","Rústico, Piedra, Elegante"
+  3,Moderno Mexicano,"Fachada de residencia moderna en zona urbana de lujo (tipo Guadalajara o CDMX). Uso de concreto aparente, acero y madera. Grandes ventanales de piso a techo, cochera techada, diseño geométrico limpio. Vegetación desértica integrada en la fachada.","Moderno, Concreto, Lujo"
+  4,Estilo Barragán,"Arquitectura emocional inspirada en Luis Barragán. Muros altos y lisos en colores vibrantes: rosa mexicano, amarillo solar y azul añil. Juegos de sombras marcadas por la luz del sol, espejos de agua y geometría pura. Minimalismo cálido.","Colorido, Minimalista, Artístico"
+  5,Tulum Boho-Chic,"Casa estilo Tulum integrada en la selva. Acabados en chukum (cemento pulido color arena), estructuras de madera tropical y techos de palapa o pérgolas. Ambiente relajado, vegetación exuberante rodeando la casa, iluminación suave y natural.","Orgánico, Tropical, Texturas Naturales"
