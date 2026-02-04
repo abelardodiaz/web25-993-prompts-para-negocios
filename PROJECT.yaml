@@ -32,13 +32,27 @@ active_evaluation:
   folder: shopify-custom-dev-europa
   stage: P1-complete
   nichos_identificados: 5
-  nichos_para_p1: 2
-  nichos_reserva: 3
+  nichos_evaluados_p1: 3
+  nichos_proceder: 1
+  nichos_no_proceder: 2
+  nichos_reserva: 2
   nicho_prioritario: German E-Invoice Butler (ZUGFeRD/XRechnung)
   p1_score: 7.3
   p1_decision: Proceder con experimento
   next_step: Experimento validacion (landing + ads 14 dias)
   blocker_p2: Resultados experimento
+
+  # Evaluaciones P1 completadas
+  p1_evaluations:
+    - nicho: "#1 ZUGFeRD Butler"
+      score: 7.3
+      decision: PROCEDER
+    - nicho: "#2 VAT Automation"
+      score: 4.8
+      decision: NO PROCEDER
+    - nicho: "#3 ERP Connector"
+      score: 4.2
+      decision: NO PROCEDER
 
 server:
   location: wsl
@@ -54,7 +68,7 @@ urls:
 stack:
   primary: documentation
 
-updated_at: "2026-02-04T14:30:00Z"
+updated_at: "2026-02-04T16:45:00Z"
 updated_by: claude-993
 
 # Skills creados (fuera del proyecto, en ~/.claude/skills/)
