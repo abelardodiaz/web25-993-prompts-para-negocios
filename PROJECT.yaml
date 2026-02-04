@@ -32,10 +32,11 @@ active_evaluation:
   folder: shopify-custom-dev-europa
   stage: P1-complete
   nichos_identificados: 5
-  nichos_evaluados_p1: 3
+  nichos_evaluados_p1: 4
   nichos_proceder: 1
   nichos_no_proceder: 2
-  nichos_reserva: 2
+  nichos_descartados: 1
+  nichos_reserva: 1
   nicho_prioritario: German E-Invoice Butler (ZUGFeRD/XRechnung)
   p1_score: 7.3
   p1_decision: Proceder con experimento
@@ -53,6 +54,10 @@ active_evaluation:
     - nicho: "#3 ERP Connector"
       score: 4.2
       decision: NO PROCEDER
+    - nicho: "#4 Carrier Aggregator"
+      score: 3.5
+      decision: DESCARTADO
+      razon: "Packlink PRO gratis 4.9/5 723 reviews"
 
 server:
   location: wsl
@@ -68,7 +73,7 @@ urls:
 stack:
   primary: documentation
 
-updated_at: "2026-02-04T16:45:00Z"
+updated_at: "2026-02-04T17:30:00Z"
 updated_by: claude-993
 
 # Skills creados (fuera del proyecto, en ~/.claude/skills/)
