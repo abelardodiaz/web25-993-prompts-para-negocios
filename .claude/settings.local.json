@@ -19,7 +19,9 @@
       "WebFetch(domain:mcpmarket.com)",
       "mcp__memory__create_entities",
       "WebFetch(domain:raw.githubusercontent.com)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nAdd Shopify Europa validation, landing techniques, and project structure\n\n- Add PROJECT.yaml and CLAUDE.md for project management\n- Add Prompt Maestro 0 \\(Buscador de Nichos\\) to prompts-generales\n- Add shopify-custom-dev-europa/ with:\n  - 5 niches identified, ZUGFeRD Butler prioritized \\(P1 score 7.3\\)\n  - Landing page ZUGFeRD \\(index.html, danke.html\\) with anti-AI-slop design\n  - STYLE-GUIDE.md with Editorial Germanica aesthetic\n  - CLAUDE-CODE-LANDING-TECHNIQUES.md \\(Grok 3 workflow\\)\n  - Experiment brief for validation landing\n- Add crm48/ initial validation files\n- Create landing-builder skill in ~/.claude/skills/ \\(external to repo\\)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git push:*)"
     ]
   }
 }

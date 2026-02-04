@@ -1,0 +1,29 @@
+# Windows
+nul
+Thumbs.db
+Desktop.ini
+
+# macOS
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Python
+__pycache__/
+*.pyc
+.env
+venv/
+
+# Node
+node_modules/
+
+# Logs
+*.log
+
+# IMPORTANTE: NO ignorar .claude/
+# La carpeta .claude/ contiene configuracion del proyecto
+# y DEBE ser commiteada para compartir settings entre sesiones
