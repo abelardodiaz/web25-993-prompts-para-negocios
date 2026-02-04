@@ -1,0 +1,69 @@
+# ============================================================================
+# PROJECT.yaml - Archivo de metadatos del proyecto
+# ============================================================================
+#
+# PARA CLAUDE (IA): Este archivo es leido por el Project Manager (99999) para:
+#   1. Detectar el estado del proyecto (online/offline)
+#   2. Saber que puertos monitorear
+#   3. Entender la arquitectura del proyecto
+#
+# INSTRUCCIONES PARA CLAUDE:
+#   - Si haces cambios de version, actualiza 'project.version'
+#   - Siempre actualiza 'updated_at' y 'updated_by' al modificar
+#   - El 'updated_by' debe ser tu identificador (ej: claude-993)
+#
+# NO MODIFICAR SIN RAZON:
+#   - project.code (identificador unico)
+#   - server.location (donde corre el proyecto)
+#   - server.base_path (ruta del proyecto)
+#
+# ============================================================================
+
+project:
+  code: web25-993
+  name: Prompts para Negocios
+  version: 0.3.0
+  status: development
+  description: Sistema de evaluacion de negocios con fase de descubrimiento de nichos (P0-P5)
+
+# Evaluacion activa
+active_evaluation:
+  name: Shopify Custom Dev Europa
+  folder: shopify-custom-dev-europa
+  stage: P1-complete
+  nichos_identificados: 5
+  nichos_para_p1: 2
+  nichos_reserva: 3
+  nicho_prioritario: German E-Invoice Butler (ZUGFeRD/XRechnung)
+  p1_score: 7.3
+  p1_decision: Proceder con experimento
+  next_step: Experimento validacion (landing + ads 14 dias)
+  blocker_p2: Resultados experimento
+
+server:
+  location: wsl
+  base_path: /mnt/c/Users/abela/prweb/web25-993-prompts-para-negocios
+
+service:
+  type: none
+  expect_offline: true
+
+urls:
+  repository: https://gitlab.com/abelardodiaz/web25-993-prompts-para-negocios
+
+stack:
+  primary: documentation
+
+updated_at: "2026-02-04T14:30:00Z"
+updated_by: claude-993
+
+# Skills creados (fuera del proyecto, en ~/.claude/skills/)
+skills_created:
+  - name: landing-builder
+    path: ~/.claude/skills/landing-builder/
+    description: Agente autonomo para crear landing pages anti-AI-slop
+    files:
+      - SKILL.md (146 lines)
+      - references/anti-slop-rules.md (317 lines)
+      - references/style-presets.md (196 lines)
+      - examples/editorial-germanica.html (914 lines)

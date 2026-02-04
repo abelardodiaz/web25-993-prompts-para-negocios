@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Get-Disk)",
+      "Bash(Where-Object BusType -eq 'USB')",
+      "Bash(Format-Table Number,FriendlyName,Size -AutoSize)",
+      "Bash(powershell.exe -Command \"Get-Disk | Where-Object BusType -eq ''USB'' | Format-Table Number,FriendlyName,Size -AutoSize\")",
+      "Bash(powershell.exe -Command \"Get-Partition -DiskNumber 1 | Format-Table PartitionNumber,DriveLetter,Size,Type -AutoSize\")",
+      "Bash(dir:*)",
+      "mcp__brave-search__brave_web_search",
+      "Bash(curl:*)",
+      "Bash(ping:*)",
+      "Bash(wsl curl -s http://10.254.0.3:8900/help)",
+      "Bash(wsl curl -s http://10.254.0.3:8900/api/v1/help)",
+      "Bash(wsl curl:*)",
+      "Bash(wsl cat:*)",
+      "Bash(wsl head:*)",
+      "WebSearch",
+      "WebFetch(domain:mcpmarket.com)",
+      "mcp__memory__create_entities",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(git add:*)"
+    ]
+  }
+}

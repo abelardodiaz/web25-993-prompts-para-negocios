@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vielen Dank | ZUGFeRD Butler</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-primary: #F5F3EE;
+      --bg-secondary: #E8E4DD;
+      --bg-dark: #1A1A1A;
+      --text-primary: #1A1A1A;
+      --text-secondary: #4A4A4A;
+      --text-muted: #7A7A7A;
+      --text-inverse: #F5F3EE;
+      --accent: #E85D04;
+      --accent-hover: #D45103;
+      --border: #D1CCC3;
+      --border-dark: #1A1A1A;
+      --font-display: 'DM Serif Display', Georgia, serif;
+      --font-body: 'IBM Plex Sans', system-ui, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      font-size: 16px;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .container {
+      max-width: 600px;
+      text-align: center;
+    }
+
+    .checkmark {
+      width: 80px;
+      height: 80px;
+      border: 3px solid var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 2rem;
+      font-family: var(--font-mono);
+      font-size: 2rem;
+      color: var(--accent);
+    }
+
+    .title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      margin-bottom: 1rem;
+      line-height: 1.1;
+    }
+
+    .subtitle {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      margin-bottom: 3rem;
+    }
+
+    .next-steps {
+      text-align: left;
+      background: var(--bg-secondary);
+      padding: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .next-steps__title {
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .next-steps__list {
+      list-style: none;
+    }
+
+    .next-steps__list li {
+      padding: 1rem 0;
+      border-top: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: 2rem 1fr;
+      gap: 1rem;
+      align-items: start;
+    }
+
+    .next-steps__list li span {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--accent);
+    }
+
+    .share-section {
+      padding: 2rem;
+      background: var(--bg-dark);
+      color: var(--text-inverse);
+    }
+
+    .share-section p {
+      margin-bottom: 1.5rem;
+      font-size: 0.95rem;
+    }
+
+    .share-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: transparent;
+      color: var(--text-inverse);
+      padding: 1rem 2rem;
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      text-decoration: none;
+      border: 2px solid var(--text-inverse);
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .share-btn:hover {
+      background: var(--text-inverse);
+      color: var(--bg-dark);
+    }
+
+    .footer {
+      margin-top: 3rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .footer a {
+      color: var(--text-secondary);
+      text-decoration: none;
+    }
+
+    .footer a:hover {
+      color: var(--text-primary);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="checkmark">+</div>
+
+    <h1 class="title">Vielen Dank fur Ihre Anmeldung</h1>
+    <p class="subtitle">
+      Sie sind jetzt auf der Warteliste fur den ZUGFeRD Butler.
+    </p>
+
+    <div class="next-steps">
+      <p class="next-steps__title">Was passiert als Nachstes?</p>
+      <ul class="next-steps__list">
+        <li>
+          <span>01</span>
+          <div>Wir informieren Sie, sobald die Beta startet</div>
+        </li>
+        <li>
+          <span>02</span>
+          <div>Als Fruhbucher erhalten Sie 50% Rabatt im ersten Jahr</div>
+        </li>
+        <li>
+          <span>03</span>
+          <div>Bei Fragen: kontakt@zugferd-butler.de</div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="share-section">
+      <p>Haben Sie Kollegen, die auch E-Rechnungen benotigen?</p>
+      <a href="mailto:?subject=ZUGFeRD%20f%C3%BCr%20Shopify&body=Ich%20habe%20mich%20gerade%20f%C3%BCr%20den%20ZUGFeRD%20Butler%20angemeldet%20-%20automatische%20E-Rechnungen%20f%C3%BCr%20Shopify.%20Vielleicht%20interessant%20f%C3%BCr%20dich%3A%20https%3A%2F%2Fzugferd-butler.de" class="share-btn">
+        Per E-Mail teilen
+      </a>
+    </div>
+
+    <p class="footer">
+      <a href="/">Zuruck zur Startseite</a>
+    </p>
+  </div>
+
+  <script>
+    // GA4 conversion tracking
+    // gtag('event', 'generate_lead', {
+    //   currency: 'EUR',
+    //   value: 19
+    // });
+  </script>
+</body>
+</html>
