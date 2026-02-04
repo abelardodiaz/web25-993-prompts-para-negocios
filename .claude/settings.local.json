@@ -21,7 +21,13 @@
       "WebFetch(domain:raw.githubusercontent.com)",
       "Bash(git add:*)",
       "Bash(git commit -m \"$\\(cat <<''EOF''\nAdd Shopify Europa validation, landing techniques, and project structure\n\n- Add PROJECT.yaml and CLAUDE.md for project management\n- Add Prompt Maestro 0 \\(Buscador de Nichos\\) to prompts-generales\n- Add shopify-custom-dev-europa/ with:\n  - 5 niches identified, ZUGFeRD Butler prioritized \\(P1 score 7.3\\)\n  - Landing page ZUGFeRD \\(index.html, danke.html\\) with anti-AI-slop design\n  - STYLE-GUIDE.md with Editorial Germanica aesthetic\n  - CLAUDE-CODE-LANDING-TECHNIQUES.md \\(Grok 3 workflow\\)\n  - Experiment brief for validation landing\n- Add crm48/ initial validation files\n- Create landing-builder skill in ~/.claude/skills/ \\(external to repo\\)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "Bash(ssh:*)",
+      "Bash(ls:*)",
+      "mcp__github__create_repository",
+      "Bash(gh auth:*)",
+      "Bash(gh repo create:*)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nAdd status tracking for all 5 niches\n\n- Create nichos/ folder with individual STATUS files\n- Nicho #1 ZUGFeRD: Full checkpoint with experiment progress\n- Nichos #2-5: Initial status as pending/reserve\n- Add README with dashboard and priority roadmap\n\nThis allows evaluating other niches without losing ZUGFeRD progress.\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")"
     ]
   }
 }
