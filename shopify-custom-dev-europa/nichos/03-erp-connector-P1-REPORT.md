@@ -148,6 +148,52 @@
 
 ---
 
+## 3.5 Analisis Twitter/X (via Grok 3)
+
+**Fuente:** API 900 -> Grok 3 (acceso a Twitter/X en tiempo real)
+**Fecha busqueda:** 2026-02-04
+
+### Quejas Encontradas por ERP
+
+| ERP | Quejas Principales | Posts/mes |
+|-----|---------------------|-----------|
+| **sevDesk** | Sync errors, facturas incompletas, soporte lento | 3-5 |
+| **Holded** | Inventario no actualiza, documentacion pobre, impuestos incorrectos | 2-3 |
+| **Odoo** | Variantes duplicadas, sync falla pedidos internacionales, requiere custom dev | 5-7 |
+
+### Ejemplos de Quejas (Parafraseados)
+
+**sevDesk (Aleman):**
+> "Bestellungen werden nicht rechtzeitig in sevDesk ubernommen, Chaos in der Buchhaltung!"
+> (Pedidos no se transfieren a tiempo a sevDesk, caos en contabilidad)
+
+**Holded (Espanol):**
+> "La integracion de Shopify con Holded no actualiza los inventarios correctamente, un desastre."
+
+**Odoo (Mixto):**
+> "Shopify mit Odoo zu verbinden ist ein Albtraum, standige Fehler bei der Datenubertragung."
+> (Conectar Shopify con Odoo es una pesadilla, errores constantes en transferencia de datos)
+
+### Pain Points Consolidados (Twitter)
+
+1. **Sync Errors y Delays** - Datos no se transfieren en tiempo real
+2. **Data Incompleta** - Variantes, impuestos, facturas parciales
+3. **Setup Complejo** - Documentacion pobre, muy tecnico
+4. **Soporte Lento** - Sin resolucion rapida de problemas
+5. **Costos Ocultos** - Apps terceros o desarrollo custom necesario
+
+### Interpretacion
+
+Los pain points en Twitter **CONFIRMAN** que hay problemas reales. Sin embargo:
+
+- **sevDesk:** A pesar de quejas, la app tiene 4.4/5 con 80 reviews -> mayoria satisfecha
+- **Holded:** Quejas alineadas con la unica review (1.0/5) -> gap confirmado pero TAM minimo
+- **Odoo:** Mayor volumen de quejas PERO tambien mayor volumen de apps buenas (4.9/5)
+
+**Conclusion Twitter:** Los problemas existen pero las soluciones actuales los resuelven para la mayoria. El gap real solo existe en Holded (mercado espanol limitado).
+
+---
+
 ## 4. Calculo P1 Score
 
 ### Criterios de Evaluacion
@@ -289,6 +335,12 @@ Podria re-evaluarse SOLO la integracion Holded como producto minimo.
 - [Shopify Community - Odoo Integration](https://community.shopify.com/t/shopify-odoo-integration/204155)
 - [Odoo-Shopify Integration Analysis](https://www.sumtracker.com/blog/odoo-shopify-integration-what-to-expect-and-why-it-may-not-be-the-best-choice)
 
+### Twitter/X (via Grok 3)
+- Busqueda: "Shopify sevDesk problem", "Shopify Holded integration issue", "Shopify Odoo sync error"
+- Idiomas: Ingles, Aleman, Espanol
+- Periodo: Ultimos 6 meses
+- Fuente: API 900 -> Grok 3 (ticket #250)
+
 ---
 
 ## 10. Metadata
@@ -296,8 +348,10 @@ Podria re-evaluarse SOLO la integracion Holded como producto minimo.
 | Campo | Valor |
 |-------|-------|
 | Fecha evaluacion | 2026-02-04 |
-| Tiempo invertido | ~45 minutos |
-| Fuentes consultadas | 15+ |
+| Tiempo invertido | ~60 minutos |
+| Fuentes consultadas | 18+ |
 | Apps analizadas | 6 |
 | APIs evaluadas | 3 |
+| Twitter posts analizados | 10-15 |
+| Herramientas usadas | Web Search, API 900 (Grok 3) |
 | Conclusion | NO PROCEDER |
