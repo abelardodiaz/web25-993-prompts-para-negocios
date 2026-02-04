@@ -1,7 +1,7 @@
 # STATUS: Nicho #2 - EU VAT Automation B2B
 
 **Ultima actualizacion:** 2026-02-04
-**Stage actual:** P0-COMPLETE -> PENDIENTE P1
+**Stage actual:** P1-COMPLETE -> **NO PROCEDER**
 
 ---
 
@@ -10,75 +10,58 @@
 | Campo | Valor |
 |-------|-------|
 | Nombre | EU VAT Automation B2B (Cross-Border Exempt) |
-| ICE Score | 648/1000 |
-| P1 Score | PENDIENTE |
-| Decision P1 | PENDIENTE |
-| Precio estimado | 29 EUR/mes |
-| TAM | 835,200 EUR/ano |
+| ICE Score Original | 648/1000 |
+| ICE Score Ajustado | 189/1000 |
+| P1 Score | **4.8/10** |
+| Decision | **NO PROCEDER** |
+| Razon | Mercado saturado, competencia fuerte |
 
 ---
 
-## El Problema
+## Resultado P1
 
-Comercio B2B intra-EU tiene exencion de VAT si el comprador tiene VAT ID valido, pero:
-- Validacion manual de VAT IDs consume tiempo
-- Shopify no valida VAT automaticamente en checkout
-- Apps existentes (Exemptify, Avalara) son caras o incompletas
-- Errores de VAT generan auditorias fiscales
+### Por que NO PROCEDER
 
----
+1. **7+ apps existentes** en Shopify App Store
+2. **Lider con 100% satisfaction** (EU Tax Exemption Easy, 27 reviews 5 estrellas)
+3. **Gaps son menores** (fuzzy matching, soporte) - no "bleeding neck"
+4. **Sin urgencia regulatoria** - a diferencia de ZUGFeRD
+5. **Dificil diferenciarse** - competir en precio no es sostenible
 
-## Solucion Propuesta
+### Competencia Identificada
 
-- Checkout UI Extension que valida VAT ID via VIES API
-- Aplica 0% VAT automaticamente si es valido
-- Guarda evidencia en metafields para auditoria
-
----
-
-## Progreso
-
-### P0: Identificacion
-- [x] Pain point documentado
-- [x] Gap de mercado identificado
-- [x] Evidencia recopilada (4 fuentes)
-- [x] ICE Score: 648/1000
-- [x] Hipotesis formulada
-
-### P1: Validacion Inicial
-- [ ] Crear reporte de validacion
-- [ ] Calcular P1 Score
-- [ ] Decidir siguiente paso
-
-### Experimento Sugerido
-- [ ] Prototipo funcional en Dev Store
-- [ ] Video demo de 2 minutos
-- [ ] Post en r/shopify y comunidades EU
-- [ ] Meta: 30 respuestas "lo usaria" en 7 dias
+| App | Precio/mes | Rating | Reviews |
+|-----|------------|--------|---------|
+| EU Tax Exemption Easy | $9.99-$49.99 | 5.0 | 27 |
+| Exemptify | $4.99 | 3.5 | 34 |
+| OO EU Tax Exemption | $19.95 | 5.0 | 2 |
+| EUVAT.app | Free + % | 4.2 | 5 |
 
 ---
 
-## Ventaja Competitiva
+## Comparativa con Nicho #1
 
-- Reutiliza checkout extensions del proyecto 602
-- VIES API bien documentada
-- Menor competencia que nicho #1
-
----
-
-## Dependencias
-
-- Puede desarrollarse en paralelo al #1
-- Comparte infraestructura de webhooks
+| Aspecto | #1 ZUGFeRD | #2 VAT |
+|---------|------------|--------|
+| Urgencia | ALTA (ley) | BAJA |
+| Competencia | Baja | ALTA |
+| P1 Score | 7.3 | 4.8 |
+| Decision | PROCEDER | NO |
 
 ---
 
-## Timing Sugerido
+## Posible Futuro
 
-**Q2 2026** - Despues de validar nicho #1
+Si nicho #1 (ZUGFeRD) tiene exito, VAT validation podria ser **feature adicional** (no producto separado).
+
+---
+
+## Archivos
+
+- `02-vat-automation-P1-REPORT.md` - Reporte completo de evaluacion
 
 ---
 
 ## Notas
 
-Archivo fuente: `00-nichos-identificados.md` (seccion Nicho #2)
+Evaluacion completa en 30 minutos. Mercado mas saturado de lo esperado inicialmente.

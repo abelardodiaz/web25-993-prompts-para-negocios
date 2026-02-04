@@ -9,7 +9,7 @@
 | # | Nicho | ICE | Stage | Proximo Paso |
 |---|-------|-----|-------|--------------|
 | 1 | [German E-Invoice Butler](01-zugferd-butler-STATUS.md) | 756 | EXPERIMENTO | Registrar dominio, lanzar ads |
-| 2 | [EU VAT Automation B2B](02-vat-automation-STATUS.md) | 648 | PENDIENTE P1 | Esperar resultado #1 |
+| 2 | [EU VAT Automation B2B](02-vat-automation-STATUS.md) | ~~648~~ 189 | **NO PROCEDER** | Descartado - mercado saturado |
 | 3 | [European ERP Connector](03-erp-connector-STATUS.md) | 540 | RESERVA | Q3-Q4 2026 |
 | 4 | [EU Carrier Aggregator](04-carrier-aggregator-STATUS.md) | 486 | RESERVA | 2027+ |
 | 5 | [France E-Invoice Factur-X](05-france-einvoice-STATUS.md) | 504 | RESERVA | Q4 2025 (lista espera) |
