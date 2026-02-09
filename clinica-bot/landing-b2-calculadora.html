@@ -1207,7 +1207,7 @@ a:hover {
       <span class="hero-metric-label">Consulta promedio MXN</span>
     </div>
     <div class="hero-metric">
-      <span class="hero-metric-value">4.2 hrs</span>
+      <span class="hero-metric-value" id="metric-whatsapp">4.2 hrs</span>
       <span class="hero-metric-label">Tiempo semanal en WhatsApp</span>
     </div>
   </div>
@@ -1278,12 +1278,12 @@ a:hover {
     <!-- Row 3: WhatsApp time -->
     <div class="diag-cell diag-cell--before">
       <span class="diag-cell-label">Horas en WhatsApp / semana</span>
-      <span class="diag-cell-value diag-cell-value--bad">4.2 hrs</span>
+      <span class="diag-cell-value diag-cell-value--bad" id="diag-wa-before">4.2 hrs</span>
       <span class="diag-cell-note">Asistente o doctor respondiendo manualmente</span>
     </div>
     <div class="diag-cell diag-cell--after">
       <span class="diag-cell-label">Horas en WhatsApp / semana</span>
-      <span class="diag-cell-value diag-cell-value--good">0.5 hrs</span>
+      <span class="diag-cell-value diag-cell-value--good" id="diag-wa-after">1 hr</span>
       <span class="diag-cell-note">Solo casos que requieren atencion humana</span>
     </div>
 
@@ -1393,8 +1393,8 @@ a:hover {
   <div class="cost-grid">
     <div class="cost-card">
       <div class="cost-card-label">Tu inversion mensual</div>
-      <div class="cost-card-value cost-card-value--price">$2,000</div>
-      <div class="cost-card-note">Plan completo con todas las funciones incluidas. Sin contratos a largo plazo. Cancela cuando quieras. Setup inicial: $5,000 MXN (pago unico).</div>
+      <div class="cost-card-value cost-card-value--price" id="cost-mensualidad">$2,000</div>
+      <div class="cost-card-note" id="cost-inversion-nota">Plan Basico con todas las funciones incluidas. Sin contratos a largo plazo. Cancela cuando quieras. Setup inicial: $5,000 MXN (pago unico).</div>
     </div>
     <div class="cost-card">
       <div class="cost-card-label">Lo que recuperas cada mes</div>
@@ -1407,7 +1407,7 @@ a:hover {
     <div class="cost-breakdown-title">Desglose mensual de costos</div>
     <div class="cost-line">
       <span class="cost-line-label">clinica-bot mensualidad</span>
-      <span class="cost-line-value">$2,000 MXN</span>
+      <span class="cost-line-value" id="cost-line-mensualidad">$2,000 MXN</span>
     </div>
     <div class="cost-line">
       <span class="cost-line-label">WhatsApp Business API</span>
@@ -1419,12 +1419,17 @@ a:hover {
     </div>
     <div class="cost-line">
       <span class="cost-line-label">Setup inicial (pago unico)</span>
-      <span class="cost-line-value">$5,000 MXN</span>
+      <span class="cost-line-value" id="cost-line-setup">$5,000 MXN</span>
     </div>
     <div class="cost-line cost-line--total">
       <span class="cost-line-label">Mensualidad total</span>
-      <span class="cost-line-value">$2,000 MXN</span>
+      <span class="cost-line-value" id="cost-line-total">$2,000 MXN</span>
     </div>
+  </div>
+
+  <div style="margin-top: 12px; padding: 12px 16px; background: var(--bg-secondary); border: 1px solid var(--border-color); border-left: 3px solid var(--accent-orange);">
+    <span style="font-family: var(--font-mono); font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px;">Doctor adicional</span>
+    <p style="font-family: var(--font-body); font-size: 13px; color: var(--text-secondary); margin-top: 4px; line-height: 1.5;">Doctor adicional con calendario separado y mismo numero de WhatsApp: +$2,000 MXN setup, +$1,500 MXN/mes. Aplica en cualquier plan.</p>
   </div>
 
   <div class="cost-roi">
@@ -1585,7 +1590,6 @@ function fmtMoney(n) {
 }
 
 // ---- Constants ----
-var MENSUALIDAD = 2000;
 var MIN_CONSULTA = 500;
 var MAX_CONSULTA = 2000;
 var MIN_CITAS = 20;
@@ -1597,6 +1601,13 @@ var REDUCTION_REMAINING = 0.40; // 60% reduccion -> quedan 40%
 var consulta = 900;
 var citasSemana = 20;
 
+// ---- Plan tiers by volume ----
+function getPlan(citas) {
+  if (citas <= 20) return { mensualidad: 2000, setup: 5000, nombre: 'Basico' };
+  if (citas <= 40) return { mensualidad: 3000, setup: 7000, nombre: 'Profesional' };
+  return { mensualidad: 4000, setup: 10000, nombre: 'Clinica' };
+}
+
 // ---- Recalculate all dynamic values ----
 function recalculate() {
   var citasMes = citasSemana * 4;
@@ -1606,8 +1617,12 @@ function recalculate() {
   var perdidaBefore = noshowsBefore * consulta;
   var perdidaAfter = noshowsAfter * consulta;
   var recovery = recovered * consulta;
-  var roi = recovery / MENSUALIDAD;
+  var plan = getPlan(citasSemana);
+  var mensualidad = plan.mensualidad;
+  var roi = recovery / mensualidad;
   var roiRounded = Math.round(roi * 10) / 10;
+  var whatsappBefore = Math.round(citasSemana * 0.21 * 10) / 10;
+  var whatsappAfter = Math.ceil(citasSemana / 20);
 
   // Hero
   document.getElementById('hero-perdida').textContent = fmtMoney(perdidaBefore);
@@ -1642,9 +1657,23 @@ function recalculate() {
   document.getElementById('diag-summary-citas').textContent = citasSemana;
   document.getElementById('diag-summary-consulta').textContent = fmtMoney(consulta);
 
-  // Cost card
+  // WhatsApp time
+  document.getElementById('diag-wa-before').textContent = whatsappBefore + ' hrs';
+  document.getElementById('diag-wa-after').textContent = whatsappAfter + (whatsappAfter === 1 ? ' hr' : ' hrs');
+  document.getElementById('metric-whatsapp').textContent = whatsappBefore + ' hrs';
+
+  // Cost card - inversion
+  document.getElementById('cost-mensualidad').textContent = fmtMoney(mensualidad);
+  document.getElementById('cost-inversion-nota').textContent = 'Plan ' + plan.nombre + ' con todas las funciones incluidas. Sin contratos a largo plazo. Cancela cuando quieras. Setup inicial: ' + fmtMoney(plan.setup) + ' MXN (pago unico).';
+
+  // Cost card - recovery
   document.getElementById('cost-recovery').textContent = '+' + fmtMoney(recovery);
   document.getElementById('cost-recovery-nota').textContent = 'Ingreso promedio recuperado por reduccion de inasistencias. Basado en consultorio con ' + citasSemana + ' citas/semana a ' + fmtMoney(consulta) + ' MXN por consulta.';
+
+  // Cost breakdown lines
+  document.getElementById('cost-line-mensualidad').textContent = fmtMoney(mensualidad) + ' MXN';
+  document.getElementById('cost-line-setup').textContent = fmtMoney(plan.setup) + ' MXN';
+  document.getElementById('cost-line-total').textContent = fmtMoney(mensualidad) + ' MXN';
 
   // ROI
   document.getElementById('roi-number').textContent = roiRounded + 'x';
