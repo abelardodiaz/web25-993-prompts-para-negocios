@@ -28,6 +28,58 @@ project:
 
 # Evaluacion activa
 active_evaluation:
+  name: Shopify Integrations Global (LATAM + Europa)
+  folder: shopify-integrations-global
+  stage: P0-complete
+  source: debate-multi-ia-2026-02-05
+  debate_ticket: 256
+  debate_participants: deepseek-chat, gpt-5.1
+  nichos_identificados: 4
+  nichos_con_consenso: 4
+  consensus_threshold: 0.80
+  nicho_prioritario: PayReconX (Conciliacion de Pagos Multi-metodo)
+  ice_score_top: 820
+  next_step: Ejecutar P1 en PayReconX
+  mercado_inicial: LATAM (Brasil, Mexico)
+
+  # Nichos identificados por debate (P0)
+  p0_nichos:
+    - nicho: "#1 PayReconX"
+      tipo: Conciliacion Pagos Multi-metodo
+      ice_score: 820
+      decision: VALIDAR PRIMERO
+      mercado: LATAM -> Europa
+    - nicho: "#2 ReturnFlow CX"
+      tipo: Devoluciones & Re-commerce
+      ice_score: 730
+      decision: VALIDAR
+      mercado: Europa -> LATAM
+    - nicho: "#3 TaxRules Hub"
+      tipo: Motor Fiscal por Pais/Estado
+      ice_score: 680
+      decision: RESERVA
+      mercado: LATAM -> Europa
+    - nicho: "#4 FinLink DTC"
+      tipo: Finanzas Alternativas/Factoring
+      ice_score: 780
+      decision: RESERVA CONDICIONAL
+      mercado: LATAM -> Europa
+
+# Evaluacion pendiente
+pending_evaluation:
+  name: clinica-bot (WhatsApp IA para Consultorios Medicos)
+  folder: clinica-bot
+  stage: P1-in-progress
+  source: producto-existente-web26-056-v0.13.0
+  tipo: producto-pre-construido
+  next_step: Completar desk research P1
+  mercado_inicial: Mexico (consultorios independientes)
+  tam: 157533 consultorios medicos/dentales (INEGI DENUE 2025)
+  sam: 12600 consultorios WhatsApp-activos con disposicion a pagar
+  relacion_crm48: nicho Clinicas/Dentistas identificado en crm48/00-idea-inicial.md
+
+# Evaluacion anterior (completada)
+previous_evaluation:
   name: Shopify Custom Dev Europa
   folder: shopify-custom-dev-europa
   stage: P1-complete
@@ -77,7 +129,7 @@ urls:
 stack:
   primary: documentation
 
-updated_at: "2026-02-04T18:15:00Z"
+updated_at: "2026-02-08T12:00:00Z"
 updated_by: claude-993
 
 # Skills creados (fuera del proyecto, en ~/.claude/skills/)
