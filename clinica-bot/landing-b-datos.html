@@ -1,0 +1,1502 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>clinica-bot | Asistente WhatsApp para Consultorios - Datos y Resultados</title>
+<meta name="description" content="clinica-bot reduce inasistencias hasta 60%. Asistente WhatsApp con IA para consultorios medicos en Mexico. Agenda, confirma y recuerda citas 24/7.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Oswald:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================
+   RESET & BASE
+   ============================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg-primary: #1C1C1C;
+  --bg-secondary: #2D2D2D;
+  --bg-tertiary: #3A3A3A;
+  --accent-yellow: #FFD600;
+  --accent-orange: #FF6B00;
+  --text-primary: #E0E0E0;
+  --text-secondary: #A0A0A0;
+  --text-dim: #6B6B6B;
+  --border-color: #444444;
+  --border-light: #555555;
+  --success: #00C853;
+  --danger: #FF1744;
+  --font-heading: 'Oswald', sans-serif;
+  --font-body: 'Source Sans 3', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--accent-yellow);
+  text-decoration: none;
+  transition: color 150ms ease;
+}
+
+a:hover {
+  color: var(--accent-orange);
+}
+
+/* ============================================
+   TOP BAR
+   ============================================ */
+.topbar {
+  background: #111111;
+  border-bottom: 1px solid var(--border-color);
+  padding: 0 24px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.topbar-brand {
+  font-family: var(--font-mono);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--accent-yellow);
+  letter-spacing: 0.5px;
+}
+
+.topbar-brand span {
+  color: var(--text-dim);
+}
+
+.topbar-nav {
+  display: flex;
+  gap: 24px;
+  list-style: none;
+}
+
+.topbar-nav a {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 8px 0;
+  min-height: 44px;
+  min-width: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 150ms ease;
+}
+
+.topbar-nav a:hover {
+  color: var(--accent-yellow);
+}
+
+.topbar-menu-btn {
+  display: none;
+  background: none;
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 14px;
+  padding: 8px 12px;
+  min-height: 44px;
+  min-width: 44px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+/* ============================================
+   HERO - STAT HEADLINE
+   ============================================ */
+.hero {
+  padding: 80px 24px 64px;
+  border-bottom: 1px solid var(--border-color);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.hero-label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--accent-orange);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hero-label::before {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background: var(--accent-orange);
+  border-radius: 0;
+}
+
+.hero-stat {
+  font-family: var(--font-heading);
+  font-size: clamp(48px, 8vw, 96px);
+  font-weight: 700;
+  color: var(--accent-yellow);
+  line-height: 1.0;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.hero-stat-sub {
+  font-family: var(--font-heading);
+  font-size: clamp(24px, 4vw, 48px);
+  font-weight: 500;
+  color: var(--text-primary);
+  line-height: 1.1;
+  text-transform: uppercase;
+  margin-bottom: 32px;
+}
+
+.hero-desc {
+  font-family: var(--font-body);
+  font-size: 18px;
+  color: var(--text-secondary);
+  max-width: 680px;
+  line-height: 1.7;
+  margin-bottom: 40px;
+}
+
+.hero-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border-color);
+  border: 1px solid var(--border-color);
+  max-width: 720px;
+}
+
+.hero-metric {
+  background: var(--bg-secondary);
+  padding: 20px 24px;
+}
+
+.hero-metric-value {
+  font-family: var(--font-mono);
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--accent-yellow);
+  display: block;
+  margin-bottom: 4px;
+}
+
+.hero-metric-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* ============================================
+   SECTION SHARED
+   ============================================ */
+.section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 80px 24px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.section-header {
+  margin-bottom: 48px;
+}
+
+.section-tag {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--accent-orange);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.section-tag::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background: var(--accent-orange);
+}
+
+.section-title {
+  font-family: var(--font-heading);
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 600;
+  color: var(--text-primary);
+  text-transform: uppercase;
+  line-height: 1.1;
+}
+
+/* ============================================
+   DIAGNOSTICO - BEFORE/AFTER TABLE
+   ============================================ */
+.diag-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border: 1px solid var(--border-color);
+}
+
+.diag-column-header {
+  padding: 16px 24px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-bottom: 2px solid var(--border-color);
+}
+
+.diag-column-header--before {
+  background: #2A1A1A;
+  color: var(--danger);
+  border-right: 1px solid var(--border-color);
+}
+
+.diag-column-header--after {
+  background: #1A2A1A;
+  color: var(--success);
+}
+
+.diag-row {
+  display: contents;
+}
+
+.diag-cell {
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.diag-cell--before {
+  background: var(--bg-primary);
+  border-right: 1px solid var(--border-color);
+}
+
+.diag-cell--after {
+  background: var(--bg-secondary);
+}
+
+.diag-cell-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.diag-cell-value {
+  font-family: var(--font-mono);
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.diag-cell-value--bad {
+  color: var(--danger);
+}
+
+.diag-cell-value--good {
+  color: var(--success);
+}
+
+.diag-cell-note {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.diag-bar {
+  width: 100%;
+  height: 4px;
+  background: var(--bg-tertiary);
+  margin-top: 8px;
+  position: relative;
+}
+
+.diag-bar-fill {
+  height: 100%;
+  transition: width 150ms ease;
+}
+
+.diag-bar-fill--bad {
+  background: var(--danger);
+}
+
+.diag-bar-fill--good {
+  background: var(--success);
+}
+
+.diag-summary {
+  margin-top: 24px;
+  padding: 24px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--accent-yellow);
+  border-left: 4px solid var(--accent-yellow);
+}
+
+.diag-summary-title {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--accent-yellow);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+
+.diag-summary-value {
+  font-family: var(--font-mono);
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--accent-yellow);
+}
+
+.diag-summary-desc {
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--text-secondary);
+  margin-top: 4px;
+}
+
+/* ============================================
+   CAPACIDADES - SPEC TABLE
+   ============================================ */
+.spec-table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid var(--border-color);
+}
+
+.spec-table thead {
+  background: var(--bg-tertiary);
+}
+
+.spec-table th {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 14px 20px;
+  text-align: left;
+  border-bottom: 2px solid var(--border-color);
+}
+
+.spec-table td {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border-color);
+  font-size: 14px;
+  vertical-align: top;
+}
+
+.spec-table tr:hover td {
+  background: var(--bg-secondary);
+}
+
+.spec-func {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--accent-yellow);
+}
+
+.spec-desc {
+  color: var(--text-secondary);
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.spec-impact {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--success);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.spec-impact::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  background: var(--success);
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.spec-status {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background: var(--success);
+  margin-right: 8px;
+  flex-shrink: 0;
+}
+
+.spec-status--active {
+  background: var(--success);
+}
+
+.spec-status--beta {
+  background: var(--accent-orange);
+}
+
+/* ============================================
+   COSTOS - ROI BREAKDOWN
+   ============================================ */
+.cost-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.cost-card {
+  border: 1px solid var(--border-color);
+  background: var(--bg-secondary);
+  padding: 32px 28px;
+}
+
+.cost-card-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+}
+
+.cost-card-value {
+  font-family: var(--font-mono);
+  font-size: 42px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.cost-card-value--price {
+  color: var(--accent-yellow);
+}
+
+.cost-card-value--savings {
+  color: var(--success);
+}
+
+.cost-card-value--loss {
+  color: var(--danger);
+}
+
+.cost-card-note {
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-top: 12px;
+  line-height: 1.5;
+}
+
+.cost-breakdown {
+  border: 1px solid var(--border-color);
+  background: var(--bg-primary);
+}
+
+.cost-breakdown-title {
+  padding: 16px 24px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  background: var(--bg-tertiary);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.cost-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 24px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.cost-line:last-child {
+  border-bottom: none;
+}
+
+.cost-line-label {
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.cost-line-value {
+  font-family: var(--font-mono);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.cost-line--total {
+  background: var(--bg-secondary);
+}
+
+.cost-line--total .cost-line-label {
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.cost-line--total .cost-line-value {
+  color: var(--accent-yellow);
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.cost-roi {
+  margin-top: 24px;
+  padding: 28px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--accent-yellow);
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.cost-roi-number {
+  font-family: var(--font-mono);
+  font-size: 56px;
+  font-weight: 700;
+  color: var(--accent-yellow);
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.cost-roi-text {
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.cost-roi-text strong {
+  color: var(--text-primary);
+}
+
+/* ============================================
+   DATOS DEL MERCADO
+   ============================================ */
+.market-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--border-color);
+  border: 1px solid var(--border-color);
+}
+
+.market-stat {
+  background: var(--bg-secondary);
+  padding: 32px 24px;
+  text-align: center;
+}
+
+.market-stat-value {
+  font-family: var(--font-mono);
+  font-size: clamp(32px, 4vw, 48px);
+  font-weight: 700;
+  color: var(--accent-yellow);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.market-stat-unit {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--accent-orange);
+  display: block;
+  margin-bottom: 12px;
+}
+
+.market-stat-label {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+.market-stat-source {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-dim);
+  margin-top: 8px;
+  display: block;
+}
+
+.market-context {
+  margin-top: 32px;
+  padding: 24px;
+  background: var(--bg-secondary);
+  border-left: 3px solid var(--accent-orange);
+}
+
+.market-context p {
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+.market-context strong {
+  color: var(--text-primary);
+}
+
+/* ============================================
+   CTA SECTION - FORM
+   ============================================ */
+.cta-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 80px 24px;
+}
+
+.cta-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: start;
+}
+
+.cta-text {
+  padding-top: 16px;
+}
+
+.cta-title {
+  font-family: var(--font-heading);
+  font-size: clamp(28px, 3.5vw, 40px);
+  font-weight: 600;
+  color: var(--accent-yellow);
+  text-transform: uppercase;
+  line-height: 1.1;
+  margin-bottom: 20px;
+}
+
+.cta-desc {
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: 32px;
+}
+
+.cta-guarantees {
+  list-style: none;
+}
+
+.cta-guarantees li {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text-secondary);
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.cta-guarantees li::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  background: var(--success);
+  flex-shrink: 0;
+}
+
+.form-container {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  padding: 36px 32px;
+}
+
+.form-title {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--accent-yellow);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 28px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+}
+
+.form-input,
+.form-select {
+  width: 100%;
+  padding: 12px 16px;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 15px;
+  border-radius: 2px;
+  transition: border-color 150ms ease;
+  min-height: 44px;
+}
+
+.form-input:focus,
+.form-select:focus {
+  outline: none;
+  border-color: var(--accent-yellow);
+}
+
+.form-input::placeholder {
+  color: var(--text-dim);
+}
+
+.form-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236B6B6B' stroke-width='2' fill='none'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  padding-right: 40px;
+  cursor: pointer;
+}
+
+.form-select option {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.form-submit {
+  width: 100%;
+  padding: 16px 24px;
+  background: var(--accent-yellow);
+  border: none;
+  color: #111111;
+  font-family: var(--font-heading);
+  font-size: 18px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  min-height: 52px;
+  border-radius: 2px;
+  transition: background 150ms ease;
+  margin-top: 8px;
+}
+
+.form-submit:hover {
+  background: #E6C200;
+}
+
+.form-submit:active {
+  background: #CCB000;
+}
+
+.form-note {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-dim);
+  margin-top: 16px;
+  text-align: center;
+}
+
+.form-confirmation {
+  display: none;
+  padding: 32px;
+  text-align: center;
+}
+
+.form-confirmation.visible {
+  display: block;
+}
+
+.form-confirmation-title {
+  font-family: var(--font-heading);
+  font-size: 24px;
+  color: var(--success);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.form-confirmation-text {
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+.footer {
+  border-top: 1px solid var(--border-color);
+  padding: 40px 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.footer-brand {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text-dim);
+}
+
+.footer-brand strong {
+  color: var(--accent-yellow);
+}
+
+.footer-links {
+  display: flex;
+  gap: 24px;
+  list-style: none;
+}
+
+.footer-links a {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-dim);
+  transition: color 150ms ease;
+}
+
+.footer-links a:hover {
+  color: var(--accent-yellow);
+}
+
+.footer-copy {
+  width: 100%;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-dim);
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-color);
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 900px) {
+  .hero-metrics {
+    grid-template-columns: 1fr;
+  }
+
+  .diag-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .diag-column-header--before {
+    border-right: none;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .diag-cell--before {
+    border-right: none;
+  }
+
+  .cost-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cost-roi {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .market-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .cta-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .spec-table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+@media (max-width: 600px) {
+  .topbar-nav {
+    display: none;
+    position: absolute;
+    top: 56px;
+    left: 0;
+    right: 0;
+    background: #111111;
+    border-bottom: 1px solid var(--border-color);
+    flex-direction: column;
+    padding: 16px 24px;
+    gap: 0;
+  }
+
+  .topbar-nav.open {
+    display: flex;
+  }
+
+  .topbar-nav a {
+    padding: 12px 0;
+    justify-content: flex-start;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .topbar-nav li:last-child a {
+    border-bottom: none;
+  }
+
+  .topbar-menu-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero {
+    padding: 48px 20px 40px;
+  }
+
+  .section {
+    padding: 48px 20px;
+  }
+
+  .hero-metrics {
+    max-width: 100%;
+  }
+
+  .market-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .form-container {
+    padding: 24px 20px;
+  }
+
+  .cost-roi-number {
+    font-size: 40px;
+  }
+
+  .cta-section {
+    padding: 48px 20px;
+  }
+
+  .footer-content {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================
+     TOP BAR
+     ============================================ -->
+<header class="topbar">
+  <div class="topbar-brand">clinica-bot<span>.mx</span></div>
+  <button class="topbar-menu-btn" onclick="toggleMenu()" aria-label="Menu de navegacion">[MENU]</button>
+  <nav>
+    <ul class="topbar-nav" id="topbar-nav">
+      <li><a href="#diagnostico">Diagnostico</a></li>
+      <li><a href="#capacidades">Capacidades</a></li>
+      <li><a href="#costos">Costos</a></li>
+      <li><a href="#mercado">Mercado</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- ============================================
+     HERO
+     ============================================ -->
+<section class="hero">
+  <div class="hero-label">Reporte de perdidas -- consultorios Mexico</div>
+  <h1 class="hero-stat">30% de tus citas no llegan.</h1>
+  <p class="hero-stat-sub">Eso son $30,000 al mes perdidos.</p>
+  <p class="hero-desc">
+    Un consultorio con 20 citas semanales pierde entre 5 y 6 por inasistencia. A $500 pesos promedio por consulta, son mas de $12,000 mensuales que desaparecen. clinica-bot reduce esa cifra a menos del 10% con confirmaciones automaticas por WhatsApp.
+  </p>
+  <div class="hero-metrics">
+    <div class="hero-metric">
+      <span class="hero-metric-value">19-29%</span>
+      <span class="hero-metric-label">Tasa de inasistencia</span>
+    </div>
+    <div class="hero-metric">
+      <span class="hero-metric-value">$500</span>
+      <span class="hero-metric-label">Consulta promedio MXN</span>
+    </div>
+    <div class="hero-metric">
+      <span class="hero-metric-value">4.2 hrs</span>
+      <span class="hero-metric-label">Tiempo semanal en WhatsApp</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     DIAGNOSTICO - BEFORE / AFTER
+     ============================================ -->
+<section class="section" id="diagnostico">
+  <div class="section-header">
+    <div class="section-tag">Seccion 01 -- Diagnostico</div>
+    <h2 class="section-title">Antes y despues de clinica-bot</h2>
+  </div>
+
+  <div class="diag-grid">
+    <!-- Headers -->
+    <div class="diag-column-header diag-column-header--before">[!] SIN CLINICA-BOT</div>
+    <div class="diag-column-header diag-column-header--after">[OK] CON CLINICA-BOT</div>
+
+    <!-- Row 1: No-shows -->
+    <div class="diag-cell diag-cell--before">
+      <span class="diag-cell-label">Inasistencias mensuales</span>
+      <span class="diag-cell-value diag-cell-value--bad">24-30 citas</span>
+      <span class="diag-cell-note">De 100 citas, 24 a 30 no se presentan</span>
+      <div class="diag-bar"><div class="diag-bar-fill diag-bar-fill--bad" style="width:30%"></div></div>
+    </div>
+    <div class="diag-cell diag-cell--after">
+      <span class="diag-cell-label">Inasistencias mensuales</span>
+      <span class="diag-cell-value diag-cell-value--good">8-10 citas</span>
+      <span class="diag-cell-note">Reduccion del 60% con recordatorios automaticos</span>
+      <div class="diag-bar"><div class="diag-bar-fill diag-bar-fill--good" style="width:10%"></div></div>
+    </div>
+
+    <!-- Row 2: Revenue lost -->
+    <div class="diag-cell diag-cell--before">
+      <span class="diag-cell-label">Ingreso perdido / mes</span>
+      <span class="diag-cell-value diag-cell-value--bad">$15,000</span>
+      <span class="diag-cell-note">Basado en 30 citas perdidas a $500</span>
+    </div>
+    <div class="diag-cell diag-cell--after">
+      <span class="diag-cell-label">Ingreso perdido / mes</span>
+      <span class="diag-cell-value diag-cell-value--good">$5,000</span>
+      <span class="diag-cell-note">Recuperas $10,000+ mensuales</span>
+    </div>
+
+    <!-- Row 3: WhatsApp time -->
+    <div class="diag-cell diag-cell--before">
+      <span class="diag-cell-label">Horas en WhatsApp / semana</span>
+      <span class="diag-cell-value diag-cell-value--bad">4.2 hrs</span>
+      <span class="diag-cell-note">Asistente o doctor respondiendo manualmente</span>
+    </div>
+    <div class="diag-cell diag-cell--after">
+      <span class="diag-cell-label">Horas en WhatsApp / semana</span>
+      <span class="diag-cell-value diag-cell-value--good">0.5 hrs</span>
+      <span class="diag-cell-note">Solo casos que requieren atencion humana</span>
+    </div>
+
+    <!-- Row 4: Available hours -->
+    <div class="diag-cell diag-cell--before">
+      <span class="diag-cell-label">Horario de atencion</span>
+      <span class="diag-cell-value diag-cell-value--bad">9:00-18:00</span>
+      <span class="diag-cell-note">Fuera de horario = citas perdidas</span>
+    </div>
+    <div class="diag-cell diag-cell--after">
+      <span class="diag-cell-label">Horario de atencion</span>
+      <span class="diag-cell-value diag-cell-value--good">24/7/365</span>
+      <span class="diag-cell-note">El bot agenda a cualquier hora</span>
+    </div>
+
+    <!-- Row 5: Response time -->
+    <div class="diag-cell diag-cell--before">
+      <span class="diag-cell-label">Tiempo de respuesta promedio</span>
+      <span class="diag-cell-value diag-cell-value--bad">47 min</span>
+      <span class="diag-cell-note">El paciente ya busco otra opcion</span>
+    </div>
+    <div class="diag-cell diag-cell--after">
+      <span class="diag-cell-label">Tiempo de respuesta promedio</span>
+      <span class="diag-cell-value diag-cell-value--good">&lt; 5 seg</span>
+      <span class="diag-cell-note">Respuesta inmediata siempre</span>
+    </div>
+  </div>
+
+  <div class="diag-summary">
+    <div class="diag-summary-title">Recuperacion estimada mensual</div>
+    <div class="diag-summary-value">+$10,000 MXN</div>
+    <div class="diag-summary-desc">Ingreso mensual recuperado por reduccion de inasistencias, basado en un consultorio con 20 citas semanales y consulta promedio de $500 MXN.</div>
+  </div>
+</section>
+
+<!-- ============================================
+     CAPACIDADES - SPEC TABLE
+     ============================================ -->
+<section class="section" id="capacidades">
+  <div class="section-header">
+    <div class="section-tag">Seccion 02 -- Capacidades</div>
+    <h2 class="section-title">Especificaciones tecnicas</h2>
+  </div>
+
+  <table class="spec-table">
+    <thead>
+      <tr>
+        <th style="width:25%">Funcion</th>
+        <th style="width:45%">Descripcion</th>
+        <th style="width:30%">Impacto</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="spec-status spec-status--active"></span><span class="spec-func">Agendamiento 24/7</span></td>
+        <td class="spec-desc">El paciente agenda su cita por WhatsApp en cualquier momento. El bot muestra horarios disponibles y confirma en tiempo real.</td>
+        <td><span class="spec-impact">Captura citas fuera de horario</span></td>
+      </tr>
+      <tr>
+        <td><span class="spec-status spec-status--active"></span><span class="spec-func">Recordatorio 48h</span></td>
+        <td class="spec-desc">Mensaje automatico 48 horas antes de la cita. El paciente confirma, cancela o reagenda directamente.</td>
+        <td><span class="spec-impact">Reduce inasistencia 40-60%</span></td>
+      </tr>
+      <tr>
+        <td><span class="spec-status spec-status--active"></span><span class="spec-func">Recordatorio 2h</span></td>
+        <td class="spec-desc">Segundo recordatorio 2 horas antes. Incluye direccion del consultorio y notas relevantes.</td>
+        <td><span class="spec-impact">Ultimo filtro de confirmacion</span></td>
+      </tr>
+      <tr>
+        <td><span class="spec-status spec-status--active"></span><span class="spec-func">FAQ automatico</span></td>
+        <td class="spec-desc">Responde 7 categorias de preguntas frecuentes: horarios, ubicacion, precios, seguros, preparacion, estacionamiento, documentos.</td>
+        <td><span class="spec-impact">Reduce 80% de mensajes repetitivos</span></td>
+      </tr>
+      <tr>
+        <td><span class="spec-status spec-status--active"></span><span class="spec-func">Cancelacion / reagendamiento</span></td>
+        <td class="spec-desc">El paciente cancela o mueve su cita por WhatsApp. El horario se libera automaticamente en el calendario.</td>
+        <td><span class="spec-impact">Recupera horarios cancelados</span></td>
+      </tr>
+      <tr>
+        <td><span class="spec-status spec-status--active"></span><span class="spec-func">Google Calendar sync</span></td>
+        <td class="spec-desc">Sincronizacion bidireccional con Google Calendar. El doctor ve todas las citas en su calendario habitual.</td>
+        <td><span class="spec-impact">Sin cambio de herramientas</span></td>
+      </tr>
+      <tr>
+        <td><span class="spec-status spec-status--active"></span><span class="spec-func">Control manual</span></td>
+        <td class="spec-desc">El doctor toma el control de cualquier conversacion en cualquier momento. El bot se pausa automaticamente.</td>
+        <td><span class="spec-impact">Siempre tienes el control</span></td>
+      </tr>
+      <tr>
+        <td><span class="spec-status spec-status--beta"></span><span class="spec-func">Panel de metricas</span></td>
+        <td class="spec-desc">Dashboard con estadisticas: citas agendadas, confirmadas, canceladas, inasistencias, mensajes respondidos.</td>
+        <td><span class="spec-impact">Visibilidad total del consultorio</span></td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ============================================
+     COSTOS - ROI BREAKDOWN
+     ============================================ -->
+<section class="section" id="costos">
+  <div class="section-header">
+    <div class="section-tag">Seccion 03 -- Costos</div>
+    <h2 class="section-title">Desglose de inversion y retorno</h2>
+  </div>
+
+  <div class="cost-grid">
+    <div class="cost-card">
+      <div class="cost-card-label">Tu inversion mensual</div>
+      <div class="cost-card-value cost-card-value--price">$1,500</div>
+      <div class="cost-card-note">Plan completo con todas las funciones. Sin contratos a largo plazo. Cancela cuando quieras. Precio en MXN/mes.</div>
+    </div>
+    <div class="cost-card">
+      <div class="cost-card-label">Lo que recuperas cada mes</div>
+      <div class="cost-card-value cost-card-value--savings">+$10,000</div>
+      <div class="cost-card-note">Ingreso promedio recuperado por reduccion de inasistencias. Basado en consultorio con 20 citas/semana.</div>
+    </div>
+  </div>
+
+  <div class="cost-breakdown">
+    <div class="cost-breakdown-title">Desglose mensual de costos</div>
+    <div class="cost-line">
+      <span class="cost-line-label">clinica-bot servicio base</span>
+      <span class="cost-line-value">$500 - $1,500 MXN</span>
+    </div>
+    <div class="cost-line">
+      <span class="cost-line-label">WhatsApp Business API (Meta)</span>
+      <span class="cost-line-value">~$44 MXN</span>
+    </div>
+    <div class="cost-line">
+      <span class="cost-line-label">Google Calendar</span>
+      <span class="cost-line-value">$0 MXN</span>
+    </div>
+    <div class="cost-line">
+      <span class="cost-line-label">Configuracion inicial</span>
+      <span class="cost-line-value">$0 MXN</span>
+    </div>
+    <div class="cost-line cost-line--total">
+      <span class="cost-line-label">Total maximo mensual</span>
+      <span class="cost-line-value">$1,544 MXN</span>
+    </div>
+  </div>
+
+  <div class="cost-roi">
+    <div class="cost-roi-number">6.5x</div>
+    <div class="cost-roi-text">
+      <strong>Retorno sobre inversion.</strong> Por cada peso invertido en clinica-bot, recuperas $6.50 en citas que antes se perdian. El servicio se paga solo desde el primer mes.
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     DATOS DEL MERCADO
+     ============================================ -->
+<section class="section" id="mercado">
+  <div class="section-header">
+    <div class="section-tag">Seccion 04 -- Datos del mercado</div>
+    <h2 class="section-title">Numeros que respaldan la solucion</h2>
+  </div>
+
+  <div class="market-grid">
+    <div class="market-stat">
+      <div class="market-stat-value">157,533</div>
+      <span class="market-stat-unit">consultorios</span>
+      <div class="market-stat-label">Consultorios medicos privados registrados en Mexico</div>
+      <span class="market-stat-source">Fuente: INEGI, Censo Economico</span>
+    </div>
+    <div class="market-stat">
+      <div class="market-stat-value">74M</div>
+      <span class="market-stat-unit">usuarios</span>
+      <div class="market-stat-label">Usuarios activos de WhatsApp en Mexico</div>
+      <span class="market-stat-source">Fuente: Statista 2024</span>
+    </div>
+    <div class="market-stat">
+      <div class="market-stat-value">98%</div>
+      <span class="market-stat-unit">tasa apertura</span>
+      <div class="market-stat-label">Los mensajes de WhatsApp se leen, a diferencia del email (20%)</div>
+      <span class="market-stat-source">Fuente: Meta Business</span>
+    </div>
+    <div class="market-stat">
+      <div class="market-stat-value">23%</div>
+      <span class="market-stat-unit">promedio</span>
+      <div class="market-stat-label">Tasa de inasistencia en consultorios sin sistema de recordatorio</div>
+      <span class="market-stat-source">Fuente: ScienceDirect, 2022</span>
+    </div>
+  </div>
+
+  <div class="market-context">
+    <p>
+      <strong>El 92% de los consultorios independientes en Mexico no usa ningun sistema automatizado de confirmacion.</strong>
+      La mayoria depende de llamadas telefonicas que el personal olvida hacer, o simplemente no confirma. Mientras tanto, las grandes cadenas de salud ya usan bots de WhatsApp. clinica-bot lleva esa misma tecnologia al consultorio independiente, a una fraccion del costo.
+    </p>
+  </div>
+</section>
+
+<!-- ============================================
+     CTA SECTION - FORM
+     ============================================ -->
+<section class="cta-section" id="contacto">
+  <div class="cta-grid">
+    <div class="cta-text">
+      <div class="section-tag">Seccion 05 -- Siguiente paso</div>
+      <h2 class="cta-title">Calcula cuanto pierdes cada mes sin confirmacion automatica</h2>
+      <p class="cta-desc">
+        Completa el formulario y te enviamos un diagnostico personalizado con los numeros de tu consultorio: cuantas citas pierdes, cuanto ingreso representan y cuanto recuperarias con clinica-bot.
+      </p>
+      <ul class="cta-guarantees">
+        <li>Sin costo, sin compromiso</li>
+        <li>Respuesta en menos de 24 horas</li>
+        <li>Demo personalizada incluida</li>
+        <li>Configuracion gratuita en el primer mes</li>
+        <li>Cancela cuando quieras, sin penalizacion</li>
+      </ul>
+    </div>
+
+    <div class="form-container" id="form-container">
+      <div class="form-title">// Solicitar diagnostico gratuito</div>
+      <form id="lead-form" novalidate>
+        <div class="form-group">
+          <label class="form-label" for="nombre">Nombre completo</label>
+          <input class="form-input" type="text" id="nombre" name="nombre" placeholder="Dr. Juan Perez" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="consultorio">Nombre del consultorio</label>
+          <input class="form-input" type="text" id="consultorio" name="consultorio" placeholder="Clinica Salud Integral" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="whatsapp">WhatsApp (10 digitos)</label>
+          <input class="form-input" type="tel" id="whatsapp" name="whatsapp" placeholder="55 1234 5678" required>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="especialidad">Especialidad</label>
+            <select class="form-select" id="especialidad" name="especialidad" required>
+              <option value="" disabled selected>Seleccionar...</option>
+              <option value="medicina-general">Medicina General</option>
+              <option value="pediatria">Pediatria</option>
+              <option value="ginecologia">Ginecologia</option>
+              <option value="dermatologia">Dermatologia</option>
+              <option value="oftalmologia">Oftalmologia</option>
+              <option value="odontologia">Odontologia</option>
+              <option value="psicologia">Psicologia</option>
+              <option value="nutricion">Nutricion</option>
+              <option value="traumatologia">Traumatologia</option>
+              <option value="cardiologia">Cardiologia</option>
+              <option value="otra">Otra</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="citas-semana">Citas por semana</label>
+            <select class="form-select" id="citas-semana" name="citas_semana" required>
+              <option value="" disabled selected>Seleccionar...</option>
+              <option value="1-10">1 a 10</option>
+              <option value="11-20">11 a 20</option>
+              <option value="21-30">21 a 30</option>
+              <option value="31-50">31 a 50</option>
+              <option value="50+">Mas de 50</option>
+            </select>
+          </div>
+        </div>
+        <button type="submit" class="form-submit">Calcular mi ahorro</button>
+        <div class="form-note">Tus datos se usan unicamente para el diagnostico. Sin spam.</div>
+      </form>
+      <div class="form-confirmation" id="form-confirmation">
+        <div class="form-confirmation-title">Solicitud recibida</div>
+        <div class="form-confirmation-text">
+          Analizaremos los datos de tu consultorio y te enviaremos un diagnostico personalizado por WhatsApp en las proximas 24 horas. Incluye una demo gratuita del bot funcionando con tu informacion.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     FOOTER
+     ============================================ -->
+<footer class="footer">
+  <div class="footer-content">
+    <div class="footer-brand"><strong>clinica-bot</strong> // Asistente WhatsApp para consultorios</div>
+    <ul class="footer-links">
+      <li><a href="#diagnostico">Diagnostico</a></li>
+      <li><a href="#capacidades">Capacidades</a></li>
+      <li><a href="#costos">Costos</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+    <div class="footer-copy">2025 clinica-bot. Producto en desarrollo. Todos los datos basados en fuentes publicas y estimaciones del sector salud en Mexico.</div>
+  </div>
+</footer>
+
+<!-- ============================================
+     SCRIPTS
+     ============================================ -->
+<script>
+// ---- Mobile menu toggle ----
+function toggleMenu() {
+  var nav = document.getElementById('topbar-nav');
+  nav.classList.toggle('open');
+}
+
+// Close mobile menu on nav click
+document.querySelectorAll('#topbar-nav a').forEach(function(link) {
+  link.addEventListener('click', function() {
+    document.getElementById('topbar-nav').classList.remove('open');
+  });
+});
+
+// ---- Form handling ----
+document.getElementById('lead-form').addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  var nombre = document.getElementById('nombre').value.trim();
+  var consultorio = document.getElementById('consultorio').value.trim();
+  var whatsapp = document.getElementById('whatsapp').value.trim();
+  var especialidad = document.getElementById('especialidad').value;
+  var citasSemana = document.getElementById('citas-semana').value;
+
+  // Basic validation
+  if (!nombre || !consultorio || !whatsapp || !especialidad || !citasSemana) {
+    return;
+  }
+
+  var formData = {
+    nombre: nombre,
+    consultorio: consultorio,
+    whatsapp: whatsapp,
+    especialidad: especialidad,
+    citas_semana: citasSemana,
+    timestamp: new Date().toISOString(),
+    landing: 'B-datos',
+    source: window.location.href
+  };
+
+  // Log form data to console
+  console.log('[clinica-bot] Lead form submitted:', JSON.stringify(formData, null, 2));
+
+  // GA4 event placeholder
+  // gtag('event', 'generate_lead', {
+  //   event_category: 'form',
+  //   event_label: 'landing_b_datos',
+  //   especialidad: formData.especialidad,
+  //   citas_semana: formData.citas_semana
+  // });
+
+  // Show confirmation
+  document.getElementById('lead-form').style.display = 'none';
+  document.querySelector('.form-title').style.display = 'none';
+  document.querySelector('.form-note').style.display = 'none';
+  var confirmation = document.getElementById('form-confirmation');
+  confirmation.classList.add('visible');
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1674 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>clinica-bot | Deja de perder pacientes por no contestar WhatsApp</title>
+    <meta name="description" content="Asistente de WhatsApp con IA para consultorios medicos en Mexico. Agenda citas 24/7, reduce ausentismo y contesta automaticamente.">
+
+    <!-- GA4 Placeholder -->
+    <!-- TODO: Replace G-XXXXXXXXXX with actual GA4 Measurement ID -->
+    <!--
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-XXXXXXXXXX');
+    </script>
+    -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        /* ========================================
+           RESET & BASE
+           ======================================== */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --paper: #F5F3EE;
+            --orange: #E85D04;
+            --dark: #1A1A1A;
+            --dark-muted: #3D3D3D;
+            --mid: #8A8A7A;
+            --border: #C8C4BC;
+            --card-bg: #EDEBE5;
+            --serif: 'DM Serif Display', Georgia, 'Times New Roman', serif;
+            --sans: 'IBM Plex Sans', 'Segoe UI', Tahoma, sans-serif;
+            --mono: 'JetBrains Mono', 'Courier New', Courier, monospace;
+            --rail-width: 60px;
+            --transition-quick: 150ms ease;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        body {
+            font-family: var(--sans);
+            font-size: 16px;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--paper);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ========================================
+           SIDE RAIL (Desktop)
+           ======================================== */
+        .side-rail {
+            display: none;
+        }
+
+        @media (min-width: 1024px) {
+            .side-rail {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                align-items: center;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: var(--rail-width);
+                height: 100vh;
+                background-color: var(--dark);
+                z-index: 100;
+                padding: 24px 0;
+            }
+
+            .side-rail__brand {
+                writing-mode: vertical-rl;
+                text-orientation: mixed;
+                transform: rotate(180deg);
+                font-family: var(--mono);
+                font-size: 11px;
+                font-weight: 500;
+                letter-spacing: 3px;
+                text-transform: uppercase;
+                color: var(--paper);
+                white-space: nowrap;
+            }
+
+            .side-rail__nav {
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+                align-items: center;
+            }
+
+            .side-rail__nav a {
+                writing-mode: vertical-rl;
+                text-orientation: mixed;
+                transform: rotate(180deg);
+                font-family: var(--mono);
+                font-size: 10px;
+                font-weight: 400;
+                letter-spacing: 2px;
+                text-transform: uppercase;
+                color: var(--mid);
+                text-decoration: none;
+                transition: color var(--transition-quick);
+            }
+
+            .side-rail__nav a:hover {
+                color: var(--orange);
+            }
+
+            .side-rail__marker {
+                width: 8px;
+                height: 8px;
+                border: 2px solid var(--orange);
+                transform: rotate(45deg);
+            }
+
+            body {
+                margin-left: var(--rail-width);
+            }
+        }
+
+        /* ========================================
+           MOBILE HEADER
+           ======================================== */
+        .mobile-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            border-bottom: 2px solid var(--dark);
+        }
+
+        @media (min-width: 1024px) {
+            .mobile-header {
+                display: none;
+            }
+        }
+
+        .mobile-header__brand {
+            font-family: var(--mono);
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--dark);
+        }
+
+        .mobile-header__cta {
+            font-family: var(--mono);
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--paper);
+            background-color: var(--orange);
+            border: none;
+            padding: 10px 16px;
+            cursor: pointer;
+            text-decoration: none;
+            border-radius: 2px;
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+            transition: background-color var(--transition-quick);
+        }
+
+        .mobile-header__cta:hover {
+            background-color: #D14E00;
+        }
+
+        /* ========================================
+           LAYOUT CONTAINER
+           ======================================== */
+        .page-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        @media (min-width: 768px) {
+            .page-container {
+                padding: 0 48px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .page-container {
+                padding: 0 64px;
+            }
+        }
+
+        /* ========================================
+           SECTION NUMBER (decorative)
+           ======================================== */
+        .section-num {
+            font-family: var(--serif);
+            font-size: 96px;
+            line-height: 1;
+            color: transparent;
+            -webkit-text-stroke: 1.5px var(--border);
+            position: absolute;
+            top: -16px;
+            left: -8px;
+            user-select: none;
+            pointer-events: none;
+        }
+
+        @media (min-width: 768px) {
+            .section-num {
+                font-size: 140px;
+                top: -24px;
+                left: -16px;
+            }
+        }
+
+        /* ========================================
+           EYEBROW LABEL
+           ======================================== */
+        .eyebrow {
+            font-family: var(--mono);
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--mid);
+            display: inline-block;
+        }
+
+        .eyebrow--orange {
+            color: var(--orange);
+        }
+
+        /* ========================================
+           THICK DIVIDER
+           ======================================== */
+        .divider {
+            width: 100%;
+            height: 3px;
+            background-color: var(--dark);
+        }
+
+        .divider--thin {
+            height: 1px;
+            background-color: var(--border);
+        }
+
+        /* ========================================
+           HERO SECTION
+           ======================================== */
+        .hero {
+            padding: 48px 0 56px;
+            position: relative;
+        }
+
+        @media (min-width: 768px) {
+            .hero {
+                padding: 72px 0 80px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .hero {
+                display: grid;
+                grid-template-columns: 1fr 320px;
+                gap: 48px;
+                align-items: start;
+                padding: 96px 0 88px;
+            }
+        }
+
+        .hero__content {
+            position: relative;
+        }
+
+        .hero__eyebrow {
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .hero__headline {
+            font-family: var(--serif);
+            font-size: 36px;
+            line-height: 1.12;
+            color: var(--dark);
+            margin-bottom: 24px;
+            max-width: 640px;
+        }
+
+        @media (min-width: 768px) {
+            .hero__headline {
+                font-size: 52px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .hero__headline {
+                font-size: 58px;
+            }
+        }
+
+        .hero__headline em {
+            font-style: italic;
+            color: var(--orange);
+        }
+
+        .hero__subtitle {
+            font-family: var(--sans);
+            font-size: 17px;
+            line-height: 1.65;
+            color: var(--dark-muted);
+            max-width: 520px;
+            margin-bottom: 36px;
+        }
+
+        @media (min-width: 768px) {
+            .hero__subtitle {
+                font-size: 18px;
+            }
+        }
+
+        .hero__cta-group {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            align-items: flex-start;
+        }
+
+        @media (min-width: 480px) {
+            .hero__cta-group {
+                flex-direction: row;
+                align-items: center;
+            }
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 52px;
+            padding: 14px 32px;
+            background-color: var(--orange);
+            color: var(--paper);
+            font-family: var(--mono);
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            text-decoration: none;
+            border: 2px solid var(--orange);
+            border-radius: 2px;
+            cursor: pointer;
+            transition: background-color var(--transition-quick), color var(--transition-quick);
+            min-width: 44px;
+        }
+
+        .btn-primary:hover {
+            background-color: transparent;
+            color: var(--orange);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 52px;
+            padding: 14px 32px;
+            background-color: transparent;
+            color: var(--dark);
+            font-family: var(--mono);
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            text-decoration: none;
+            border: 2px solid var(--dark);
+            border-radius: 2px;
+            cursor: pointer;
+            transition: background-color var(--transition-quick), color var(--transition-quick);
+            min-width: 44px;
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--dark);
+            color: var(--paper);
+        }
+
+        .hero__sidebar {
+            display: none;
+        }
+
+        @media (min-width: 1024px) {
+            .hero__sidebar {
+                display: block;
+                border-left: 2px solid var(--dark);
+                padding-left: 32px;
+                padding-top: 16px;
+            }
+        }
+
+        .hero__stat {
+            margin-bottom: 32px;
+        }
+
+        .hero__stat-number {
+            font-family: var(--serif);
+            font-size: 48px;
+            line-height: 1;
+            color: var(--orange);
+            margin-bottom: 8px;
+        }
+
+        .hero__stat-label {
+            font-family: var(--mono);
+            font-size: 11px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--mid);
+            line-height: 1.5;
+        }
+
+        .hero__stat-desc {
+            font-family: var(--sans);
+            font-size: 14px;
+            color: var(--dark-muted);
+            margin-top: 8px;
+            line-height: 1.5;
+        }
+
+        /* ========================================
+           SECTION 01: EL PROBLEMA
+           ======================================== */
+        .section-problema {
+            padding: 64px 0;
+            position: relative;
+        }
+
+        @media (min-width: 768px) {
+            .section-problema {
+                padding: 88px 0;
+            }
+        }
+
+        .section-problema__header {
+            position: relative;
+            margin-bottom: 48px;
+        }
+
+        .section-problema__title {
+            font-family: var(--serif);
+            font-size: 32px;
+            line-height: 1.15;
+            color: var(--dark);
+            position: relative;
+            z-index: 1;
+        }
+
+        @media (min-width: 768px) {
+            .section-problema__title {
+                font-size: 42px;
+            }
+        }
+
+        .section-problema__intro {
+            font-family: var(--sans);
+            font-size: 17px;
+            line-height: 1.65;
+            color: var(--dark-muted);
+            max-width: 600px;
+            margin-top: 16px;
+        }
+
+        .pain-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0;
+        }
+
+        @media (min-width: 768px) {
+            .pain-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .pain-item {
+            padding: 28px 0;
+            border-top: 1px solid var(--border);
+            display: grid;
+            grid-template-columns: 20px 1fr;
+            gap: 16px;
+            align-items: start;
+        }
+
+        @media (min-width: 768px) {
+            .pain-item {
+                padding: 32px 24px 32px 0;
+            }
+
+            .pain-item:nth-child(even) {
+                padding-left: 24px;
+                border-left: 1px solid var(--border);
+            }
+        }
+
+        .pain-item__dot {
+            width: 10px;
+            height: 10px;
+            background-color: var(--orange);
+            border-radius: 50%;
+            margin-top: 7px;
+            flex-shrink: 0;
+        }
+
+        .pain-item__title {
+            font-family: var(--sans);
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 6px;
+        }
+
+        .pain-item__desc {
+            font-family: var(--sans);
+            font-size: 14px;
+            color: var(--dark-muted);
+            line-height: 1.6;
+        }
+
+        /* Consequences block */
+        .consequences {
+            margin-top: 48px;
+            padding: 32px;
+            border: 2px solid var(--dark);
+            border-radius: 4px;
+            position: relative;
+        }
+
+        @media (min-width: 768px) {
+            .consequences {
+                margin-left: 48px;
+                padding: 40px;
+            }
+        }
+
+        .consequences__label {
+            position: absolute;
+            top: -10px;
+            left: 24px;
+            background-color: var(--paper);
+            padding: 0 12px;
+            font-family: var(--mono);
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--orange);
+        }
+
+        .consequences__text {
+            font-family: var(--serif);
+            font-size: 22px;
+            line-height: 1.45;
+            color: var(--dark);
+        }
+
+        @media (min-width: 768px) {
+            .consequences__text {
+                font-size: 26px;
+            }
+        }
+
+        .consequences__detail {
+            font-family: var(--sans);
+            font-size: 15px;
+            color: var(--dark-muted);
+            margin-top: 16px;
+            line-height: 1.65;
+        }
+
+        /* ========================================
+           SECTION 02: LA SOLUCION
+           ======================================== */
+        .section-solucion {
+            padding: 64px 0;
+            position: relative;
+        }
+
+        @media (min-width: 768px) {
+            .section-solucion {
+                padding: 88px 0;
+            }
+        }
+
+        .section-solucion__header {
+            position: relative;
+            margin-bottom: 48px;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+
+        @media (min-width: 768px) {
+            .section-solucion__header {
+                grid-template-columns: 1fr 1fr;
+                gap: 48px;
+                align-items: end;
+            }
+        }
+
+        .section-solucion__title {
+            font-family: var(--serif);
+            font-size: 32px;
+            line-height: 1.15;
+            color: var(--dark);
+            position: relative;
+            z-index: 1;
+        }
+
+        @media (min-width: 768px) {
+            .section-solucion__title {
+                font-size: 42px;
+            }
+        }
+
+        .section-solucion__desc {
+            font-family: var(--sans);
+            font-size: 16px;
+            line-height: 1.65;
+            color: var(--dark-muted);
+        }
+
+        /* Asymmetric feature cards */
+        .features-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+        }
+
+        @media (min-width: 768px) {
+            .features-grid {
+                grid-template-columns: 1.4fr 1fr;
+                gap: 24px;
+            }
+        }
+
+        .feature-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 28px 24px;
+            position: relative;
+            transition: border-color var(--transition-quick);
+        }
+
+        .feature-card:hover {
+            border-color: var(--orange);
+        }
+
+        .feature-card--wide {
+            /* Spans full width on larger grids */
+        }
+
+        @media (min-width: 768px) {
+            .feature-card--tall {
+                grid-row: span 2;
+            }
+        }
+
+        .feature-card__eyebrow {
+            font-family: var(--mono);
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--orange);
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .feature-card__title {
+            font-family: var(--serif);
+            font-size: 22px;
+            line-height: 1.3;
+            color: var(--dark);
+            margin-bottom: 12px;
+        }
+
+        .feature-card__desc {
+            font-family: var(--sans);
+            font-size: 14px;
+            line-height: 1.65;
+            color: var(--dark-muted);
+        }
+
+        .feature-card__highlight {
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border);
+            font-family: var(--mono);
+            font-size: 12px;
+            color: var(--mid);
+            letter-spacing: 0.5px;
+        }
+
+        .feature-card__highlight strong {
+            color: var(--orange);
+            font-weight: 500;
+        }
+
+        /* ========================================
+           SECTION 03: COMO FUNCIONA
+           ======================================== */
+        .section-pasos {
+            padding: 64px 0;
+            position: relative;
+        }
+
+        @media (min-width: 768px) {
+            .section-pasos {
+                padding: 88px 0;
+            }
+        }
+
+        .section-pasos__header {
+            position: relative;
+            margin-bottom: 56px;
+        }
+
+        .section-pasos__title {
+            font-family: var(--serif);
+            font-size: 32px;
+            line-height: 1.15;
+            color: var(--dark);
+            position: relative;
+            z-index: 1;
+        }
+
+        @media (min-width: 768px) {
+            .section-pasos__title {
+                font-size: 42px;
+            }
+        }
+
+        .steps-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .step {
+            display: grid;
+            grid-template-columns: 72px 1fr;
+            gap: 24px;
+            padding: 36px 0;
+            border-top: 2px solid var(--dark);
+            align-items: start;
+        }
+
+        @media (min-width: 768px) {
+            .step {
+                grid-template-columns: 120px 1fr 280px;
+                gap: 40px;
+                padding: 44px 0;
+            }
+        }
+
+        .step__number {
+            font-family: var(--serif);
+            font-size: 56px;
+            line-height: 1;
+            color: var(--orange);
+        }
+
+        @media (min-width: 768px) {
+            .step__number {
+                font-size: 72px;
+            }
+        }
+
+        .step__content {
+            /* main text */
+        }
+
+        .step__title {
+            font-family: var(--serif);
+            font-size: 24px;
+            line-height: 1.25;
+            color: var(--dark);
+            margin-bottom: 8px;
+        }
+
+        @media (min-width: 768px) {
+            .step__title {
+                font-size: 28px;
+            }
+        }
+
+        .step__desc {
+            font-family: var(--sans);
+            font-size: 15px;
+            line-height: 1.65;
+            color: var(--dark-muted);
+        }
+
+        .step__aside {
+            display: none;
+        }
+
+        @media (min-width: 768px) {
+            .step__aside {
+                display: block;
+                font-family: var(--mono);
+                font-size: 12px;
+                color: var(--mid);
+                line-height: 1.7;
+                padding-left: 24px;
+                border-left: 1px solid var(--border);
+            }
+        }
+
+        /* ========================================
+           SECTION 04: PRUEBALO GRATIS (FORM)
+           ======================================== */
+        .section-form {
+            padding: 64px 0 80px;
+            position: relative;
+        }
+
+        @media (min-width: 768px) {
+            .section-form {
+                padding: 88px 0 100px;
+            }
+        }
+
+        .section-form__layout {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+        }
+
+        @media (min-width: 768px) {
+            .section-form__layout {
+                grid-template-columns: 1fr 1fr;
+                gap: 64px;
+                align-items: start;
+            }
+        }
+
+        .section-form__header {
+            position: relative;
+        }
+
+        .section-form__title {
+            font-family: var(--serif);
+            font-size: 32px;
+            line-height: 1.15;
+            color: var(--dark);
+            margin-bottom: 16px;
+            position: relative;
+            z-index: 1;
+        }
+
+        @media (min-width: 768px) {
+            .section-form__title {
+                font-size: 42px;
+            }
+        }
+
+        .section-form__subtitle {
+            font-family: var(--sans);
+            font-size: 16px;
+            line-height: 1.65;
+            color: var(--dark-muted);
+            margin-bottom: 32px;
+        }
+
+        .section-form__guarantee {
+            padding: 20px 24px;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            background-color: var(--card-bg);
+        }
+
+        .section-form__guarantee-label {
+            font-family: var(--mono);
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--orange);
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .section-form__guarantee-text {
+            font-family: var(--sans);
+            font-size: 14px;
+            color: var(--dark-muted);
+            line-height: 1.6;
+        }
+
+        /* Form styles */
+        .form-card {
+            border: 2px solid var(--dark);
+            border-radius: 4px;
+            padding: 32px 24px;
+            background-color: var(--paper);
+        }
+
+        @media (min-width: 768px) {
+            .form-card {
+                padding: 40px 32px;
+            }
+        }
+
+        .form-card__title {
+            font-family: var(--mono);
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--dark);
+            margin-bottom: 28px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group:last-of-type {
+            margin-bottom: 28px;
+        }
+
+        .form-label {
+            display: block;
+            font-family: var(--mono);
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--mid);
+            margin-bottom: 8px;
+        }
+
+        .form-input,
+        .form-select {
+            width: 100%;
+            min-height: 48px;
+            padding: 12px 16px;
+            font-family: var(--sans);
+            font-size: 15px;
+            color: var(--dark);
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            outline: none;
+            transition: border-color var(--transition-quick);
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        .form-input:focus,
+        .form-select:focus {
+            border-color: var(--orange);
+        }
+
+        .form-input::placeholder {
+            color: var(--mid);
+            font-size: 14px;
+        }
+
+        .form-select {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238A8A7A' fill='none' stroke-width='1.5'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            padding-right: 40px;
+            cursor: pointer;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .form-submit {
+            width: 100%;
+            min-height: 52px;
+            padding: 14px 32px;
+            background-color: var(--orange);
+            color: var(--paper);
+            font-family: var(--mono);
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            border: 2px solid var(--orange);
+            border-radius: 2px;
+            cursor: pointer;
+            transition: background-color var(--transition-quick), color var(--transition-quick);
+        }
+
+        .form-submit:hover {
+            background-color: transparent;
+            color: var(--orange);
+        }
+
+        .form-submit:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* Gracias message */
+        .form-success {
+            display: none;
+            text-align: center;
+            padding: 48px 24px;
+        }
+
+        .form-success.is-visible {
+            display: block;
+        }
+
+        .form-success__title {
+            font-family: var(--serif);
+            font-size: 28px;
+            color: var(--dark);
+            margin-bottom: 12px;
+        }
+
+        .form-success__text {
+            font-family: var(--sans);
+            font-size: 15px;
+            color: var(--dark-muted);
+            line-height: 1.6;
+        }
+
+        /* ========================================
+           FOOTER
+           ======================================== */
+        .footer {
+            border-top: 3px solid var(--dark);
+            padding: 32px 0;
+        }
+
+        .footer__inner {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        @media (min-width: 768px) {
+            .footer__inner {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+        }
+
+        .footer__brand {
+            font-family: var(--mono);
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--dark);
+        }
+
+        .footer__copy {
+            font-family: var(--sans);
+            font-size: 13px;
+            color: var(--mid);
+        }
+
+        /* ========================================
+           UTILITY
+           ======================================== */
+        .visually-hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            margin: -1px;
+            padding: 0;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+        }
+
+        /* Selection color */
+        ::selection {
+            background-color: var(--orange);
+            color: var(--paper);
+        }
+
+        /* ========================================
+           HERO SIDEBAR RESPONSIVE
+           ======================================== */
+        @media (min-width: 1024px) {
+            .hero > .page-container {
+                position: relative;
+            }
+            .hero .page-container > div {
+                max-width: calc(100% - 340px);
+            }
+        }
+
+        /* ========================================
+           MOBILE STATS STRIP
+           ======================================== */
+        .mobile-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            border-top: 2px solid var(--dark);
+            border-bottom: 2px solid var(--dark);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        @media (min-width: 1024px) {
+            .mobile-stats {
+                display: none;
+            }
+        }
+
+        .mobile-stat {
+            padding: 24px 20px;
+        }
+
+        .mobile-stat:first-child {
+            border-right: 1px solid var(--border);
+        }
+
+        .mobile-stat__number {
+            font-family: var(--serif);
+            font-size: 36px;
+            line-height: 1;
+            color: var(--orange);
+            margin-bottom: 6px;
+        }
+
+        .mobile-stat__label {
+            font-family: var(--mono);
+            font-size: 10px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--mid);
+            line-height: 1.4;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============================================
+         SIDE RAIL (Desktop only)
+         ============================================ -->
+    <aside class="side-rail" aria-label="Navegacion lateral">
+        <span class="side-rail__brand">clinica-bot</span>
+        <nav class="side-rail__nav">
+            <a href="#problema">Problema</a>
+            <a href="#solucion">Solucion</a>
+            <a href="#pasos">Pasos</a>
+            <a href="#prueba">Prueba</a>
+        </nav>
+        <div class="side-rail__marker" aria-hidden="true"></div>
+    </aside>
+
+    <!-- ============================================
+         MOBILE HEADER
+         ============================================ -->
+    <header class="mobile-header">
+        <span class="mobile-header__brand">clinica-bot</span>
+        <a href="#prueba" class="mobile-header__cta">Probar gratis</a>
+    </header>
+
+    <!-- ============================================
+         HERO
+         ============================================ -->
+    <section class="hero">
+        <div class="page-container">
+            <div style="display: grid; grid-template-columns: 1fr; gap: 48px;">
+
+                <!-- Desktop grid wrapper -->
+                <div style="display: grid; grid-template-columns: 1fr; gap: 48px;" class="hero-grid-wrapper">
+                    <div class="hero__content">
+                        <div class="hero__eyebrow">
+                            <span class="eyebrow">Para consultorios medicos</span>
+                        </div>
+
+                        <h1 class="hero__headline">
+                            Cuantos pacientes perdiste este mes
+                            <em>por no contestar WhatsApp?</em>
+                        </h1>
+
+                        <p class="hero__subtitle">
+                            Son las 11 de la noche. Un paciente te escribe para agendar cita.
+                            No contestas. Manana ya agendo con otro doctor. Eso pasa todos los dias
+                            en tu consultorio &mdash; y estas perdiendo dinero sin darte cuenta.
+                        </p>
+
+                        <div class="hero__cta-group">
+                            <a href="#prueba" class="btn-primary">Quiero probarlo gratis</a>
+                            <a href="#problema" class="btn-secondary">Ver el problema</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Desktop sidebar (stats) -->
+            <div class="hero__sidebar" style="position: absolute; top: 96px; right: 64px; width: 280px;">
+                <div class="hero__stat">
+                    <div class="hero__stat-number">29%</div>
+                    <span class="hero__stat-label">Tasa de ausentismo</span>
+                    <p class="hero__stat-desc">En Latinoamerica, hasta 29 de cada 100 pacientes no llegan a su cita.</p>
+                </div>
+                <div class="hero__stat">
+                    <div class="hero__stat-number">$50K</div>
+                    <span class="hero__stat-label">MXN / mes en perdidas</span>
+                    <p class="hero__stat-desc">Es lo que pierde un consultorio promedio por citas canceladas y no-shows.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         MOBILE STATS (tablet/mobile only)
+         ============================================ -->
+    <div class="mobile-stats" aria-label="Estadisticas clave">
+        <div class="mobile-stat">
+            <div class="mobile-stat__number">29%</div>
+            <span class="mobile-stat__label">Tasa de ausentismo en LATAM</span>
+        </div>
+        <div class="mobile-stat">
+            <div class="mobile-stat__number">$50K</div>
+            <span class="mobile-stat__label">MXN/mes en perdidas promedio</span>
+        </div>
+    </div>
+
+    <!-- ============================================
+         SECTION 01: EL PROBLEMA
+         ============================================ -->
+    <div class="page-container"><div class="divider"></div></div>
+
+    <section class="section-problema" id="problema">
+        <div class="page-container">
+            <div class="section-problema__header">
+                <span class="section-num" aria-hidden="true">01</span>
+                <span class="eyebrow eyebrow--orange" style="margin-bottom: 12px;">Seccion 01</span>
+                <h2 class="section-problema__title">El problema que ya conoces<br>(pero no has resuelto)</h2>
+                <p class="section-problema__intro">
+                    Tu consultorio depende de WhatsApp para agendar citas. Pero WhatsApp no trabaja
+                    las 24 horas &mdash; y tu tampoco.
+                </p>
+            </div>
+
+            <div class="pain-grid">
+
+                <div class="pain-item">
+                    <div class="pain-item__dot" aria-hidden="true"></div>
+                    <div>
+                        <p class="pain-item__title">Mensajes sin contestar despues de las 8pm</p>
+                        <p class="pain-item__desc">
+                            El 40% de los mensajes de pacientes llegan fuera de horario. Cada mensaje
+                            sin respuesta es un paciente que se va con otro doctor.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="pain-item">
+                    <div class="pain-item__dot" aria-hidden="true"></div>
+                    <div>
+                        <p class="pain-item__title">Pacientes que agendan y no llegan</p>
+                        <p class="pain-item__desc">
+                            Sin recordatorios automaticos, la tasa de ausentismo en Mexico llega hasta el 29%.
+                            Huecos en tu agenda = dinero tirado.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="pain-item">
+                    <div class="pain-item__dot" aria-hidden="true"></div>
+                    <div>
+                        <p class="pain-item__title">Tu asistente no puede con todo</p>
+                        <p class="pain-item__desc">
+                            Contestar WhatsApp, atender en mostrador, cobrar, confirmar citas.
+                            Algo siempre se queda sin hacer.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="pain-item">
+                    <div class="pain-item__dot" aria-hidden="true"></div>
+                    <div>
+                        <p class="pain-item__title">Las mismas preguntas una y otra vez</p>
+                        <p class="pain-item__desc">
+                            Horarios, precios, ubicacion, formas de pago. Tu equipo gasta horas
+                            respondiendo lo que un bot podria resolver en segundos.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="pain-item">
+                    <div class="pain-item__dot" aria-hidden="true"></div>
+                    <div>
+                        <p class="pain-item__title">No sabes cuantos pacientes estas perdiendo</p>
+                        <p class="pain-item__desc">
+                            Sin registro de conversaciones, no hay datos. No puedes mejorar
+                            lo que no mides.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="consequences">
+                <span class="consequences__label">Lo que esto te cuesta</span>
+                <p class="consequences__text">
+                    Un consultorio con 3 doctores pierde entre $15,000 y $50,000 MXN al mes
+                    por citas no confirmadas, pacientes que no llegan y prospectos que nunca agendaron.
+                </p>
+                <p class="consequences__detail">
+                    Eso es entre $180,000 y $600,000 MXN al ano. Y la solucion cuesta menos
+                    que el salario de medio tiempo de una recepcionista.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         SECTION 02: LA SOLUCION
+         ============================================ -->
+    <div class="page-container"><div class="divider"></div></div>
+
+    <section class="section-solucion" id="solucion">
+        <div class="page-container">
+            <div class="section-solucion__header">
+                <div style="position: relative;">
+                    <span class="section-num" aria-hidden="true">02</span>
+                    <span class="eyebrow eyebrow--orange" style="display: block; margin-bottom: 12px;">Seccion 02</span>
+                    <h2 class="section-solucion__title">Un asistente que nunca duerme, nunca falta y nunca se equivoca</h2>
+                </div>
+                <p class="section-solucion__desc">
+                    clinica-bot es un asistente de inteligencia artificial que vive dentro de tu WhatsApp Business.
+                    Contesta, agenda, confirma y recuerda &mdash; las 24 horas, los 7 dias de la semana.
+                    Y cuando necesitas intervenir, tomas el control con un solo mensaje.
+                </p>
+            </div>
+
+            <div class="features-grid">
+
+                <!-- Card: tall on right side -->
+                <div class="feature-card" style="grid-row: span 1;">
+                    <span class="feature-card__eyebrow">Agenda 24/7</span>
+                    <h3 class="feature-card__title">Tus pacientes agendan a cualquier hora</h3>
+                    <p class="feature-card__desc">
+                        A las 6am o a las 11pm: clinica-bot muestra horarios disponibles, agenda la cita
+                        y sincroniza automaticamente con Google Calendar. Sin que tengas que hacer nada.
+                    </p>
+                    <div class="feature-card__highlight">
+                        Integracion directa con <strong>Google Calendar</strong>
+                    </div>
+                </div>
+
+                <div class="feature-card feature-card--tall">
+                    <span class="feature-card__eyebrow">Recordatorios inteligentes</span>
+                    <h3 class="feature-card__title">Recordatorios a 48 horas y 2 horas antes</h3>
+                    <p class="feature-card__desc">
+                        El paciente recibe dos recordatorios automaticos por WhatsApp. Puede confirmar,
+                        cancelar o reagendar desde la misma conversacion. Sin llamadas. Sin esfuerzo.
+                    </p>
+                    <div class="feature-card__highlight">
+                        Reduce el ausentismo de <strong>29% a menos del 10%</strong>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-card__eyebrow">FAQ automatico</span>
+                    <h3 class="feature-card__title">7 categorias de preguntas resueltas al instante</h3>
+                    <p class="feature-card__desc">
+                        Horarios, ubicacion, precios, especialidades, formas de pago, requisitos y seguros.
+                        Configuras las respuestas una vez. El bot contesta siempre.
+                    </p>
+                </div>
+
+                <div class="feature-card" style="grid-column: 1 / -1;">
+                    <div style="display: grid; grid-template-columns: 1fr; gap: 24px;">
+                        <div>
+                            <span class="feature-card__eyebrow">Control total</span>
+                            <h3 class="feature-card__title">Tomas el control cuando quieras</h3>
+                            <p class="feature-card__desc">
+                                Con un simple comando, el doctor o la asistente toman la conversacion en cualquier
+                                momento. El bot se pausa y tu hablas directo con el paciente. Cuando terminas,
+                                el bot retoma. Sin fricciones.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="feature-card__highlight">
+                        Funciones incluidas: <strong>Agendar / Cancelar / Reagendar / FAQ / Recordatorios / Control manual</strong>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         SECTION 03: COMO FUNCIONA
+         ============================================ -->
+    <div class="page-container"><div class="divider"></div></div>
+
+    <section class="section-pasos" id="pasos">
+        <div class="page-container">
+            <div class="section-pasos__header">
+                <span class="section-num" aria-hidden="true">03</span>
+                <span class="eyebrow eyebrow--orange" style="display: block; margin-bottom: 12px;">Seccion 03</span>
+                <h2 class="section-pasos__title">Como funciona</h2>
+            </div>
+
+            <div class="steps-list">
+
+                <div class="step">
+                    <div class="step__number">01</div>
+                    <div class="step__content">
+                        <h3 class="step__title">Configura tu consultorio</h3>
+                        <p class="step__desc">
+                            Nos dices tus horarios, servicios, precios y respuestas a preguntas frecuentes.
+                            Conectamos clinica-bot a tu WhatsApp Business y tu Google Calendar.
+                            En menos de 48 horas estas listo.
+                        </p>
+                    </div>
+                    <div class="step__aside">
+                        Setup completo en menos de 48h. Sin instalar nada. Sin cambiar de numero.
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step__number">02</div>
+                    <div class="step__content">
+                        <h3 class="step__title">El bot atiende por ti</h3>
+                        <p class="step__desc">
+                            Cada mensaje que llega a tu WhatsApp es procesado por clinica-bot. Agenda citas,
+                            responde preguntas, envia recordatorios y permite cancelar o reagendar.
+                            Todo automatico, todo desde WhatsApp.
+                        </p>
+                    </div>
+                    <div class="step__aside">
+                        24/7 sin descansos, sin errores, sin olvidar ninguna cita.
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step__number">03</div>
+                    <div class="step__content">
+                        <h3 class="step__title">Tu agenda se llena sola</h3>
+                        <p class="step__desc">
+                            Menos ausentismo, mas pacientes nuevos, menos trabajo operativo.
+                            Ves los resultados desde la primera semana: mas citas confirmadas,
+                            menos huecos y una recepcionista que por fin puede enfocarse en lo que importa.
+                        </p>
+                    </div>
+                    <div class="step__aside">
+                        Ahorro estimado: $15K-$50K MXN/mes en citas recuperadas.
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         SECTION 04: PRUEBALO GRATIS
+         ============================================ -->
+    <div class="page-container"><div class="divider"></div></div>
+
+    <section class="section-form" id="prueba">
+        <div class="page-container">
+            <div class="section-form__layout">
+
+                <div class="section-form__header">
+                    <span class="section-num" aria-hidden="true">04</span>
+                    <span class="eyebrow eyebrow--orange" style="display: block; margin-bottom: 12px;">Seccion 04</span>
+                    <h2 class="section-form__title">Pruebalo gratis en tu consultorio</h2>
+                    <p class="section-form__subtitle">
+                        Sin tarjeta de credito. Sin compromiso. Configura clinica-bot en tu WhatsApp
+                        y ve como tu agenda se organiza sola durante 14 dias.
+                    </p>
+
+                    <div class="section-form__guarantee">
+                        <span class="section-form__guarantee-label">Incluye</span>
+                        <p class="section-form__guarantee-text">
+                            14 dias gratis con todas las funciones. Setup guiado sin costo.
+                            Si no ves resultados, simplemente cancelas. Precio despues de prueba:
+                            $500-$1,500 MXN/mes segun el tamano de tu consultorio.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="form-card" id="form-card">
+                    <h3 class="form-card__title">Solicita tu prueba gratis</h3>
+
+                    <form id="lead-form" novalidate>
+                        <div class="form-group">
+                            <label for="nombre" class="form-label">Nombre</label>
+                            <input
+                                type="text"
+                                id="nombre"
+                                name="nombre"
+                                class="form-input"
+                                placeholder="Dr. Juan Perez"
+                                required
+                                autocomplete="name"
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="consultorio" class="form-label">Consultorio</label>
+                            <input
+                                type="text"
+                                id="consultorio"
+                                name="consultorio"
+                                class="form-input"
+                                placeholder="Clinica Dental Sonrisas"
+                                required
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="whatsapp" class="form-label">WhatsApp</label>
+                            <input
+                                type="tel"
+                                id="whatsapp"
+                                name="whatsapp"
+                                class="form-input"
+                                placeholder="55 1234 5678"
+                                required
+                                autocomplete="tel"
+                            >
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="especialidad" class="form-label">Especialidad</label>
+                                <select id="especialidad" name="especialidad" class="form-select" required>
+                                    <option value="" disabled selected>Selecciona</option>
+                                    <option value="medicina-general">Medicina General</option>
+                                    <option value="dental">Dental</option>
+                                    <option value="pediatria">Pediatria</option>
+                                    <option value="ginecologia">Ginecologia</option>
+                                    <option value="dermatologia">Dermatologia</option>
+                                    <option value="oftalmologia">Oftalmologia</option>
+                                    <option value="nutricion">Nutricion</option>
+                                    <option value="psicologia">Psicologia</option>
+                                    <option value="traumatologia">Traumatologia</option>
+                                    <option value="otra">Otra</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="doctores" class="form-label"># Doctores</label>
+                                <select id="doctores" name="doctores" class="form-select" required>
+                                    <option value="" disabled selected>Selecciona</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5+</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="form-submit" id="form-submit-btn">
+                            Quiero probarlo gratis
+                        </button>
+                    </form>
+
+                    <div class="form-success" id="form-success">
+                        <h3 class="form-success__title">Gracias, recibimos tu solicitud</h3>
+                        <p class="form-success__text">
+                            Te contactaremos por WhatsApp en las proximas 24 horas
+                            para configurar clinica-bot en tu consultorio.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         FOOTER
+         ============================================ -->
+    <footer class="footer">
+        <div class="page-container">
+            <div class="footer__inner">
+                <span class="footer__brand">clinica-bot</span>
+                <span class="footer__copy">2025 clinica-bot. Todos los derechos reservados.</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ============================================
+         SCRIPTS
+         ============================================ -->
+    <script>
+        (function() {
+            'use strict';
+
+            var form = document.getElementById('lead-form');
+            var formCard = document.getElementById('form-card');
+            var successMsg = document.getElementById('form-success');
+            var submitBtn = document.getElementById('form-submit-btn');
+
+            if (!form) return;
+
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                // Gather form data
+                var formData = {
+                    nombre: document.getElementById('nombre').value.trim(),
+                    consultorio: document.getElementById('consultorio').value.trim(),
+                    whatsapp: document.getElementById('whatsapp').value.trim(),
+                    especialidad: document.getElementById('especialidad').value,
+                    doctores: document.getElementById('doctores').value,
+                    timestamp: new Date().toISOString(),
+                    landing: 'landing-a-dolor'
+                };
+
+                // Basic validation
+                if (!formData.nombre || !formData.consultorio || !formData.whatsapp ||
+                    !formData.especialidad || !formData.doctores) {
+                    return;
+                }
+
+                // Log form data
+                console.log('[clinica-bot] Lead form submitted:', JSON.stringify(formData, null, 2));
+
+                // GA4 event placeholder
+                // TODO: Uncomment when GA4 is configured
+                // gtag('event', 'generate_lead', {
+                //     event_category: 'form',
+                //     event_label: 'landing-a-dolor',
+                //     especialidad: formData.especialidad,
+                //     doctores: formData.doctores
+                // });
+
+                // Show success message
+                form.style.display = 'none';
+                successMsg.classList.add('is-visible');
+            });
+        })();
+    </script>
+
+</body>
+</html>
