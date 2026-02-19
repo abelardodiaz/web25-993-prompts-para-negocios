@@ -22,12 +22,24 @@
 project:
   code: web25-993
   name: Prompts para Negocios
-  version: 0.3.0
+  version: 0.4.0
   status: development
   description: Sistema de evaluacion de negocios con fase de descubrimiento de nichos (P0-P5)
 
 # Evaluacion activa
 active_evaluation:
+  name: Syscom Shopify Stores (Mexico)
+  folder: syscom-shopify-stores
+  stage: P0-pendiente
+  source: assets-existentes-019-602
+  tipo: idea-nueva-assets-existentes
+  competencia_identificada: MojoMexico, Kaesys KWS1, DecodeCMS
+  nichos_candidatos: 5
+  next_step: Ejecutar P0 debate multi-IA (proyecto 900)
+  mercado_inicial: Mexico
+
+# Evaluacion Shopify Integrations Global (P0 completado, esperando P1)
+shopify_integrations_global:
   name: Shopify Integrations Global (LATAM + Europa)
   folder: shopify-integrations-global
   stage: P0-complete
@@ -77,6 +89,35 @@ pending_evaluation:
   tam: 157533 consultorios medicos/dentales (INEGI DENUE 2025)
   sam: 12600 consultorios WhatsApp-activos con disposicion a pagar
   relacion_crm48: nicho Clinicas/Dentistas identificado en crm48/00-idea-inicial.md
+
+# Evaluacion GPS Fleet Monitor
+gps_fleet_monitor:
+  name: GPS Fleet Monitor (057)
+  folder: gps-fleet-monitor
+  stage: P1-complete
+  source: producto-existente-web26-057-v0.2.0
+  tipo: producto-pre-construido
+  next_step: Validacion rapida con pilotos (3 meses)
+  mercado_inicial: Mexico (flotillas PyME + constructoras)
+  tam_usd: 345M-1717M (fleet management Mexico)
+  nichos_evaluados: 7
+  nichos_top:
+    - nicho: "#1 Constructoras / Maquinaria Pesada"
+      ice_score: 504
+      decision: VALIDAR PRIMERO
+      precio_unidad_mes: $500-$1,200 MXN
+    - nicho: "#2 Farma / Cadena Fria"
+      ice_score: 360
+      decision: VALIDAR DESPUES (complejidad tecnica)
+      precio_unidad_mes: $800-$1,500 MXN
+    - nicho: "#3 Flotillas PyME"
+      ice_score: 441
+      decision: VALIDAR EN PARALELO (volumen)
+      precio_unidad_mes: $250-$450 MXN
+  dispositivos: Concox/JimiIoT via TrackSolid (GT06N, VL02, VL103, LL301, LL303)
+  tecnicos: 2 freelancers disponibles
+  inversion_validacion: $31,900 MXN (~$1,770 USD)
+  break_even: ~41 unidades monitoreadas
 
 # Evaluacion anterior (completada)
 previous_evaluation:
@@ -129,7 +170,7 @@ urls:
 stack:
   primary: documentation
 
-updated_at: "2026-02-08T12:00:00Z"
+updated_at: "2026-02-19T00:00:00Z"
 updated_by: claude-993
 
 # Skills creados (fuera del proyecto, en ~/.claude/skills/)
