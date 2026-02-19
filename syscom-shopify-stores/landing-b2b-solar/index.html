@@ -1,0 +1,1378 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tu Tienda Solar Online en 7 Dias | Sincronizada con Syscom</title>
+  <meta name="description" content="Montamos tu tienda online profesional de energia solar, sincronizada con Syscom, con kits pre-armados y calculadora de ahorro. Setup desde $15,000 MXN.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    /* ===========================================
+       WARM TECHNICAL - Landing B2B Solar
+       Target: Instaladores/integradores solar 30-50
+       Aesthetic: Naturaleza meets tecnologia
+       Light/Dark mode with system preference
+       =========================================== */
+
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg-primary: #F2F0EB;
+      --bg-secondary: #E8E5DD;
+      --bg-tertiary: #DDD9CF;
+      --bg-panel: #EDEAE3;
+      --text-primary: #1A2A1A;
+      --text-secondary: #4A5A4A;
+      --text-muted: #7A8A7A;
+      --accent: #B8860B;
+      --accent-hover: #D4A853;
+      --accent-dim: #9A7209;
+      --warning: #C65D00;
+      --success: #2E7D32;
+      --border: #C5C0B5;
+      --border-accent: #A8A298;
+      --font-display: 'Libre Baskerville', Georgia, serif;
+      --font-body: 'IBM Plex Sans', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --shadow-soft: 0 2px 8px rgba(26, 42, 26, 0.06);
+      --radius: 3px;
+    }
+
+    [data-theme="dark"] {
+      --bg-primary: #2D3B2D;
+      --bg-secondary: #364136;
+      --bg-tertiary: #3F4C3F;
+      --bg-panel: #324032;
+      --text-primary: #F0EDE5;
+      --text-secondary: #C4BFB5;
+      --text-muted: #8A857D;
+      --accent: #D4A853;
+      --accent-hover: #E0BC6A;
+      --accent-dim: #B8930F;
+      --warning: #E07830;
+      --success: #5CB85C;
+      --border: #4A5A4A;
+      --border-accent: #5A6A5A;
+      --shadow-soft: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    /* ---- NAV ---- */
+    .nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 100;
+      background: var(--bg-primary);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 60px;
+      transition: background 0.3s;
+    }
+
+    .nav-brand {
+      font-family: var(--font-display);
+      font-size: 0.9rem;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .nav-brand .leaf {
+      width: 18px;
+      height: 18px;
+      border: 2px solid var(--accent);
+      border-radius: 0 50% 0 50%;
+      position: relative;
+    }
+
+    .nav-brand .leaf::after {
+      content: '';
+      position: absolute;
+      bottom: 3px;
+      left: 50%;
+      width: 1px;
+      height: 8px;
+      background: var(--accent);
+      transform: translateX(-50%) rotate(-15deg);
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .theme-toggle {
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 0.4rem 0.6rem;
+      cursor: pointer;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      line-height: 1;
+      transition: border-color 0.15s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+    }
+
+    .theme-toggle:hover {
+      border-color: var(--accent);
+    }
+
+    .theme-toggle .icon-sun,
+    .theme-toggle .icon-moon {
+      display: none;
+    }
+
+    /* Default (light): show moon to switch to dark */
+    .theme-toggle .icon-moon {
+      display: block;
+    }
+
+    [data-theme="dark"] .theme-toggle .icon-moon {
+      display: none;
+    }
+
+    [data-theme="dark"] .theme-toggle .icon-sun {
+      display: block;
+    }
+
+    .nav-cta {
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--bg-primary);
+      background: var(--accent);
+      padding: 0.5rem 1.5rem;
+      border: none;
+      border-radius: var(--radius);
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.15s;
+    }
+
+    .nav-cta:hover {
+      background: var(--accent-hover);
+    }
+
+    /* ---- HERO ---- */
+    .hero {
+      margin-top: 60px;
+      min-height: calc(100vh - 60px);
+      display: grid;
+      grid-template-columns: 1fr;
+      position: relative;
+      border-bottom: 2px solid var(--accent);
+    }
+
+    .hero-content {
+      padding: 4rem 2rem 3rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .hero-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--accent);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      width: 32px;
+      height: 2px;
+      background: var(--accent);
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5.5vw, 3.8rem);
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 2rem;
+      max-width: 720px;
+    }
+
+    .hero-title .highlight {
+      color: var(--accent);
+      font-style: italic;
+    }
+
+    .hero-subtitle {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      max-width: 540px;
+      margin-bottom: 2.5rem;
+      line-height: 1.7;
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      max-width: 540px;
+    }
+
+    .stat {
+      background: var(--bg-secondary);
+      padding: 1.25rem 1rem;
+      text-align: center;
+      border: 1px solid var(--border);
+      margin-right: -1px;
+      margin-bottom: -1px;
+    }
+
+    .stat-value {
+      font-family: var(--font-display);
+      font-size: 1.7rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-top: 0.5rem;
+    }
+
+    /* ---- PROBLEM ---- */
+    .problem {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section-header {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 2rem;
+      align-items: baseline;
+      padding: 3rem 2rem 0;
+    }
+
+    .section-number {
+      font-family: var(--font-display);
+      font-size: 4.5rem;
+      font-weight: 700;
+      color: var(--bg-tertiary);
+      line-height: 1;
+      user-select: none;
+      font-style: italic;
+    }
+
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.75rem;
+    }
+
+    .problem-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0;
+      margin: 2rem;
+    }
+
+    .problem-item {
+      background: var(--bg-secondary);
+      padding: 1.75rem;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 1.25rem;
+      align-items: start;
+      border: 1px solid var(--border);
+      margin-bottom: -1px;
+      transition: background 0.3s;
+    }
+
+    .problem-icon {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--warning);
+      background: rgba(198, 93, 0, 0.08);
+      border: 1px solid var(--warning);
+      padding: 0.3rem 0.5rem;
+      border-radius: var(--radius);
+      letter-spacing: 0.05em;
+    }
+
+    [data-theme="dark"] .problem-icon {
+      background: rgba(224, 120, 48, 0.1);
+    }
+
+    .problem-text h3 {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+    }
+
+    .problem-text p {
+      font-size: 0.92rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* ---- BEFORE/AFTER ---- */
+    .comparison {
+      padding: 4rem 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .comparison-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .comparison-card {
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .comparison-card.before {
+      border-color: var(--warning);
+    }
+
+    .comparison-card.after {
+      border-color: var(--success);
+    }
+
+    .comparison-card-header {
+      padding: 1rem 1.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .comparison-card.before .comparison-card-header {
+      background: rgba(198, 93, 0, 0.06);
+      color: var(--warning);
+      border-bottom: 1px solid rgba(198, 93, 0, 0.15);
+    }
+
+    [data-theme="dark"] .comparison-card.before .comparison-card-header {
+      background: rgba(224, 120, 48, 0.08);
+      border-bottom-color: rgba(224, 120, 48, 0.2);
+    }
+
+    .comparison-card.after .comparison-card-header {
+      background: rgba(46, 125, 50, 0.06);
+      color: var(--success);
+      border-bottom: 1px solid rgba(46, 125, 50, 0.15);
+    }
+
+    [data-theme="dark"] .comparison-card.after .comparison-card-header {
+      background: rgba(92, 184, 92, 0.08);
+      border-bottom-color: rgba(92, 184, 92, 0.2);
+    }
+
+    .comparison-list {
+      padding: 1.5rem;
+      list-style: none;
+    }
+
+    .comparison-list li {
+      padding: 0.55rem 0;
+      font-size: 0.92rem;
+      color: var(--text-secondary);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: baseline;
+      gap: 0.75rem;
+    }
+
+    .comparison-list li:last-child {
+      border-bottom: none;
+    }
+
+    .comparison-list li .marker {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      flex-shrink: 0;
+    }
+
+    .comparison-card.before .marker { color: var(--warning); }
+    .comparison-card.after .marker { color: var(--success); }
+
+    /* ---- SOLUTION ---- */
+    .solution {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .solution-intro {
+      padding: 0 2rem;
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .solution-intro p {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      max-width: 620px;
+      line-height: 1.7;
+    }
+
+    .solution-items {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0;
+      margin: 0 2rem 3rem;
+    }
+
+    .solution-item {
+      background: var(--bg-secondary);
+      padding: 1.75rem;
+      display: grid;
+      grid-template-columns: 72px 1fr;
+      gap: 1.25rem;
+      align-items: start;
+      border: 1px solid var(--border);
+      margin-bottom: -1px;
+      transition: background 0.3s;
+    }
+
+    .solution-item-number {
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--accent-dim);
+      line-height: 1;
+      font-style: italic;
+    }
+
+    .solution-item h3 {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+    }
+
+    .solution-item p {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* ---- PROCESS ---- */
+    .process {
+      padding: 4rem 2rem;
+      border-bottom: 2px solid var(--accent);
+    }
+
+    .process-title {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .process-subtitle {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      letter-spacing: 0.1em;
+      margin-bottom: 2.5rem;
+      text-transform: uppercase;
+    }
+
+    .timeline {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .timeline-step {
+      display: grid;
+      grid-template-columns: 76px 1fr;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .timeline-step:last-child {
+      border-bottom: none;
+    }
+
+    .timeline-day {
+      background: var(--bg-tertiary);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem 0.5rem;
+      border-right: 1px solid var(--border);
+      transition: background 0.3s;
+    }
+
+    .timeline-day span:first-child {
+      font-family: var(--font-mono);
+      font-size: 0.58rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .timeline-day span:last-child {
+      font-family: var(--font-display);
+      font-size: 1.7rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+    }
+
+    .timeline-content {
+      padding: 1.5rem;
+    }
+
+    .timeline-content h4 {
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+    }
+
+    .timeline-content p {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    /* ---- PRICING ---- */
+    .pricing {
+      padding: 4rem 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .pricing-title {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .pricing-note {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      letter-spacing: 0.1em;
+      margin-bottom: 2.5rem;
+      text-transform: uppercase;
+    }
+
+    .pricing-cards {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .pricing-card {
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      position: relative;
+      background: var(--bg-secondary);
+      transition: background 0.3s;
+    }
+
+    .pricing-card.featured {
+      border-color: var(--accent);
+    }
+
+    .pricing-card-tag {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .pricing-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .pricing-amount {
+      font-family: var(--font-display);
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 0.25rem;
+    }
+
+    .pricing-period {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      letter-spacing: 0.1em;
+      margin-bottom: 1.5rem;
+      text-transform: uppercase;
+    }
+
+    .pricing-includes {
+      list-style: none;
+      border-top: 1px solid var(--border);
+      padding-top: 1.5rem;
+    }
+
+    .pricing-includes li {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      padding: 0.4rem 0;
+      padding-left: 1.5rem;
+      position: relative;
+    }
+
+    .pricing-includes li::before {
+      content: '+';
+      position: absolute;
+      left: 0;
+      font-family: var(--font-mono);
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    /* ---- CTA ---- */
+    .cta-section {
+      padding: 4rem 2rem;
+      background: var(--bg-secondary);
+      text-align: center;
+      border-bottom: 2px solid var(--accent);
+      transition: background 0.3s;
+    }
+
+    .cta-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.4rem, 3.5vw, 2.2rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+      max-width: 580px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-subtitle {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      margin-bottom: 2.5rem;
+      max-width: 460px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .btn-primary {
+      font-family: var(--font-body);
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--bg-primary);
+      background: var(--accent);
+      padding: 1.1rem 2.75rem;
+      border: 2px solid var(--accent);
+      border-radius: var(--radius);
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.15s;
+    }
+
+    .btn-primary:hover {
+      background: transparent;
+      color: var(--accent);
+    }
+
+    .btn-secondary {
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      background: transparent;
+      padding: 0.9rem 2.25rem;
+      border: 2px solid var(--border-accent);
+      border-radius: var(--radius);
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      transition: all 0.15s;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--text-primary);
+    }
+
+    .whatsapp-icon {
+      width: 20px;
+      height: 20px;
+    }
+
+    /* ---- FAQ ---- */
+    .faq {
+      padding: 4rem 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .faq-title {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 2rem;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+      padding: 1.5rem 0;
+    }
+
+    .faq-item:first-child {
+      border-top: 1px solid var(--border);
+    }
+
+    .faq-question {
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .faq-question .toggle {
+      font-family: var(--font-mono);
+      font-size: 1.2rem;
+      color: var(--accent);
+      transition: transform 0.15s;
+      flex-shrink: 0;
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.2s ease;
+    }
+
+    .faq-answer-inner {
+      padding-top: 1rem;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .faq-item.active .faq-answer {
+      max-height: 200px;
+    }
+
+    .faq-item.active .toggle {
+      transform: rotate(45deg);
+    }
+
+    /* ---- FOOTER ---- */
+    .footer {
+      padding: 2.5rem 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .footer-brand {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+
+    .footer-legal {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+
+    /* ---- DESKTOP OVERRIDES ---- */
+    @media (min-width: 768px) {
+      .nav {
+        padding: 0 4rem;
+      }
+
+      .hero-content {
+        padding: 6rem 4rem 4rem;
+      }
+
+      .problem-grid {
+        grid-template-columns: 1fr 1fr;
+        margin: 2rem 4rem;
+      }
+
+      .problem-item {
+        margin-bottom: 0;
+        margin-right: -1px;
+      }
+
+      .comparison {
+        padding: 4rem 4rem;
+      }
+
+      .comparison-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .section-header {
+        padding: 3rem 4rem 0;
+      }
+
+      .solution-intro {
+        padding: 0 4rem;
+      }
+
+      .solution-items {
+        grid-template-columns: 1fr 1fr;
+        margin: 0 4rem 3rem;
+      }
+
+      .solution-item {
+        margin-bottom: 0;
+        margin-right: -1px;
+      }
+
+      .process {
+        padding: 4rem 4rem;
+      }
+
+      .pricing {
+        padding: 4rem 4rem;
+      }
+
+      .pricing-cards {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .cta-section {
+        padding: 5rem 4rem;
+      }
+
+      .cta-buttons {
+        flex-direction: row;
+        justify-content: center;
+      }
+
+      .faq {
+        padding: 4rem 4rem;
+        max-width: 720px;
+      }
+
+      .footer {
+        padding: 2.5rem 4rem;
+        flex-direction: row;
+        justify-content: space-between;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .hero {
+        grid-template-columns: 1fr 360px;
+      }
+
+      .hero-side {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        border-left: 1px solid var(--border);
+        padding: 4rem 2.5rem;
+        gap: 0;
+      }
+
+      .hero-stats {
+        grid-template-columns: 1fr;
+        max-width: none;
+      }
+
+      .stat {
+        margin-right: 0;
+      }
+
+      .section-number {
+        font-size: 6.5rem;
+      }
+
+      .problem-grid {
+        margin: 2rem 4rem 3rem;
+      }
+
+      .solution-items {
+        grid-template-columns: 1fr 1fr 1fr;
+      }
+
+      .timeline {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      .timeline-step {
+        grid-template-columns: 1fr;
+        border-bottom: none;
+        border-right: 1px solid var(--border);
+      }
+
+      .timeline-step:last-child {
+        border-right: none;
+      }
+
+      .timeline-day {
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+      }
+    }
+
+    /* Hide side panel on mobile */
+    .hero-side {
+      display: none;
+    }
+
+    @media (min-width: 1024px) {
+      .hero-side { display: flex; }
+      .hero-stats-mobile { display: none; }
+    }
+
+    .hero-stats-mobile {
+      margin-top: 2.5rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ======================== NAV ======================== -->
+  <nav class="nav">
+    <div class="nav-brand">
+      <span class="leaf"></span>
+      Solar Llave en Mano
+    </div>
+    <div class="nav-right">
+      <button class="theme-toggle" aria-label="Cambiar tema" onclick="toggleTheme()">
+        <span class="icon-sun">&#9788;</span>
+        <span class="icon-moon">&#9789;</span>
+      </button>
+      <a href="#contacto" class="nav-cta">Agendar Llamada</a>
+    </div>
+  </nav>
+
+  <!-- ======================== HERO ======================== -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-eyebrow">Servicio para distribuidores Syscom</div>
+      <h1 class="hero-title">
+        Tu catalogo solar Syscom,<br>
+        <span class="highlight">vendiendo online</span><br>
+        en 7 dias
+      </h1>
+      <p class="hero-subtitle">
+        Te montamos una tienda solar profesional con kits pre-armados,
+        calculadora de ahorro vs CFE y fichas tecnicas que convierten.
+        Tu solo recibes los pedidos.
+      </p>
+      <!-- Stats mobile -->
+      <div class="hero-stats hero-stats-mobile">
+        <div class="stat">
+          <div class="stat-value">7</div>
+          <div class="stat-label">Dias de Setup</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">30%+</div>
+          <div class="stat-label">Crec. Solar Anual</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">24/7</div>
+          <div class="stat-label">Sync Automatico</div>
+        </div>
+      </div>
+    </div>
+    <!-- Side stats desktop -->
+    <div class="hero-side">
+      <div class="hero-stats">
+        <div class="stat">
+          <div class="stat-value">7</div>
+          <div class="stat-label">Dias de Setup</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">30%+</div>
+          <div class="stat-label">Crec. Solar Anual</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">24/7</div>
+          <div class="stat-label">Sync Automatico</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================== PROBLEM ======================== -->
+  <section class="problem">
+    <div class="section-header">
+      <div class="section-number">01</div>
+      <div class="section-label">El problema que ya conoces</div>
+    </div>
+    <div class="problem-grid">
+      <div class="problem-item">
+        <span class="problem-icon">ERR</span>
+        <div class="problem-text">
+          <h3>Cotizaciones manuales por WhatsApp</h3>
+          <p>Cada proyecto requiere calcular paneles, inversor, estructura y cableado. Todo a mano, cada vez. Un error en el dimensionamiento y pierdes al cliente o pierdes margen.</p>
+        </div>
+      </div>
+      <div class="problem-item">
+        <span class="problem-icon">ERR</span>
+        <div class="problem-text">
+          <h3>Mercado en explosion sin presencia digital</h3>
+          <p>Solar residencial crece 30%+ anual en Mexico. Pero tu sigues vendiendo por boca a boca mientras tiendasolar.mx y enertik.com capturan clientes que buscan en Google.</p>
+        </div>
+      </div>
+      <div class="problem-item">
+        <span class="problem-icon">ERR</span>
+        <div class="problem-text">
+          <h3>Productos complejos que el cliente no entiende</h3>
+          <p>Kits de interconexion CFE, inversores hibridos, baterias de litio. El cliente residencial no sabe que necesita. Sin fichas claras, no compra online.</p>
+        </div>
+      </div>
+      <div class="problem-item">
+        <span class="problem-icon">ERR</span>
+        <div class="problem-text">
+          <h3>Competencia con tiendas genericas</h3>
+          <p>Las tiendas online de solar venden sin asesoria tecnica real. Pero tienen presencia, SEO y checkout. Tu tienes el conocimiento tecnico, pero no la plataforma.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================== BEFORE/AFTER ======================== -->
+  <section class="comparison">
+    <div class="section-header" style="padding: 0 0 2rem;">
+      <div class="section-number">02</div>
+      <div class="section-label">La diferencia</div>
+    </div>
+    <div class="comparison-grid">
+      <div class="comparison-card before">
+        <div class="comparison-card-header">
+          <span>X</span> Vender solo por WhatsApp
+        </div>
+        <ul class="comparison-list">
+          <li><span class="marker">--</span> Cotizaciones manuales proyecto por proyecto</li>
+          <li><span class="marker">--</span> Sin catalogo visible para el cliente</li>
+          <li><span class="marker">--</span> Cero presencia en Google</li>
+          <li><span class="marker">--</span> El cliente no entiende que necesita</li>
+          <li><span class="marker">--</span> Dependes de referidos y boca a boca</li>
+          <li><span class="marker">--</span> Precios desactualizados en PDFs viejos</li>
+        </ul>
+      </div>
+      <div class="comparison-card after">
+        <div class="comparison-card-header">
+          <span>OK</span> Tienda solar llave en mano
+        </div>
+        <ul class="comparison-list">
+          <li><span class="marker">+</span> Kits pre-armados por capacidad (3kW, 5kW, 10kW)</li>
+          <li><span class="marker">+</span> Calculadora de ahorro vs recibo CFE</li>
+          <li><span class="marker">+</span> Fichas tecnicas con specs y compatibilidad</li>
+          <li><span class="marker">+</span> SEO para "paneles solares [tu ciudad]"</li>
+          <li><span class="marker">+</span> Precios y stock sincronizados con Syscom</li>
+          <li><span class="marker">+</span> Checkout profesional: tarjeta, OXXO, transferencia</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================== SOLUTION ======================== -->
+  <section class="solution">
+    <div class="section-header">
+      <div class="section-number">03</div>
+      <div class="section-label">Que incluye tu tienda</div>
+    </div>
+    <div class="solution-intro">
+      <p>No te vendemos un plugin. Te entregamos tu negocio solar online operando, con kits armados y contenido que convierte:</p>
+    </div>
+    <div class="solution-items">
+      <div class="solution-item">
+        <div class="solution-item-number">01</div>
+        <div>
+          <h3>Tienda Shopify con tu marca</h3>
+          <p>Diseno profesional enfocado en solar. Pagos con tarjeta, OXXO, transferencia. Envios configurados. Lista para recibir pedidos desde el dia uno.</p>
+        </div>
+      </div>
+      <div class="solution-item">
+        <div class="solution-item-number">02</div>
+        <div>
+          <h3>Sync automatico con Syscom</h3>
+          <p>Precios, disponibilidad e imagenes se actualizan automaticamente. Cuando Syscom cambia un precio, tu tienda lo refleja sin que toques nada.</p>
+        </div>
+      </div>
+      <div class="solution-item">
+        <div class="solution-item-number">03</div>
+        <div>
+          <h3>Kits pre-armados por caso de uso</h3>
+          <p>Residencial 3kW, 5kW, 10kW. Comercial PyME. Cada kit con paneles, inversor, estructura y cableado seleccionados y compatibles entre si.</p>
+        </div>
+      </div>
+      <div class="solution-item">
+        <div class="solution-item-number">04</div>
+        <div>
+          <h3>Calculadora de ahorro vs CFE</h3>
+          <p>El cliente ingresa su consumo bimestral y ve cuanto ahorraria con solar. Convierte visitantes curiosos en compradores decididos.</p>
+        </div>
+      </div>
+      <div class="solution-item">
+        <div class="solution-item-number">05</div>
+        <div>
+          <h3>Fichas tecnicas reales</h3>
+          <p>Specs de cada producto con compatibilidad clara. Escritas por gente que sabe la diferencia entre un inversor string y un microinversor.</p>
+        </div>
+      </div>
+      <div class="solution-item">
+        <div class="solution-item-number">06</div>
+        <div>
+          <h3>Capacitacion + SEO tecnico</h3>
+          <p>Te ensenamos a gestionar pedidos y ajustar margenes. Estructura optimizada para que Google indexe "paneles solares + tu ciudad" desde el dia uno.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================== PROCESS ======================== -->
+  <section class="process">
+    <h2 class="process-title">7 dias. De cero a vendiendo solar.</h2>
+    <p class="process-subtitle">Asi funciona el proceso</p>
+    <div class="timeline">
+      <div class="timeline-step">
+        <div class="timeline-day">
+          <span>Dia</span>
+          <span>1</span>
+        </div>
+        <div class="timeline-content">
+          <h4>Diagnostico solar</h4>
+          <p>Revisamos tu especialidad (residencial, comercial, hibrido), marcas preferidas y margenes. Definimos kits y productos.</p>
+        </div>
+      </div>
+      <div class="timeline-step">
+        <div class="timeline-day">
+          <span>Dia</span>
+          <span>2-3</span>
+        </div>
+        <div class="timeline-content">
+          <h4>Montaje + Sync</h4>
+          <p>Instalamos Shopify, conectamos API Syscom, cargamos catalogo curado y armamos los kits por capacidad.</p>
+        </div>
+      </div>
+      <div class="timeline-step">
+        <div class="timeline-day">
+          <span>Dia</span>
+          <span>4-5</span>
+        </div>
+        <div class="timeline-content">
+          <h4>Contenido + Calculadora</h4>
+          <p>Aplicamos tu marca, escribimos fichas tecnicas, integramos la calculadora de ahorro vs CFE.</p>
+        </div>
+      </div>
+      <div class="timeline-step">
+        <div class="timeline-day">
+          <span>Dia</span>
+          <span>6-7</span>
+        </div>
+        <div class="timeline-content">
+          <h4>Capacitacion + Lanzamiento</h4>
+          <p>Te entregamos la tienda funcionando, capacitamos a tu equipo y salimos en vivo.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================== PRICING ======================== -->
+  <section class="pricing" id="precios">
+    <h2 class="pricing-title">Inversion</h2>
+    <p class="pricing-note">Precios en pesos mexicanos + IVA</p>
+    <div class="pricing-cards">
+      <div class="pricing-card featured">
+        <div class="pricing-card-tag">Pago unico</div>
+        <h3>Setup de tu tienda solar</h3>
+        <div class="pricing-amount">$15,000</div>
+        <div class="pricing-period">MXN / pago unico</div>
+        <ul class="pricing-includes">
+          <li>Tienda Shopify con diseno profesional solar</li>
+          <li>Sync API Syscom configurado</li>
+          <li>Kits pre-armados por capacidad</li>
+          <li>Calculadora de ahorro vs CFE</li>
+          <li>Fichas tecnicas y contenido</li>
+          <li>Pagos y envios configurados</li>
+          <li>Capacitacion de tu equipo (2 sesiones)</li>
+          <li>SEO tecnico inicial</li>
+        </ul>
+      </div>
+      <div class="pricing-card">
+        <div class="pricing-card-tag">Mensual</div>
+        <h3>Mantenimiento + Sync</h3>
+        <div class="pricing-amount">$3,000</div>
+        <div class="pricing-period">MXN / mes</div>
+        <ul class="pricing-includes">
+          <li>Sync automatico diario (precios, stock, imagenes)</li>
+          <li>Soporte tecnico por WhatsApp/email</li>
+          <li>Actualizacion de productos nuevos</li>
+          <li>Monitoreo de disponibilidad</li>
+          <li>Respaldo diario de tu tienda</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================== CTA ======================== -->
+  <section class="cta-section" id="contacto">
+    <h2 class="cta-title">Agenda una llamada de 15 minutos</h2>
+    <p class="cta-subtitle">
+      Sin compromiso. Te mostramos un demo con productos solares reales de Syscom.
+    </p>
+    <div class="cta-buttons">
+      <a href="#" class="btn-primary">Agendar Llamada</a>
+      <a href="https://wa.me/5218000000000?text=Hola%2C%20me%20interesa%20el%20servicio%20de%20tienda%20solar%20llave%20en%20mano" class="btn-secondary" target="_blank" rel="noopener">
+        <svg class="whatsapp-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        WhatsApp Directo
+      </a>
+    </div>
+  </section>
+
+  <!-- ======================== FAQ ======================== -->
+  <section class="faq">
+    <h2 class="faq-title">Preguntas Frecuentes</h2>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="this.parentElement.classList.toggle('active')">
+        <span>Necesito cuenta de distribuidor en Syscom?</span>
+        <span class="toggle">+</span>
+      </div>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">Si. Necesitas tu propia cuenta de distribuidor en Syscom con acceso a la API. Nosotros configuramos la conexion, pero los precios y disponibilidad vienen de tu cuenta.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="this.parentElement.classList.toggle('active')">
+        <span>Manejan logistica de paneles y equipo?</span>
+        <span class="toggle">+</span>
+      </div>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">No. Cuando recibes un pedido, compras el producto en Syscom y lo envias a tu cliente, o usas el envio directo de Syscom (dropship). Tu manejas la logistica como lo haces hoy.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="this.parentElement.classList.toggle('active')">
+        <span>Incluyen calculadora solar?</span>
+        <span class="toggle">+</span>
+      </div>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">Si. Integramos una calculadora donde el cliente ingresa su consumo bimestral de CFE y ve cuanto ahorraria con un sistema solar. Es una herramienta de conversion, no un dimensionamiento profesional.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="this.parentElement.classList.toggle('active')">
+        <span>Funciona para proyectos comerciales?</span>
+        <span class="toggle">+</span>
+      </div>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">La tienda esta orientada a residencial y PyME con kits predefinidos. Para proyectos comerciales grandes, puedes usar la tienda como vitrina y cotizar por separado. Son proyectos que requieren ingenieria a medida.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="this.parentElement.classList.toggle('active')">
+        <span>Que pasa con permisos y tramites ante CFE?</span>
+        <span class="toggle">+</span>
+      </div>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">La tienda vende equipo solar, no tramita permisos ante CFE ni CRE. Puedes incluir informacion sobre el proceso de interconexion como contenido educativo, pero el tramite lo maneja el instalador o el cliente.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================== FOOTER ======================== -->
+  <footer class="footer">
+    <div class="footer-brand">Solar Llave en Mano // 2026</div>
+    <div class="footer-legal">Servicio independiente. No afiliado oficialmente a Syscom o Shopify.</div>
+  </footer>
+
+  <script>
+    (function() {
+      var stored = localStorage.getItem('theme');
+      if (stored) {
+        document.documentElement.setAttribute('data-theme', stored);
+      } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+
+    function toggleTheme() {
+      var current = document.documentElement.getAttribute('data-theme');
+      var next = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    }
+
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+      if (!localStorage.getItem('theme')) {
+        document.documentElement.setAttribute('data-theme', e.matches ? 'dark' : 'light');
+      }
+    });
+  </script>
+
+</body>
+</html>

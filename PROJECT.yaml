@@ -170,16 +170,25 @@ urls:
 stack:
   primary: documentation
 
-updated_at: "2026-02-19T00:00:00Z"
+updated_at: "2026-02-19T01:40:00Z"
 updated_by: claude-993
 
 # Skills creados (fuera del proyecto, en ~/.claude/skills/)
 skills_created:
   - name: landing-builder
     path: ~/.claude/skills/landing-builder/
-    description: Agente autonomo para crear landing pages anti-AI-slop
+    description: Agente autonomo para crear landing pages anti-AI-slop con Layout Variants
     files:
-      - SKILL.md (146 lines)
-      - references/anti-slop-rules.md (317 lines)
-      - references/style-presets.md (196 lines)
+      - SKILL.md (workflow 8 pasos, incluye seleccion de Layout Variant)
+      - references/anti-slop-rules.md (regla anti-reuso de variant)
+      - references/style-presets.md (5 presets + tabla de variants)
+      - references/layout-variants.md (5 variants con CSS scaffolding)
       - examples/editorial-germanica.html (914 lines)
+  - name: landing-page-guide-v2
+    path: ~/.claude/skills/landing-page-guide-v2/
+    description: Skill bear2u para landing pages Next.js 14+ / ShadCN (futuro)
+    source: github.com/bear2u/my-skills
+    files:
+      - SKILL.md (11 essential elements framework)
+      - references/11-essential-elements.md
+      - references/component-examples.md

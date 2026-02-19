@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tu Tienda Solar Online en 7 Dias | Sincronizada con Syscom</title>
+  <meta name="description" content="Montamos tu tienda online profesional de energia solar, sincronizada con Syscom, con kits pre-armados y calculadora de ahorro. Setup desde $15,000 MXN.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    /* ===========================================
+       BENTO MOSAIC - Landing B2B Solar v2
+       Layout Variant: 2 (Bento Mosaic)
+       Style Preset: Warm Technical (same as v1)
+       Target: Instaladores/integradores solar 30-50
+
+       KEY DIFFERENCES vs v1 (Longform Editorial):
+       - No full-viewport hero, hero is a tile
+       - Stats as tiles within the grid
+       - border-radius: 12px (vs 3px)
+       - Visible gap between tiles (vs collapsed borders)
+       - Soft shadows (vs flat borders)
+       - Mixed case headings (vs uppercase)
+       - No giant section numbers (01, 02, 03)
+       =========================================== */
+
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg-primary: #F2F0EB;
+      --bg-secondary: #E8E5DD;
+      --bg-tertiary: #DDD9CF;
+      --bg-panel: #EDEAE3;
+      --text-primary: #1A2A1A;
+      --text-secondary: #4A5A4A;
+      --text-muted: #7A8A7A;
+      --accent: #B8860B;
+      --accent-hover: #D4A853;
+      --accent-dim: #9A7209;
+      --warning: #C65D00;
+      --success: #2E7D32;
+      --border: #C5C0B5;
+      --border-accent: #A8A298;
+      --font-display: 'Libre Baskerville', Georgia, serif;
+      --font-body: 'IBM Plex Sans', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --shadow-tile: 0 1px 3px rgba(26, 42, 26, 0.08), 0 4px 12px rgba(26, 42, 26, 0.04);
+      --shadow-tile-hover: 0 2px 6px rgba(26, 42, 26, 0.12), 0 8px 24px rgba(26, 42, 26, 0.06);
+      --radius: 12px;
+    }
+
+    [data-theme="dark"] {
+      --bg-primary: #2D3B2D;
+      --bg-secondary: #364136;
+      --bg-tertiary: #3F4C3F;
+      --bg-panel: #324032;
+      --text-primary: #F0EDE5;
+      --text-secondary: #C4BFB5;
+      --text-muted: #8A857D;
+      --accent: #D4A853;
+      --accent-hover: #E0BC6A;
+      --accent-dim: #B8930F;
+      --warning: #E07830;
+      --success: #5CB85C;
+      --border: #4A5A4A;
+      --border-accent: #5A6A5A;
+      --shadow-tile: 0 1px 3px rgba(0, 0, 0, 0.2), 0 4px 12px rgba(0, 0, 0, 0.15);
+      --shadow-tile-hover: 0 2px 6px rgba(0, 0, 0, 0.25), 0 8px 24px rgba(0, 0, 0, 0.2);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    /* ---- NAV ---- */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--bg-primary);
+      border-bottom: 1px solid var(--border);
+      padding: 0 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 56px;
+      transition: background 0.3s;
+    }
+
+    .nav-brand {
+      font-family: var(--font-display);
+      font-size: 0.85rem;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .nav-brand .leaf {
+      width: 16px;
+      height: 16px;
+      border: 2px solid var(--accent);
+      border-radius: 0 50% 0 50%;
+      position: relative;
+    }
+
+    .nav-brand .leaf::after {
+      content: '';
+      position: absolute;
+      bottom: 2px;
+      left: 50%;
+      width: 1px;
+      height: 7px;
+      background: var(--accent);
+      transform: translateX(-50%) rotate(-15deg);
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .theme-toggle {
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.35rem 0.5rem;
+      cursor: pointer;
+      color: var(--text-secondary);
+      font-size: 0.8rem;
+      line-height: 1;
+      transition: border-color 0.15s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+    }
+
+    .theme-toggle:hover { border-color: var(--accent); }
+
+    .theme-toggle .icon-sun,
+    .theme-toggle .icon-moon { display: none; }
+    .theme-toggle .icon-moon { display: block; }
+    [data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+    [data-theme="dark"] .theme-toggle .icon-sun { display: block; }
+
+    .nav-cta {
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--bg-primary);
+      background: var(--accent);
+      padding: 0.45rem 1.25rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.15s;
+    }
+
+    .nav-cta:hover { background: var(--accent-hover); }
+
+    /* ---- BENTO GRID ---- */
+    .bento {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+      padding: 0.75rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .tile {
+      background: var(--bg-panel);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      box-shadow: var(--shadow-tile);
+      transition: box-shadow 0.15s, transform 0.15s;
+    }
+
+    .tile:hover {
+      box-shadow: var(--shadow-tile-hover);
+    }
+
+    /* ---- HERO TILE ---- */
+    .tile--hero {
+      background: var(--bg-secondary);
+      padding: 2.5rem 2rem;
+    }
+
+    .hero-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      width: 24px;
+      height: 2px;
+      background: var(--accent);
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 4vw, 2.8rem);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-title .highlight {
+      color: var(--accent);
+      font-style: italic;
+    }
+
+    .hero-subtitle {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      max-width: 480px;
+      line-height: 1.65;
+      margin-bottom: 1.75rem;
+    }
+
+    .hero-cta {
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--bg-primary);
+      background: var(--accent);
+      padding: 0.9rem 2rem;
+      border: 2px solid var(--accent);
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.15s;
+    }
+
+    .hero-cta:hover {
+      background: transparent;
+      color: var(--accent);
+    }
+
+    /* ---- STAT TILES ---- */
+    .tile--stat {
+      background: var(--accent);
+      color: var(--bg-primary);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 1.5rem 1rem;
+    }
+
+    .stat-value {
+      font-family: var(--font-display);
+      font-size: 2.4rem;
+      font-weight: 700;
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+
+    .stat-label {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.08em;
+      opacity: 0.85;
+    }
+
+    .tile--stat-alt {
+      background: var(--bg-tertiary);
+      color: var(--text-primary);
+    }
+
+    .tile--stat-alt .stat-value {
+      color: var(--accent);
+    }
+
+    .tile--stat-alt .stat-label {
+      color: var(--text-muted);
+    }
+
+    /* ---- PAIN TILES ---- */
+    .tile--pain {
+      background: var(--bg-secondary);
+      border-left: 3px solid var(--warning);
+    }
+
+    .pain-tag {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      color: var(--warning);
+      letter-spacing: 0.08em;
+      margin-bottom: 0.75rem;
+      display: inline-block;
+    }
+
+    .tile--pain h3 {
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+    }
+
+    .tile--pain p {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      line-height: 1.55;
+    }
+
+    /* ---- COMPARISON TILE ---- */
+    .tile--comparison {
+      padding: 0;
+      overflow: hidden;
+      background: var(--bg-panel);
+    }
+
+    .comparison-half {
+      padding: 1.5rem;
+    }
+
+    .comparison-half--before {
+      border-bottom: 2px solid var(--warning);
+    }
+
+    .comparison-half--after {
+      border-bottom: 2px solid var(--success);
+    }
+
+    .comparison-header {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .comparison-half--before .comparison-header { color: var(--warning); }
+    .comparison-half--after .comparison-header { color: var(--success); }
+
+    .comparison-list {
+      list-style: none;
+    }
+
+    .comparison-list li {
+      padding: 0.35rem 0;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: baseline;
+      gap: 0.6rem;
+    }
+
+    .comparison-list .marker {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      flex-shrink: 0;
+    }
+
+    .comparison-half--before .marker { color: var(--warning); }
+    .comparison-half--after .marker { color: var(--success); }
+
+    /* ---- SOLUTION TILES ---- */
+    .tile--solution {
+      background: var(--bg-panel);
+      border: 1px solid var(--border);
+    }
+
+    .solution-number {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      color: var(--accent-dim);
+      letter-spacing: 0.08em;
+      margin-bottom: 0.6rem;
+    }
+
+    .tile--solution h3 {
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+    }
+
+    .tile--solution p {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      line-height: 1.55;
+    }
+
+    /* ---- SECTION LABEL TILES ---- */
+    .tile--label {
+      background: transparent;
+      box-shadow: none;
+      padding: 1rem 0.5rem 0;
+    }
+
+    .tile--label h2 {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 700;
+    }
+
+    .tile--label p {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+      margin-top: 0.3rem;
+    }
+
+    /* ---- PROCESS TILE ---- */
+    .tile--process {
+      background: var(--bg-secondary);
+    }
+
+    .process-title {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 1.25rem;
+    }
+
+    .process-steps {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+
+    .process-step {
+      display: grid;
+      grid-template-columns: 56px 1fr;
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 0;
+    }
+
+    .process-step:last-child { border-bottom: none; }
+
+    .step-day {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .step-day span:first-child {
+      font-family: var(--font-mono);
+      font-size: 0.5rem;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+    }
+
+    .step-day span:last-child {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+    }
+
+    .step-content h4 {
+      font-family: var(--font-display);
+      font-size: 0.9rem;
+      font-weight: 700;
+      margin-bottom: 0.2rem;
+    }
+
+    .step-content p {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    /* ---- PRICING TILES ---- */
+    .tile--pricing {
+      border: 1px solid var(--border);
+    }
+
+    .tile--pricing.featured {
+      border-color: var(--accent);
+      border-width: 2px;
+    }
+
+    .pricing-tag {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+
+    .tile--pricing h3 {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .pricing-amount {
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 0.2rem;
+    }
+
+    .pricing-period {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+      margin-bottom: 1.25rem;
+    }
+
+    .pricing-includes {
+      list-style: none;
+      border-top: 1px solid var(--border);
+      padding-top: 1.25rem;
+    }
+
+    .pricing-includes li {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      padding: 0.3rem 0;
+      padding-left: 1.25rem;
+      position: relative;
+    }
+
+    .pricing-includes li::before {
+      content: '+';
+      position: absolute;
+      left: 0;
+      font-family: var(--font-mono);
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    /* ---- CTA TILE ---- */
+    .tile--cta {
+      background: var(--bg-secondary);
+      text-align: center;
+      padding: 3rem 2rem;
+    }
+
+    .cta-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.2rem, 3vw, 1.8rem);
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+
+    .cta-subtitle {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+      max-width: 440px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      align-items: center;
+    }
+
+    .btn-primary {
+      font-family: var(--font-body);
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--bg-primary);
+      background: var(--accent);
+      padding: 1rem 2.5rem;
+      border: 2px solid var(--accent);
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.15s;
+    }
+
+    .btn-primary:hover {
+      background: transparent;
+      color: var(--accent);
+    }
+
+    .btn-secondary {
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      background: transparent;
+      padding: 0.8rem 2rem;
+      border: 2px solid var(--border-accent);
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      transition: all 0.15s;
+    }
+
+    .btn-secondary:hover { border-color: var(--text-primary); }
+
+    .whatsapp-icon { width: 18px; height: 18px; }
+
+    /* ---- FAQ (outside bento grid) ---- */
+    .faq {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 2.5rem 1rem 3rem;
+    }
+
+    .faq-title {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+      padding: 1.15rem 0;
+    }
+
+    .faq-item:first-child { border-top: 1px solid var(--border); }
+
+    .faq-question {
+      font-family: var(--font-display);
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .faq-question .toggle {
+      font-family: var(--font-mono);
+      font-size: 1.1rem;
+      color: var(--accent);
+      transition: transform 0.15s;
+      flex-shrink: 0;
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.2s ease;
+    }
+
+    .faq-answer-inner {
+      padding-top: 0.75rem;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .faq-item.active .faq-answer { max-height: 200px; }
+    .faq-item.active .toggle { transform: rotate(45deg); }
+
+    /* ---- FOOTER ---- */
+    .footer {
+      padding: 2rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-brand {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--text-muted);
+    }
+
+    .footer-legal {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+    }
+
+    /* ========= TABLET (768px+) ========= */
+    @media (min-width: 768px) {
+      .bento {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+        padding: 1rem;
+      }
+
+      .tile--hero { grid-column: 1 / -1; }
+      .tile--wide { grid-column: span 2; }
+      .tile--full { grid-column: 1 / -1; }
+      .tile--label { grid-column: 1 / -1; }
+
+      .tile--cta { grid-column: 1 / -1; }
+
+      .cta-buttons {
+        flex-direction: row;
+        justify-content: center;
+      }
+
+      .footer {
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 2rem 1rem;
+      }
+    }
+
+    /* ========= DESKTOP (1024px+) ========= */
+    @media (min-width: 1024px) {
+      .bento {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+        padding: 1.25rem;
+      }
+
+      .tile--hero {
+        grid-column: span 2;
+        grid-row: span 2;
+        padding: 3rem 2.5rem;
+      }
+
+      .tile--wide { grid-column: span 2; }
+      .tile--full { grid-column: 1 / -1; }
+      .tile--label { grid-column: 1 / -1; }
+
+      .tile--cta { grid-column: 1 / -1; }
+
+      .hero-title {
+        font-size: 2.6rem;
+      }
+
+      .comparison-layout {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0;
+      }
+
+      .comparison-half--before {
+        border-bottom: none;
+        border-right: 2px solid var(--border);
+      }
+
+      .process-steps {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      .process-step {
+        grid-template-columns: 1fr;
+        text-align: center;
+        border-bottom: none;
+        border-right: 1px solid var(--border);
+        padding: 1rem 0.75rem;
+      }
+
+      .process-step:last-child { border-right: none; }
+
+      .step-day { margin-bottom: 0.75rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ======================== NAV ======================== -->
+  <nav class="nav">
+    <div class="nav-brand">
+      <span class="leaf"></span>
+      Solar Llave en Mano
+    </div>
+    <div class="nav-right">
+      <button class="theme-toggle" aria-label="Cambiar tema" onclick="toggleTheme()">
+        <span class="icon-sun">&#9788;</span>
+        <span class="icon-moon">&#9789;</span>
+      </button>
+      <a href="#contacto" class="nav-cta">Agendar Llamada</a>
+    </div>
+  </nav>
+
+  <!-- ======================== BENTO GRID ======================== -->
+  <main class="bento">
+
+    <!-- ROW 1: Hero (span 2, span 2 rows) + Stat -->
+    <div class="tile tile--hero">
+      <div class="hero-eyebrow">Servicio para distribuidores Syscom</div>
+      <h1 class="hero-title">
+        Tu catalogo solar Syscom,
+        <span class="highlight">vendiendo online</span>
+        en 7 dias
+      </h1>
+      <p class="hero-subtitle">
+        Te montamos una tienda solar profesional con kits pre-armados,
+        calculadora de ahorro vs CFE y fichas tecnicas que convierten.
+        Tu solo recibes los pedidos.
+      </p>
+      <a href="#contacto" class="hero-cta">Agendar Llamada</a>
+    </div>
+
+    <div class="tile tile--stat">
+      <div class="stat-value">7</div>
+      <div class="stat-label">Dias de Setup</div>
+    </div>
+
+    <!-- ROW 2 (desktop): Pain tiles + stat -->
+    <div class="tile tile--pain">
+      <span class="pain-tag">Problema</span>
+      <h3>Cotizaciones manuales por WhatsApp</h3>
+      <p>Cada proyecto requiere calcular paneles, inversor, estructura y cableado. Todo a mano, cada vez. Un error en el dimensionamiento y pierdes al cliente o pierdes margen.</p>
+    </div>
+
+    <div class="tile tile--pain">
+      <span class="pain-tag">Problema</span>
+      <h3>Mercado en explosion sin presencia digital</h3>
+      <p>Solar residencial crece 30%+ anual en Mexico. Pero tu sigues vendiendo por boca a boca mientras tiendasolar.mx y enertik.com capturan clientes que buscan en Google.</p>
+    </div>
+
+    <div class="tile tile--stat tile--stat-alt">
+      <div class="stat-value">30%+</div>
+      <div class="stat-label">Crec. Solar Anual</div>
+    </div>
+
+    <!-- ROW 3 (desktop): Pain tiles wide + single -->
+    <div class="tile tile--pain tile--wide">
+      <span class="pain-tag">Problema</span>
+      <h3>Productos complejos que el cliente no entiende</h3>
+      <p>Kits de interconexion CFE, inversores hibridos, baterias de litio. El cliente residencial no sabe que necesita. Sin fichas claras, no compra online.</p>
+    </div>
+
+    <div class="tile tile--pain">
+      <span class="pain-tag">Problema</span>
+      <h3>Competencia con tiendas genericas</h3>
+      <p>Las tiendas online de solar venden sin asesoria tecnica real. Pero tienen presencia, SEO y checkout. Tu tienes el conocimiento tecnico, pero no la plataforma.</p>
+    </div>
+
+    <!-- COMPARISON TILE (full width) -->
+    <div class="tile tile--comparison tile--full">
+      <div class="comparison-layout">
+        <div class="comparison-half comparison-half--before">
+          <div class="comparison-header">
+            <span>X</span> Vender solo por WhatsApp
+          </div>
+          <ul class="comparison-list">
+            <li><span class="marker">--</span> Cotizaciones manuales proyecto por proyecto</li>
+            <li><span class="marker">--</span> Sin catalogo visible para el cliente</li>
+            <li><span class="marker">--</span> Cero presencia en Google</li>
+            <li><span class="marker">--</span> El cliente no entiende que necesita</li>
+            <li><span class="marker">--</span> Dependes de referidos y boca a boca</li>
+            <li><span class="marker">--</span> Precios desactualizados en PDFs viejos</li>
+          </ul>
+        </div>
+        <div class="comparison-half comparison-half--after">
+          <div class="comparison-header">
+            <span>OK</span> Tienda solar llave en mano
+          </div>
+          <ul class="comparison-list">
+            <li><span class="marker">+</span> Kits pre-armados por capacidad (3kW, 5kW, 10kW)</li>
+            <li><span class="marker">+</span> Calculadora de ahorro vs recibo CFE</li>
+            <li><span class="marker">+</span> Fichas tecnicas con specs y compatibilidad</li>
+            <li><span class="marker">+</span> SEO para "paneles solares [tu ciudad]"</li>
+            <li><span class="marker">+</span> Precios y stock sincronizados con Syscom</li>
+            <li><span class="marker">+</span> Checkout profesional: tarjeta, OXXO, transferencia</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION: Que incluye tu tienda -->
+    <div class="tile tile--label tile--full">
+      <h2>Que incluye tu tienda</h2>
+      <p>No te vendemos un plugin. Te entregamos tu negocio solar online operando.</p>
+    </div>
+
+    <!-- SOLUTION TILES (mix of span 1 and span 2) -->
+    <div class="tile tile--solution">
+      <div class="solution-number">01</div>
+      <h3>Tienda Shopify con tu marca</h3>
+      <p>Diseno profesional enfocado en solar. Pagos con tarjeta, OXXO, transferencia. Envios configurados. Lista para recibir pedidos desde el dia uno.</p>
+    </div>
+
+    <div class="tile tile--solution">
+      <div class="solution-number">02</div>
+      <h3>Sync automatico con Syscom</h3>
+      <p>Precios, disponibilidad e imagenes se actualizan automaticamente. Cuando Syscom cambia un precio, tu tienda lo refleja sin que toques nada.</p>
+    </div>
+
+    <div class="tile tile--solution">
+      <div class="solution-number">03</div>
+      <h3>Kits pre-armados por caso de uso</h3>
+      <p>Residencial 3kW, 5kW, 10kW. Comercial PyME. Cada kit con paneles, inversor, estructura y cableado seleccionados y compatibles entre si.</p>
+    </div>
+
+    <div class="tile tile--solution tile--wide">
+      <div class="solution-number">04</div>
+      <h3>Calculadora de ahorro vs CFE</h3>
+      <p>El cliente ingresa su consumo bimestral y ve cuanto ahorraria con solar. Convierte visitantes curiosos en compradores decididos.</p>
+    </div>
+
+    <div class="tile tile--solution">
+      <div class="solution-number">05</div>
+      <h3>Fichas tecnicas reales</h3>
+      <p>Specs de cada producto con compatibilidad clara. Escritas por gente que sabe la diferencia entre un inversor string y un microinversor.</p>
+    </div>
+
+    <!-- Stat tile within solutions -->
+    <div class="tile tile--stat">
+      <div class="stat-value">24/7</div>
+      <div class="stat-label">Sync Automatico</div>
+    </div>
+
+    <div class="tile tile--solution tile--wide">
+      <div class="solution-number">06</div>
+      <h3>Capacitacion + SEO tecnico</h3>
+      <p>Te ensenamos a gestionar pedidos y ajustar margenes. Estructura optimizada para que Google indexe "paneles solares + tu ciudad" desde el dia uno.</p>
+    </div>
+
+    <!-- PROCESS TILE (full width) -->
+    <div class="tile tile--process tile--full">
+      <div class="process-title">7 dias. De cero a vendiendo solar.</div>
+      <div class="process-steps">
+        <div class="process-step">
+          <div class="step-day">
+            <span>Dia</span>
+            <span>1</span>
+          </div>
+          <div class="step-content">
+            <h4>Diagnostico solar</h4>
+            <p>Revisamos tu especialidad (residencial, comercial, hibrido), marcas preferidas y margenes. Definimos kits y productos.</p>
+          </div>
+        </div>
+        <div class="process-step">
+          <div class="step-day">
+            <span>Dia</span>
+            <span>2-3</span>
+          </div>
+          <div class="step-content">
+            <h4>Montaje + Sync</h4>
+            <p>Instalamos Shopify, conectamos API Syscom, cargamos catalogo curado y armamos los kits por capacidad.</p>
+          </div>
+        </div>
+        <div class="process-step">
+          <div class="step-day">
+            <span>Dia</span>
+            <span>4-5</span>
+          </div>
+          <div class="step-content">
+            <h4>Contenido + Calculadora</h4>
+            <p>Aplicamos tu marca, escribimos fichas tecnicas, integramos la calculadora de ahorro vs CFE.</p>
+          </div>
+        </div>
+        <div class="process-step">
+          <div class="step-day">
+            <span>Dia</span>
+            <span>6-7</span>
+          </div>
+          <div class="step-content">
+            <h4>Capacitacion + Lanzamiento</h4>
+            <p>Te entregamos la tienda funcionando, capacitamos a tu equipo y salimos en vivo.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRICING TILES -->
+    <div class="tile tile--pricing tile--wide featured" id="precios">
+      <div class="pricing-tag">Pago unico</div>
+      <h3>Setup de tu tienda solar</h3>
+      <div class="pricing-amount">$15,000</div>
+      <div class="pricing-period">MXN / pago unico</div>
+      <ul class="pricing-includes">
+        <li>Tienda Shopify con diseno profesional solar</li>
+        <li>Sync API Syscom configurado</li>
+        <li>Kits pre-armados por capacidad</li>
+        <li>Calculadora de ahorro vs CFE</li>
+        <li>Fichas tecnicas y contenido</li>
+        <li>Pagos y envios configurados</li>
+        <li>Capacitacion de tu equipo (2 sesiones)</li>
+        <li>SEO tecnico inicial</li>
+      </ul>
+    </div>
+
+    <div class="tile tile--pricing">
+      <div class="pricing-tag">Mensual</div>
+      <h3>Mantenimiento + Sync</h3>
+      <div class="pricing-amount">$3,000</div>
+      <div class="pricing-period">MXN / mes</div>
+      <ul class="pricing-includes">
+        <li>Sync automatico diario (precios, stock, imagenes)</li>
+        <li>Soporte tecnico por WhatsApp/email</li>
+        <li>Actualizacion de productos nuevos</li>
+        <li>Monitoreo de disponibilidad</li>
+        <li>Respaldo diario de tu tienda</li>
+      </ul>
+    </div>
+
+    <!-- CTA TILE (full width) -->
+    <div class="tile tile--cta tile--full" id="contacto">
+      <h2 class="cta-title">Agenda una llamada de 15 minutos</h2>
+      <p class="cta-subtitle">
+        Sin compromiso. Te mostramos un demo con productos solares reales de Syscom.
+      </p>
+      <div class="cta-buttons">
+        <a href="#" class="btn-primary">Agendar Llamada</a>
+        <a href="https://wa.me/5218000000000?text=Hola%2C%20me%20interesa%20el%20servicio%20de%20tienda%20solar%20llave%20en%20mano" class="btn-secondary" target="_blank" rel="noopener">
+          <svg class="whatsapp-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          WhatsApp Directo
+        </a>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ======================== FAQ (compact, outside grid) ======================== -->
+  <section class="faq">
+    <h2 class="faq-title">Preguntas Frecuentes</h2>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="this.parentElement.classList.toggle('active')">
+        <span>Necesito cuenta de distribuidor en Syscom?</span>
+        <span class="toggle">+</span>
+      </div>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">Si. Necesitas tu propia cuenta de distribuidor en Syscom con acceso a la API. Nosotros configuramos la conexion, pero los precios y disponibilidad vienen de tu cuenta.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="this.parentElement.classList.toggle('active')">
+        <span>Manejan logistica de paneles y equipo?</span>
+        <span class="toggle">+</span>
+      </div>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">No. Cuando recibes un pedido, compras el producto en Syscom y lo envias a tu cliente, o usas el envio directo de Syscom (dropship). Tu manejas la logistica como lo haces hoy.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="this.parentElement.classList.toggle('active')">
+        <span>Incluyen calculadora solar?</span>
+        <span class="toggle">+</span>
+      </div>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">Si. Integramos una calculadora donde el cliente ingresa su consumo bimestral de CFE y ve cuanto ahorraria con un sistema solar. Es una herramienta de conversion, no un dimensionamiento profesional.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="this.parentElement.classList.toggle('active')">
+        <span>Funciona para proyectos comerciales?</span>
+        <span class="toggle">+</span>
+      </div>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">La tienda esta orientada a residencial y PyME con kits predefinidos. Para proyectos comerciales grandes, puedes usar la tienda como vitrina y cotizar por separado. Son proyectos que requieren ingenieria a medida.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="this.parentElement.classList.toggle('active')">
+        <span>Que pasa con permisos y tramites ante CFE?</span>
+        <span class="toggle">+</span>
+      </div>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">La tienda vende equipo solar, no tramita permisos ante CFE ni CRE. Puedes incluir informacion sobre el proceso de interconexion como contenido educativo, pero el tramite lo maneja el instalador o el cliente.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================== FOOTER ======================== -->
+  <footer class="footer">
+    <div class="footer-brand">Solar Llave en Mano // 2026</div>
+    <div class="footer-legal">Servicio independiente. No afiliado oficialmente a Syscom o Shopify.</div>
+  </footer>
+
+  <script>
+    (function() {
+      var stored = localStorage.getItem('theme');
+      if (stored) {
+        document.documentElement.setAttribute('data-theme', stored);
+      } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+
+    function toggleTheme() {
+      var current = document.documentElement.getAttribute('data-theme');
+      var next = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    }
+
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+      if (!localStorage.getItem('theme')) {
+        document.documentElement.setAttribute('data-theme', e.matches ? 'dark' : 'light');
+      }
+    });
+  </script>
+
+</body>
+</html>
