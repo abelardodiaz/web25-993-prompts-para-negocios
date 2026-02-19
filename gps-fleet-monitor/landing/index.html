@@ -1,0 +1,1261 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GPS Fleet Monitor - Monitoreo GPS para Flotillas y Maquinaria</title>
+  <meta name="description" content="Plataforma privada de monitoreo GPS. Instala hoy, ve tu flota manana. Sin contrato. Tracking en tiempo real, alertas de robo, app con roles.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    /* === INDUSTRIAL UTILITARIAN PRESET === */
+    /* GPS Fleet Monitor - Dark industrial, orange warning accents */
+
+    :root {
+      --font-display: 'Oswald', sans-serif;
+      --font-body: 'Source Sans 3', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+
+      --bg-primary: #141414;
+      --bg-secondary: #1E1E1E;
+      --bg-tertiary: #292929;
+      --bg-panel: #1A1F1A;
+
+      --text-primary: #E0E0E0;
+      --text-secondary: #A0A0A0;
+      --text-muted: #666;
+
+      --accent: #FF6A00;
+      --accent-hover: #FF8533;
+      --accent-dim: #4A2800;
+      --green-status: #2ECC40;
+      --red-alert: #E74C3C;
+      --yellow-warn: #FFD600;
+
+      --border: #333;
+      --border-accent: #FF6A00;
+    }
+
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* === NAVIGATION === */
+    /* Horizontal rail with status indicator style */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: var(--bg-primary);
+      border-bottom: 2px solid var(--border);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 56px;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .nav-brand .status-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--green-status);
+      display: inline-block;
+    }
+
+    .nav-brand span {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+    }
+
+    .nav-cta {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: var(--accent);
+      color: var(--bg-primary);
+      padding: 0.6rem 1.5rem;
+      border: 2px solid var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.15s;
+    }
+
+    .nav-cta:hover {
+      background: transparent;
+      color: var(--accent);
+    }
+
+    /* === HERO === */
+    /* Full-width with asymmetric layout, status panel aesthetic */
+    .hero {
+      margin-top: 56px;
+      min-height: calc(100vh - 56px);
+      display: grid;
+      grid-template-columns: 1fr;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-content {
+      padding: 4rem 2rem 3rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      width: 32px;
+      height: 2px;
+      background: var(--accent);
+      display: inline-block;
+    }
+
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      font-weight: 700;
+      line-height: 1.05;
+      text-transform: uppercase;
+      letter-spacing: -0.01em;
+      margin-bottom: 1.5rem;
+      max-width: 800px;
+    }
+
+    .hero h1 .highlight {
+      color: var(--accent);
+    }
+
+    .hero-sub {
+      font-size: 1.2rem;
+      color: var(--text-secondary);
+      max-width: 520px;
+      margin-bottom: 2.5rem;
+      line-height: 1.5;
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      max-width: 600px;
+      border: 1px solid var(--border);
+    }
+
+    .hero-stat {
+      background: var(--bg-secondary);
+      padding: 1.25rem 1rem;
+    }
+
+    .hero-stat .stat-value {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+    }
+
+    .hero-stat .stat-label {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-top: 0.4rem;
+    }
+
+    /* Decorative grid background */
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 50%;
+      height: 100%;
+      background:
+        linear-gradient(90deg, var(--bg-primary) 0%, transparent 30%),
+        repeating-linear-gradient(0deg, transparent, transparent 39px, var(--border) 39px, var(--border) 40px),
+        repeating-linear-gradient(90deg, transparent, transparent 39px, var(--border) 39px, var(--border) 40px);
+      opacity: 0.3;
+      z-index: 1;
+    }
+
+    /* === ALERT BAR === */
+    .alert-bar {
+      background: var(--accent-dim);
+      border-top: 2px solid var(--accent);
+      border-bottom: 2px solid var(--accent);
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      overflow: hidden;
+    }
+
+    .alert-bar .alert-icon {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      white-space: nowrap;
+      font-weight: 500;
+    }
+
+    .alert-bar .alert-text {
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      color: var(--text-primary);
+    }
+
+    .alert-bar .alert-text strong {
+      color: var(--accent);
+    }
+
+    /* === SECTION: PROBLEMA === */
+    .section {
+      padding: 5rem 2rem;
+      position: relative;
+    }
+
+    .section-grid {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-number {
+      font-family: var(--font-display);
+      font-size: 6rem;
+      font-weight: 700;
+      color: var(--bg-tertiary);
+      line-height: 1;
+      user-select: none;
+      position: absolute;
+      top: 3rem;
+      right: 2rem;
+    }
+
+    .section-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .section h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.01em;
+      margin-bottom: 2rem;
+      max-width: 650px;
+    }
+
+    /* Problem cards - stacked, not columns */
+    .problem-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      margin-top: 2rem;
+    }
+
+    .problem-item {
+      background: var(--bg-secondary);
+      border-left: 3px solid var(--red-alert);
+      padding: 1.5rem 1.5rem 1.5rem 2rem;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 1.25rem;
+      align-items: start;
+    }
+
+    .problem-item .p-number {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--red-alert);
+      letter-spacing: 0.1em;
+      padding-top: 0.2rem;
+    }
+
+    .problem-item .p-content h3 {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      margin-bottom: 0.3rem;
+    }
+
+    .problem-item .p-content p {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+    }
+
+    /* === SECTION: NICHOS (Two-panel split) === */
+    .nichos-section {
+      background: var(--bg-secondary);
+      border-top: 2px solid var(--border);
+      border-bottom: 2px solid var(--border);
+    }
+
+    .nichos-grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2px;
+    }
+
+    .nicho-panel {
+      background: var(--bg-primary);
+      padding: 3rem 2rem;
+      position: relative;
+      border-left: 3px solid transparent;
+      transition: border-color 0.15s;
+    }
+
+    .nicho-panel:hover {
+      border-left-color: var(--accent);
+    }
+
+    .nicho-tag {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      display: inline-block;
+      padding: 0.3rem 0.75rem;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      margin-bottom: 1.25rem;
+    }
+
+    .nicho-panel h3 {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+
+    .nicho-panel .nicho-desc {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      margin-bottom: 1.5rem;
+      max-width: 480px;
+    }
+
+    .nicho-price {
+      display: flex;
+      align-items: baseline;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .nicho-price .price-amount {
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .nicho-price .price-detail {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      letter-spacing: 0.1em;
+    }
+
+    .nicho-features {
+      list-style: none;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem 1.5rem;
+    }
+
+    .nicho-features li {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      padding-left: 1.5rem;
+      position: relative;
+    }
+
+    .nicho-features li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.5rem;
+      width: 8px;
+      height: 2px;
+      background: var(--accent);
+    }
+
+    /* === SECTION: COMO FUNCIONA === */
+    .steps-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin-top: 2rem;
+      max-width: 700px;
+    }
+
+    .step-item {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      border-bottom: 1px solid var(--border);
+      padding: 1.5rem 0;
+    }
+
+    .step-item:last-child {
+      border-bottom: none;
+    }
+
+    .step-num {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--bg-tertiary);
+      line-height: 1;
+    }
+
+    .step-content h3 {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      margin-bottom: 0.25rem;
+    }
+
+    .step-content p {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+    }
+
+    /* === SECTION: DATOS DUROS === */
+    .data-section {
+      background: var(--bg-secondary);
+      border-top: 2px solid var(--border);
+      border-bottom: 2px solid var(--border);
+    }
+
+    .data-grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+
+    .data-cell {
+      background: var(--bg-primary);
+      padding: 2rem 1.5rem;
+    }
+
+    .data-cell .data-value {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      font-weight: 700;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .data-cell .data-value.positive { color: var(--green-status); }
+    .data-cell .data-value.alert { color: var(--red-alert); }
+    .data-cell .data-value.accent { color: var(--accent); }
+    .data-cell .data-value.warn { color: var(--yellow-warn); }
+
+    .data-cell .data-desc {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      margin-bottom: 0.5rem;
+    }
+
+    .data-cell .data-source {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    /* === SECTION: DIFERENCIADORES === */
+    .diff-table {
+      margin-top: 2rem;
+      width: 100%;
+      max-width: 800px;
+      border-collapse: collapse;
+    }
+
+    .diff-table th,
+    .diff-table td {
+      text-align: left;
+      padding: 1rem 1.25rem;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.9rem;
+    }
+
+    .diff-table thead th {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      border-bottom: 2px solid var(--border);
+    }
+
+    .diff-table .col-us {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .diff-table .col-them {
+      color: var(--text-muted);
+    }
+
+    .diff-table .feature-name {
+      font-weight: 500;
+    }
+
+    /* === SECTION: FORMULARIO === */
+    .form-section {
+      background: var(--bg-secondary);
+      border-top: 2px solid var(--accent);
+    }
+
+    .form-wrapper {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+
+    .form-group label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      display: block;
+      margin-bottom: 0.4rem;
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      background: var(--bg-primary);
+      border: 2px solid var(--border);
+      color: var(--text-primary);
+      padding: 0.9rem 1rem;
+      font-family: var(--font-body);
+      font-size: 1rem;
+      transition: border-color 0.15s;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .form-group select {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23666' fill='none' stroke-width='2'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+      padding-right: 2.5rem;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+
+    .form-submit {
+      width: 100%;
+      background: var(--accent);
+      color: var(--bg-primary);
+      border: 2px solid var(--accent);
+      padding: 1.1rem 2rem;
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      transition: all 0.15s;
+      margin-top: 0.5rem;
+    }
+
+    .form-submit:hover {
+      background: var(--accent-hover);
+      border-color: var(--accent-hover);
+    }
+
+    .form-note {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      text-align: center;
+      margin-top: 1rem;
+      text-transform: uppercase;
+    }
+
+    /* === FOOTER === */
+    .footer {
+      border-top: 2px solid var(--border);
+      padding: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .footer-left {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    .footer-right {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .footer-right a {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      text-decoration: none;
+      position: relative;
+    }
+
+    .footer-right a::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--accent);
+      transition: width 0.15s;
+    }
+
+    .footer-right a:hover::after {
+      width: 100%;
+    }
+
+    /* === DIVIDER === */
+    .thick-divider {
+      height: 3px;
+      background: var(--accent);
+      width: 60px;
+      margin-bottom: 1.5rem;
+    }
+
+    /* === RESPONSIVE === */
+    @media (min-width: 768px) {
+      .hero-content {
+        padding: 6rem 4rem 4rem;
+      }
+
+      .hero-stats {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .nichos-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .data-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .section {
+        padding: 6rem 4rem;
+      }
+
+      .section-number {
+        font-size: 8rem;
+        right: 4rem;
+      }
+
+      .nav {
+        padding: 0 4rem;
+      }
+
+      .alert-bar {
+        padding: 1rem 4rem;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .hero {
+        grid-template-columns: 3fr 2fr;
+      }
+
+      .hero-content {
+        padding: 6rem 2rem 4rem 6rem;
+      }
+
+      .hero-side {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        z-index: 2;
+      }
+
+      .data-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      .section {
+        padding: 7rem 6rem;
+      }
+
+      .section-number {
+        right: 6rem;
+        font-size: 10rem;
+      }
+
+      .nav {
+        padding: 0 6rem;
+      }
+
+      .alert-bar {
+        padding: 1rem 6rem;
+      }
+    }
+
+    @media (max-width: 767px) {
+      .hero-stats {
+        grid-template-columns: 1fr;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .nicho-features {
+        grid-template-columns: 1fr;
+      }
+
+      .diff-table {
+        font-size: 0.8rem;
+      }
+
+      .diff-table th,
+      .diff-table td {
+        padding: 0.75rem 0.5rem;
+      }
+
+      .section-number {
+        font-size: 4rem;
+        top: 2rem;
+        right: 1.5rem;
+      }
+
+      .footer {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    /* Vertical label decoration (desktop only) */
+    @media (min-width: 1024px) {
+      .vertical-label {
+        position: absolute;
+        left: 1.5rem;
+        top: 50%;
+        transform: translateY(-50%);
+        writing-mode: vertical-rl;
+        text-orientation: mixed;
+        font-family: var(--font-mono);
+        font-size: 0.6rem;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: var(--text-muted);
+        user-select: none;
+      }
+    }
+
+    @media (max-width: 1023px) {
+      .vertical-label {
+        display: none;
+      }
+
+      .hero-side {
+        display: none;
+      }
+    }
+
+    /* Status indicator for the hero side panel */
+    .status-panel {
+      background: var(--bg-secondary);
+      border: 2px solid var(--border);
+      padding: 2rem;
+      width: 280px;
+    }
+
+    .status-panel .sp-header {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .status-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .status-row:last-child {
+      border-bottom: none;
+    }
+
+    .status-row .sr-label {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    .status-row .sr-value {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+    }
+
+    .sr-value.online {
+      color: var(--green-status);
+    }
+
+    .sr-value.units {
+      color: var(--accent);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVIGATION: Minimal horizontal rail with status indicator -->
+  <nav class="nav">
+    <div class="nav-brand">
+      <span class="status-dot"></span>
+      <span>GPS Fleet Monitor</span>
+    </div>
+    <a href="#contacto" class="nav-cta">Solicitar demo</a>
+  </nav>
+
+  <!-- HERO: Asymmetric with status panel -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-eyebrow">Monitoreo GPS para flotillas</div>
+      <h1>Sabes donde estan <span class="highlight">tus vehiculos</span> ahora mismo?</h1>
+      <p class="hero-sub">Plataforma privada de rastreo GPS con app movil y roles. Instala hoy, ve tu flota manana. Sin contrato forzoso.</p>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="stat-value">$299</div>
+          <div class="stat-label">MXN / unidad / mes</div>
+        </div>
+        <div class="hero-stat">
+          <div class="stat-value">24/7</div>
+          <div class="stat-label">Tracking en tiempo real</div>
+        </div>
+        <div class="hero-stat">
+          <div class="stat-value">0</div>
+          <div class="stat-label">Meses de contrato</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-side">
+      <div class="status-panel">
+        <div class="sp-header">// Estado del sistema</div>
+        <div class="status-row">
+          <span class="sr-label">Plataforma</span>
+          <span class="sr-value online">EN LINEA</span>
+        </div>
+        <div class="status-row">
+          <span class="sr-label">Vehiculos activos</span>
+          <span class="sr-value units">247</span>
+        </div>
+        <div class="status-row">
+          <span class="sr-label">Alertas hoy</span>
+          <span class="sr-value" style="color: var(--yellow-warn);">3</span>
+        </div>
+        <div class="status-row">
+          <span class="sr-label">Geocercas</span>
+          <span class="sr-value units">86</span>
+        </div>
+        <div class="status-row">
+          <span class="sr-label">Uptime</span>
+          <span class="sr-value online">99.8%</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ALERT BAR: Urgency data -->
+  <div class="alert-bar">
+    <span class="alert-icon">[!] Alerta</span>
+    <span class="alert-text">El robo de maquinaria pesada aumento <strong>+40.7% en 2 anos</strong> en Mexico (AMIS). Sin GPS, tu seguro no cubre robo total.</span>
+  </div>
+
+  <!-- SECTION 01: EL PROBLEMA -->
+  <section class="section" id="problema">
+    <span class="section-number">01</span>
+    <span class="vertical-label">El problema</span>
+    <div class="section-grid">
+      <div class="section-eyebrow">Por que necesitas GPS</div>
+      <h2>Tu flota opera a ciegas. Y eso te cuesta dinero todos los dias.</h2>
+      <div class="problem-stack">
+        <div class="problem-item">
+          <span class="p-number">01</span>
+          <div class="p-content">
+            <h3>No sabes donde estan tus vehiculos</h3>
+            <p>A las 3 de la tarde, no puedes verificar si tu conductor esta en ruta o haciendo una parada personal. Pierdes control y gasolina.</p>
+          </div>
+        </div>
+        <div class="problem-item">
+          <span class="p-number">02</span>
+          <div class="p-content">
+            <h3>Robo sin proteccion real</h3>
+            <p>60,625 vehiculos asegurados fueron robados en el ultimo ano. Sin GPS, tu aseguradora queda liberada de cubrir el robo total.</p>
+          </div>
+        </div>
+        <div class="problem-item">
+          <span class="p-number">03</span>
+          <div class="p-content">
+            <h3>Maquinaria de millones sin rastreo</h3>
+            <p>Una retroexcavadora cuesta $2M+. Opera en obras remotas. Si la mueven de noche, te enteras hasta el lunes.</p>
+          </div>
+        </div>
+        <div class="problem-item">
+          <span class="p-number">04</span>
+          <div class="p-content">
+            <h3>Apps genericas que no sirven</h3>
+            <p>Las apps GPS del mercado son genericas: misma vista para todos, sin roles, sin reportes de tu industria, datos en servidores de China.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 02: NICHOS / SOLUCIONES -->
+  <section class="section nichos-section" id="soluciones">
+    <span class="section-number" style="color: var(--bg-tertiary);">02</span>
+    <span class="vertical-label">Soluciones</span>
+    <div class="section-grid">
+      <div class="section-eyebrow">Dos soluciones especializadas</div>
+      <h2>GPS configurado para tu tipo de negocio</h2>
+    </div>
+    <div class="nichos-grid" style="max-width: 1100px; margin: 2rem auto 0;">
+      <!-- Panel: Flotillas PyME -->
+      <div class="nicho-panel">
+        <span class="nicho-tag">Flotillas PyME</span>
+        <h3>Vehiculos comerciales 5-50 unidades</h3>
+        <p class="nicho-desc">Para distribuidores, mensajeros, servicio tecnico, fumigadoras y cualquier empresa con vehiculos en la calle.</p>
+        <div class="nicho-price">
+          <span class="price-amount">$299</span>
+          <span class="price-detail">MXN / unidad / mes<br>Sin contrato</span>
+        </div>
+        <ul class="nicho-features">
+          <li>Tracking tiempo real</li>
+          <li>Geocercas ilimitadas</li>
+          <li>Alertas de velocidad</li>
+          <li>Apagar motor remoto</li>
+          <li>Reportes de viaje</li>
+          <li>App movil con roles</li>
+          <li>Control de gasolina</li>
+          <li>Soporte WhatsApp</li>
+        </ul>
+      </div>
+      <!-- Panel: Constructoras -->
+      <div class="nicho-panel">
+        <span class="nicho-tag">Constructoras</span>
+        <h3>Maquinaria pesada y vehiculos de obra</h3>
+        <p class="nicho-desc">Para constructoras, renta de maquinaria, excavaciones. Protege equipo de millones y baja tu prima de seguro.</p>
+        <div class="nicho-price">
+          <span class="price-amount">$500</span>
+          <span class="price-detail">MXN / unidad / mes<br>Maquinaria + camionetas</span>
+        </div>
+        <ul class="nicho-features">
+          <li>GPS bateria 72hrs respaldo</li>
+          <li>Geocerca por obra</li>
+          <li>Alerta movimiento nocturno</li>
+          <li>Reporte horas-maquina</li>
+          <li>Dispositivos IP67 waterproof</li>
+          <li>Tracker solar disponible</li>
+          <li>Reduce prima de seguro</li>
+          <li>Instalacion en obra</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 03: COMO FUNCIONA -->
+  <section class="section" id="proceso">
+    <span class="section-number">03</span>
+    <span class="vertical-label">Proceso</span>
+    <div class="section-grid">
+      <div class="section-eyebrow">Asi de simple</div>
+      <h2>De cero a monitoreo en 48 horas</h2>
+      <div class="steps-list">
+        <div class="step-item">
+          <span class="step-num">01</span>
+          <div class="step-content">
+            <h3>Contactanos por WhatsApp</h3>
+            <p>Nos dices cuantos vehiculos o maquinas tienes y donde estan. Te cotizamos en 15 minutos.</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <span class="step-num">02</span>
+          <div class="step-content">
+            <h3>Instalacion profesional</h3>
+            <p>Nuestro tecnico va a tu ubicacion. Instala el GPS, configura geocercas y prueba que todo transmita.</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <span class="step-num">03</span>
+          <div class="step-content">
+            <h3>Tu plataforma lista</h3>
+            <p>Te damos acceso a TU plataforma: mapa en tiempo real, alertas, reportes. Configuras roles para tu equipo.</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <span class="step-num">04</span>
+          <div class="step-content">
+            <h3>Monitorea desde tu celular</h3>
+            <p>App movil para gerente, supervisor y conductor. Cada quien ve lo que le toca. Alertas por WhatsApp incluidas.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION: DATOS DUROS -->
+  <section class="section data-section" id="datos">
+    <span class="vertical-label">Datos</span>
+    <div class="section-grid">
+      <div class="section-eyebrow">Numeros que importan</div>
+      <h2 style="margin-bottom: 2.5rem;">El GPS no es un gasto. Es inversion con retorno medible.</h2>
+    </div>
+    <div class="data-grid" style="max-width: 1100px; margin: 0 auto;">
+      <div class="data-cell">
+        <div class="data-value positive">98%</div>
+        <div class="data-desc">Tasa de recuperacion vehicular con GPS instalado</div>
+        <div class="data-source">Fuente: SSP Mexico</div>
+      </div>
+      <div class="data-cell">
+        <div class="data-value warn">0%</div>
+        <div class="data-desc">Deducible de robo si reportas en la primera hora con GPS</div>
+        <div class="data-source">Fuente: GNP / HDI Seguros</div>
+      </div>
+      <div class="data-cell">
+        <div class="data-value accent">-7%</div>
+        <div class="data-desc">Reduccion en consumo de gasolina con monitoreo GPS activo</div>
+        <div class="data-source">Fuente: GPScontrol MX</div>
+      </div>
+      <div class="data-cell">
+        <div class="data-value alert">+40.7%</div>
+        <div class="data-desc">Aumento de robo de maquinaria pesada en Mexico en 2 anos</div>
+        <div class="data-source">Fuente: AMIS 2025</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 04: POR QUE NOSOTROS -->
+  <section class="section" id="diferenciadores">
+    <span class="section-number">04</span>
+    <span class="vertical-label">Diferenciador</span>
+    <div class="section-grid">
+      <div class="section-eyebrow">Por que no somos uno mas</div>
+      <h2>Tu plataforma, no una app generica</h2>
+      <table class="diff-table">
+        <thead>
+          <tr>
+            <th>Caracteristica</th>
+            <th>GPS Fleet Monitor</th>
+            <th>GPS Generico</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="feature-name">Plataforma</td>
+            <td class="col-us">Propia, con tu marca</td>
+            <td class="col-them">App del fabricante chino</td>
+          </tr>
+          <tr>
+            <td class="feature-name">Roles de usuario</td>
+            <td class="col-us">Gerente / Supervisor / Conductor</td>
+            <td class="col-them">Todos ven lo mismo</td>
+          </tr>
+          <tr>
+            <td class="feature-name">Reportes</td>
+            <td class="col-us">Por industria (construccion, flota)</td>
+            <td class="col-them">Genericos para todos</td>
+          </tr>
+          <tr>
+            <td class="feature-name">Contrato</td>
+            <td class="col-us">Mes a mes, cancela cuando quieras</td>
+            <td class="col-them">12-24 meses forzoso</td>
+          </tr>
+          <tr>
+            <td class="feature-name">Soporte</td>
+            <td class="col-us">WhatsApp directo, mismo dia</td>
+            <td class="col-them">Ticket en ingles, dias de espera</td>
+          </tr>
+          <tr>
+            <td class="feature-name">Datos</td>
+            <td class="col-us">Servidores en Mexico/USA</td>
+            <td class="col-them">Servidores en China</td>
+          </tr>
+          <tr>
+            <td class="feature-name">Instalacion</td>
+            <td class="col-us">Tecnico propio, en tu ubicacion</td>
+            <td class="col-them">Tu te lo instalas</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- SECTION 05: FORMULARIO -->
+  <section class="section form-section" id="contacto">
+    <span class="vertical-label">Contacto</span>
+    <div class="section-grid">
+      <div class="form-wrapper">
+        <div class="section-eyebrow" style="text-align: center;">Solicita tu demo</div>
+        <h2 style="text-align: center; margin-bottom: 0.75rem;">Quiero ver mi flota en tiempo real</h2>
+        <p style="text-align: center; color: var(--text-secondary); margin-bottom: 2.5rem; font-size: 0.95rem;">Te contactamos por WhatsApp en menos de 2 horas con una cotizacion personalizada.</p>
+
+        <form action="#" method="POST" id="lead-form">
+          <div class="form-group">
+            <label for="nombre">Nombre completo</label>
+            <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required>
+          </div>
+          <div class="form-group">
+            <label for="empresa">Empresa</label>
+            <input type="text" id="empresa" name="empresa" placeholder="Nombre de tu empresa" required>
+          </div>
+          <div class="form-group">
+            <label for="whatsapp">WhatsApp</label>
+            <input type="tel" id="whatsapp" name="whatsapp" placeholder="52 1 XXX XXX XXXX" required>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="tipo">Tipo de flota</label>
+              <select id="tipo" name="tipo" required>
+                <option value="" disabled selected>Selecciona</option>
+                <option value="vehiculos">Vehiculos comerciales</option>
+                <option value="maquinaria">Maquinaria pesada</option>
+                <option value="ambos">Vehiculos + Maquinaria</option>
+                <option value="motos">Motos / Repartidores</option>
+                <option value="otro">Otro</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="unidades">Numero de unidades</label>
+              <select id="unidades" name="unidades" required>
+                <option value="" disabled selected>Selecciona</option>
+                <option value="1-5">1 - 5 unidades</option>
+                <option value="6-15">6 - 15 unidades</option>
+                <option value="16-30">16 - 30 unidades</option>
+                <option value="31-50">31 - 50 unidades</option>
+                <option value="50+">50+ unidades</option>
+              </select>
+            </div>
+          </div>
+          <button type="submit" class="form-submit">Quiero una demo gratis</button>
+          <p class="form-note">Sin compromiso. Sin contrato. Te contactamos por WhatsApp.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-left">GPS Fleet Monitor &mdash; 2026 &mdash; Mexico</div>
+    <div class="footer-right">
+      <a href="#problema">Problema</a>
+      <a href="#soluciones">Soluciones</a>
+      <a href="#datos">Datos</a>
+      <a href="#contacto">Contacto</a>
+    </div>
+  </footer>
+
+  <script>
+    // Simple form handler - replace with actual endpoint
+    document.getElementById('lead-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      var btn = this.querySelector('.form-submit');
+      var originalText = btn.textContent;
+      btn.textContent = 'ENVIADO - TE CONTACTAMOS PRONTO';
+      btn.style.background = '#2ECC40';
+      btn.style.borderColor = '#2ECC40';
+      btn.disabled = true;
+      // TODO: Connect to actual form backend (Formspree, Google Sheets, webhook, etc.)
+    });
+  </script>
+
+</body>
+</html>
