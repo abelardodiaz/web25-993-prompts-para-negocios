@@ -1,0 +1,1231 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tu Tienda CCTV Online en 7 Dias | Sincronizada con Syscom</title>
+  <meta name="description" content="Montamos tu tienda online profesional de videovigilancia, sincronizada con Syscom, lista para vender. Setup desde $15,000 MXN.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    /* ===========================================
+       INDUSTRIAL UTILITARIAN - Landing B2B CCTV
+       Target: Ingenieros/tecnicos CCTV 35-55 anos
+       Aesthetic: Dark, functional, security-world
+       =========================================== */
+
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg-primary: #141414;
+      --bg-secondary: #1E1E1E;
+      --bg-tertiary: #282828;
+      --bg-panel: #1A1A1A;
+      --text-primary: #E0E0E0;
+      --text-secondary: #A0A0A0;
+      --text-muted: #666;
+      --accent: #FFD600;
+      --accent-dim: #B89B00;
+      --warning: #FF6B00;
+      --success: #4CAF50;
+      --border: #333;
+      --border-accent: #444;
+      --font-display: 'Oswald', sans-serif;
+      --font-body: 'Source Sans 3', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ---- NAV: Minimal top bar with status indicators ---- */
+    .nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 100;
+      background: var(--bg-primary);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 56px;
+    }
+
+    .nav-brand {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .nav-brand .status-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--success);
+      display: inline-block;
+    }
+
+    .nav-cta {
+      font-family: var(--font-display);
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--bg-primary);
+      background: var(--accent);
+      padding: 0.5rem 1.5rem;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.15s;
+    }
+
+    .nav-cta:hover {
+      background: var(--text-primary);
+    }
+
+    /* ---- HERO: Full-width, asymmetric, data-driven ---- */
+    .hero {
+      margin-top: 56px;
+      min-height: calc(100vh - 56px);
+      display: grid;
+      grid-template-columns: 1fr;
+      position: relative;
+      border-bottom: 3px solid var(--accent);
+    }
+
+    .hero-content {
+      padding: 4rem 2rem 3rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .hero-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      width: 40px;
+      height: 2px;
+      background: var(--accent);
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 6vw, 4.5rem);
+      font-weight: 700;
+      line-height: 1.05;
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+      max-width: 800px;
+    }
+
+    .hero-title .highlight {
+      color: var(--accent);
+    }
+
+    .hero-subtitle {
+      font-size: 1.15rem;
+      color: var(--text-secondary);
+      max-width: 560px;
+      margin-bottom: 2.5rem;
+      line-height: 1.7;
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      max-width: 560px;
+    }
+
+    .stat {
+      background: var(--bg-secondary);
+      padding: 1.25rem 1rem;
+      text-align: center;
+    }
+
+    .stat-value {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-top: 0.5rem;
+    }
+
+    /* ---- PROBLEM: The pain ---- */
+    .problem {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section-header {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 2rem;
+      align-items: baseline;
+      padding: 3rem 2rem 0;
+    }
+
+    .section-number {
+      font-family: var(--font-display);
+      font-size: 5rem;
+      font-weight: 700;
+      color: var(--bg-tertiary);
+      line-height: 1;
+      user-select: none;
+    }
+
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.75rem;
+    }
+
+    .problem-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1px;
+      background: var(--border);
+      margin: 2rem;
+      border: 1px solid var(--border);
+    }
+
+    .problem-item {
+      background: var(--bg-secondary);
+      padding: 2rem;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 1.5rem;
+      align-items: start;
+    }
+
+    .problem-icon {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--warning);
+      background: rgba(255, 107, 0, 0.1);
+      border: 1px solid var(--warning);
+      padding: 0.35rem 0.6rem;
+      letter-spacing: 0.05em;
+    }
+
+    .problem-text h3 {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    .problem-text p {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* ---- BEFORE/AFTER: Visual comparison ---- */
+    .comparison {
+      padding: 4rem 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .comparison-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .comparison-card {
+      border: 2px solid var(--border);
+      overflow: hidden;
+    }
+
+    .comparison-card.before {
+      border-color: var(--warning);
+    }
+
+    .comparison-card.after {
+      border-color: var(--success);
+    }
+
+    .comparison-card-header {
+      padding: 1rem 1.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .comparison-card.before .comparison-card-header {
+      background: rgba(255, 107, 0, 0.08);
+      color: var(--warning);
+      border-bottom: 1px solid rgba(255, 107, 0, 0.2);
+    }
+
+    .comparison-card.after .comparison-card-header {
+      background: rgba(76, 175, 80, 0.08);
+      color: var(--success);
+      border-bottom: 1px solid rgba(76, 175, 80, 0.2);
+    }
+
+    .comparison-list {
+      padding: 1.5rem;
+      list-style: none;
+    }
+
+    .comparison-list li {
+      padding: 0.6rem 0;
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: baseline;
+      gap: 0.75rem;
+    }
+
+    .comparison-list li:last-child {
+      border-bottom: none;
+    }
+
+    .comparison-list li .marker {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      flex-shrink: 0;
+    }
+
+    .comparison-card.before .marker { color: var(--warning); }
+    .comparison-card.after .marker { color: var(--success); }
+
+    /* ---- SOLUTION: What we deliver ---- */
+    .solution {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .solution-intro {
+      padding: 0 2rem;
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .solution-intro p {
+      font-size: 1.15rem;
+      color: var(--text-secondary);
+      max-width: 640px;
+      line-height: 1.7;
+    }
+
+    .solution-items {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1px;
+      background: var(--border);
+      margin: 0 2rem 3rem;
+      border: 1px solid var(--border);
+    }
+
+    .solution-item {
+      background: var(--bg-secondary);
+      padding: 2rem;
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 1.5rem;
+      align-items: start;
+    }
+
+    .solution-item-number {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--accent-dim);
+      line-height: 1;
+    }
+
+    .solution-item h3 {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.02em;
+    }
+
+    .solution-item p {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* ---- PROCESS: How it works ---- */
+    .process {
+      padding: 4rem 2rem;
+      border-bottom: 3px solid var(--accent);
+    }
+
+    .process-title {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    .process-subtitle {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      letter-spacing: 0.1em;
+      margin-bottom: 2.5rem;
+    }
+
+    .timeline {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0;
+      border: 1px solid var(--border);
+    }
+
+    .timeline-step {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .timeline-step:last-child {
+      border-bottom: none;
+    }
+
+    .timeline-day {
+      background: var(--bg-tertiary);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem 0.5rem;
+      border-right: 1px solid var(--border);
+    }
+
+    .timeline-day span:first-child {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .timeline-day span:last-child {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+    }
+
+    .timeline-content {
+      padding: 1.5rem;
+    }
+
+    .timeline-content h4 {
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      margin-bottom: 0.35rem;
+    }
+
+    .timeline-content p {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    /* ---- PRICING: Clean, direct ---- */
+    .pricing {
+      padding: 4rem 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .pricing-title {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    .pricing-note {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      letter-spacing: 0.1em;
+      margin-bottom: 2.5rem;
+    }
+
+    .pricing-cards {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .pricing-card {
+      border: 2px solid var(--border);
+      padding: 2rem;
+      position: relative;
+    }
+
+    .pricing-card.featured {
+      border-color: var(--accent);
+    }
+
+    .pricing-card-tag {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .pricing-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    .pricing-amount {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 0.25rem;
+    }
+
+    .pricing-period {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      letter-spacing: 0.1em;
+      margin-bottom: 1.5rem;
+    }
+
+    .pricing-includes {
+      list-style: none;
+      border-top: 1px solid var(--border);
+      padding-top: 1.5rem;
+    }
+
+    .pricing-includes li {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      padding: 0.4rem 0;
+      padding-left: 1.5rem;
+      position: relative;
+    }
+
+    .pricing-includes li::before {
+      content: '+';
+      position: absolute;
+      left: 0;
+      font-family: var(--font-mono);
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    /* ---- CTA: Big, impossible to miss ---- */
+    .cta-section {
+      padding: 4rem 2rem;
+      background: var(--bg-secondary);
+      text-align: center;
+      border-bottom: 3px solid var(--accent);
+    }
+
+    .cta-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.5rem, 4vw, 2.5rem);
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-subtitle {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      margin-bottom: 2.5rem;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .btn-primary {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--bg-primary);
+      background: var(--accent);
+      padding: 1.25rem 3rem;
+      border: 2px solid var(--accent);
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.15s;
+      font-weight: 600;
+    }
+
+    .btn-primary:hover {
+      background: transparent;
+      color: var(--accent);
+    }
+
+    .btn-secondary {
+      font-family: var(--font-display);
+      font-size: 0.9rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-primary);
+      background: transparent;
+      padding: 1rem 2.5rem;
+      border: 2px solid var(--border-accent);
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      transition: all 0.15s;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--text-primary);
+    }
+
+    .whatsapp-icon {
+      width: 20px;
+      height: 20px;
+    }
+
+    /* ---- FAQ ---- */
+    .faq {
+      padding: 4rem 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .faq-title {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+      padding: 1.5rem 0;
+    }
+
+    .faq-item:first-child {
+      border-top: 1px solid var(--border);
+    }
+
+    .faq-question {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .faq-question .toggle {
+      font-family: var(--font-mono);
+      font-size: 1.2rem;
+      color: var(--accent);
+      transition: transform 0.15s;
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.2s ease;
+    }
+
+    .faq-answer-inner {
+      padding-top: 1rem;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .faq-item.active .faq-answer {
+      max-height: 200px;
+    }
+
+    .faq-item.active .toggle {
+      transform: rotate(45deg);
+    }
+
+    /* ---- FOOTER ---- */
+    .footer {
+      padding: 2.5rem 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .footer-brand {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .footer-legal {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    /* ---- DESKTOP OVERRIDES ---- */
+    @media (min-width: 768px) {
+      .nav {
+        padding: 0 4rem;
+      }
+
+      .hero-content {
+        padding: 6rem 4rem 4rem;
+      }
+
+      .problem-grid {
+        grid-template-columns: 1fr 1fr;
+        margin: 2rem 4rem;
+      }
+
+      .comparison {
+        padding: 4rem 4rem;
+      }
+
+      .comparison-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .section-header {
+        padding: 3rem 4rem 0;
+      }
+
+      .solution-intro {
+        padding: 0 4rem;
+      }
+
+      .solution-items {
+        grid-template-columns: 1fr 1fr;
+        margin: 0 4rem 3rem;
+      }
+
+      .process {
+        padding: 4rem 4rem;
+      }
+
+      .pricing {
+        padding: 4rem 4rem;
+      }
+
+      .pricing-cards {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .cta-section {
+        padding: 5rem 4rem;
+      }
+
+      .cta-buttons {
+        flex-direction: row;
+        justify-content: center;
+      }
+
+      .faq {
+        padding: 4rem 4rem;
+        max-width: 720px;
+      }
+
+      .footer {
+        padding: 2.5rem 4rem;
+        flex-direction: row;
+        justify-content: space-between;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .hero {
+        grid-template-columns: 1fr 380px;
+      }
+
+      .hero-side {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        border-left: 1px solid var(--border);
+        padding: 4rem 2.5rem;
+        gap: 0;
+      }
+
+      .hero-stats {
+        grid-template-columns: 1fr;
+        max-width: none;
+      }
+
+      .section-number {
+        font-size: 7rem;
+      }
+
+      .problem-grid {
+        margin: 2rem 4rem 3rem;
+      }
+
+      .solution-items {
+        grid-template-columns: 1fr 1fr 1fr;
+      }
+
+      .timeline {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      .timeline-step {
+        grid-template-columns: 1fr;
+        border-bottom: none;
+        border-right: 1px solid var(--border);
+      }
+
+      .timeline-step:last-child {
+        border-right: none;
+      }
+
+      .timeline-day {
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+      }
+    }
+
+    /* Hide side panel on mobile */
+    .hero-side {
+      display: none;
+    }
+
+    @media (min-width: 1024px) {
+      .hero-side { display: flex; }
+      .hero-stats-mobile { display: none; }
+    }
+
+    .hero-stats-mobile {
+      margin-top: 2.5rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ======================== NAV ======================== -->
+  <nav class="nav">
+    <div class="nav-brand">
+      <span class="status-dot"></span>
+      TIENDA CCTV // LLAVE EN MANO
+    </div>
+    <a href="#contacto" class="nav-cta">Agendar Llamada</a>
+  </nav>
+
+  <!-- ======================== HERO ======================== -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-eyebrow">Servicio para distribuidores Syscom</div>
+      <h1 class="hero-title">
+        Tu catalogo Syscom<br>
+        <span class="highlight">vendiendo online</span><br>
+        en 7 dias
+      </h1>
+      <p class="hero-subtitle">
+        Te montamos una tienda online profesional con tus productos de Syscom.
+        Precios, stock e imagenes se actualizan solos.
+        Tu solo recibes los pedidos.
+      </p>
+      <!-- Stats for mobile -->
+      <div class="hero-stats hero-stats-mobile">
+        <div class="stat">
+          <div class="stat-value">7</div>
+          <div class="stat-label">Dias de Setup</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">500</div>
+          <div class="stat-label">Productos Curados</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">24/7</div>
+          <div class="stat-label">Sync Automatico</div>
+        </div>
+      </div>
+    </div>
+    <!-- Side stats for desktop -->
+    <div class="hero-side">
+      <div class="hero-stats">
+        <div class="stat">
+          <div class="stat-value">7</div>
+          <div class="stat-label">Dias de Setup</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">500</div>
+          <div class="stat-label">Productos Curados</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">24/7</div>
+          <div class="stat-label">Sync Automatico</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================== PROBLEM ======================== -->
+  <section class="problem">
+    <div class="section-header">
+      <div class="section-number">01</div>
+      <div class="section-label">El problema que ya conoces</div>
+    </div>
+    <div class="problem-grid">
+      <div class="problem-item">
+        <span class="problem-icon">ERR</span>
+        <div class="problem-text">
+          <h3>Sin tienda online o con una pagina muerta</h3>
+          <p>Tu competencia vende en internet las 24 horas. Tu sigues dependiendo solo del mostrador, WhatsApp y cotizaciones manuales.</p>
+        </div>
+      </div>
+      <div class="problem-item">
+        <span class="problem-icon">ERR</span>
+        <div class="problem-text">
+          <h3>Subir productos es un trabajo eterno</h3>
+          <p>Syscom tiene 75,000+ SKUs. Subir fotos, specs y precios a mano no es viable. Y cuando terminas, los precios ya cambiaron.</p>
+        </div>
+      </div>
+      <div class="problem-item">
+        <span class="problem-icon">ERR</span>
+        <div class="problem-text">
+          <h3>Los plugins de sync solo te dan el dump</h3>
+          <p>MojoMexico y Kaesys sincronizan 50,000 productos. Resultado: una tienda imposible de navegar, sin contenido, sin curaduria.</p>
+        </div>
+      </div>
+      <div class="problem-item">
+        <span class="problem-icon">ERR</span>
+        <div class="problem-text">
+          <h3>No tienes tiempo para aprender e-commerce</h3>
+          <p>Tu negocio es instalar y vender equipos de seguridad. No configurar Shopify, escribir fichas tecnicas o hacer SEO.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================== BEFORE/AFTER ======================== -->
+  <section class="comparison">
+    <div class="section-header" style="padding: 0 0 2rem;">
+      <div class="section-number">02</div>
+      <div class="section-label">La diferencia</div>
+    </div>
+    <div class="comparison-grid">
+      <div class="comparison-card before">
+        <div class="comparison-card-header">
+          <span>X</span> Solo un plugin de sync
+        </div>
+        <ul class="comparison-list">
+          <li><span class="marker">--</span> 50,000 productos sin categorizar</li>
+          <li><span class="marker">--</span> Descripciones genericas del fabricante</li>
+          <li><span class="marker">--</span> Sin guias de compatibilidad</li>
+          <li><span class="marker">--</span> Diseno de plantilla basica</li>
+          <li><span class="marker">--</span> Te dan la herramienta y te dejan solo</li>
+          <li><span class="marker">--</span> Tu tienes que aprender a usarla</li>
+        </ul>
+      </div>
+      <div class="comparison-card after">
+        <div class="comparison-card-header">
+          <span>OK</span> Tienda llave en mano
+        </div>
+        <ul class="comparison-list">
+          <li><span class="marker">+</span> 300-500 productos curados para tu especialidad</li>
+          <li><span class="marker">+</span> Fichas tecnicas con specs reales y comparativas</li>
+          <li><span class="marker">+</span> Guias: que DVR funciona con que camara</li>
+          <li><span class="marker">+</span> Diseno profesional con tu marca</li>
+          <li><span class="marker">+</span> Te entregamos la tienda funcionando</li>
+          <li><span class="marker">+</span> Te capacitamos para que la manejes</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================== SOLUTION ======================== -->
+  <section class="solution">
+    <div class="section-header">
+      <div class="section-number">03</div>
+      <div class="section-label">Que incluye tu tienda</div>
+    </div>
+    <div class="solution-intro">
+      <p>No te vendemos un plugin. Te entregamos tu negocio online operando. Esto es lo que recibes:</p>
+    </div>
+    <div class="solution-items">
+      <div class="solution-item">
+        <div class="solution-item-number">01</div>
+        <div>
+          <h3>Tienda Shopify Profesional</h3>
+          <p>Diseno premium con tu marca. Pagos con tarjeta, OXXO, transferencia. Envios configurados. Lista para recibir pedidos.</p>
+        </div>
+      </div>
+      <div class="solution-item">
+        <div class="solution-item-number">02</div>
+        <div>
+          <h3>Sync Automatico con Syscom</h3>
+          <p>Precios, disponibilidad e imagenes se actualizan automaticamente. No volveras a subir un producto a mano.</p>
+        </div>
+      </div>
+      <div class="solution-item">
+        <div class="solution-item-number">03</div>
+        <div>
+          <h3>Catalogo Curado</h3>
+          <p>Seleccionamos los 300-500 productos relevantes para tu especialidad. No el dump de 75,000 SKUs que nadie navega.</p>
+        </div>
+      </div>
+      <div class="solution-item">
+        <div class="solution-item-number">04</div>
+        <div>
+          <h3>Contenido Tecnico Real</h3>
+          <p>Fichas con specs reales, guias de compatibilidad y comparativas. Escritas por gente que sabe la diferencia entre un NVR y un DVR.</p>
+        </div>
+      </div>
+      <div class="solution-item">
+        <div class="solution-item-number">05</div>
+        <div>
+          <h3>Capacitacion de tu Equipo</h3>
+          <p>Te ensenamos a gestionar pedidos, ajustar margenes y usar tu panel de administracion. Sin depender de nosotros para lo basico.</p>
+        </div>
+      </div>
+      <div class="solution-item">
+        <div class="solution-item-number">06</div>
+        <div>
+          <h3>SEO Tecnico Inicial</h3>
+          <p>Estructura optimizada para que Google indexe tus productos. Titulos, metas y URLs configurados desde el dia uno.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================== PROCESS ======================== -->
+  <section class="process">
+    <h2 class="process-title">7 dias. De cero a vendiendo.</h2>
+    <p class="process-subtitle">ASI FUNCIONA EL PROCESO</p>
+    <div class="timeline">
+      <div class="timeline-step">
+        <div class="timeline-day">
+          <span>Dia</span>
+          <span>1</span>
+        </div>
+        <div class="timeline-content">
+          <h4>Diagnostico</h4>
+          <p>Revisamos tu catalogo, especialidad y margenes. Definimos que productos van en tu tienda.</p>
+        </div>
+      </div>
+      <div class="timeline-step">
+        <div class="timeline-day">
+          <span>Dia</span>
+          <span>2-3</span>
+        </div>
+        <div class="timeline-content">
+          <h4>Montaje + Sync</h4>
+          <p>Instalamos la tienda Shopify, conectamos la API de Syscom y cargamos tu catalogo curado.</p>
+        </div>
+      </div>
+      <div class="timeline-step">
+        <div class="timeline-day">
+          <span>Dia</span>
+          <span>4-5</span>
+        </div>
+        <div class="timeline-content">
+          <h4>Contenido + Diseno</h4>
+          <p>Aplicamos tu marca, escribimos fichas tecnicas y organizamos las categorias.</p>
+        </div>
+      </div>
+      <div class="timeline-step">
+        <div class="timeline-day">
+          <span>Dia</span>
+          <span>6-7</span>
+        </div>
+        <div class="timeline-content">
+          <h4>Capacitacion + Lanzamiento</h4>
+          <p>Te entregamos la tienda, capacitamos a tu equipo y salimos en vivo.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================== PRICING ======================== -->
+  <section class="pricing" id="precios">
+    <h2 class="pricing-title">Inversion</h2>
+    <p class="pricing-note">PRECIOS EN PESOS MEXICANOS + IVA</p>
+    <div class="pricing-cards">
+      <div class="pricing-card featured">
+        <div class="pricing-card-tag">// Pago Unico</div>
+        <h3>Setup de tu Tienda</h3>
+        <div class="pricing-amount">$15,000</div>
+        <div class="pricing-period">MXN // PAGO UNICO</div>
+        <ul class="pricing-includes">
+          <li>Tienda Shopify con diseno profesional</li>
+          <li>Sync API Syscom configurado</li>
+          <li>300-500 productos curados y categorizados</li>
+          <li>Fichas tecnicas y contenido</li>
+          <li>Pagos y envios configurados</li>
+          <li>Capacitacion de tu equipo (2 sesiones)</li>
+          <li>SEO tecnico inicial</li>
+        </ul>
+      </div>
+      <div class="pricing-card">
+        <div class="pricing-card-tag">// Mensual</div>
+        <h3>Mantenimiento + Sync</h3>
+        <div class="pricing-amount">$3,000</div>
+        <div class="pricing-period">MXN / MES</div>
+        <ul class="pricing-includes">
+          <li>Sync automatico diario (precios, stock, imagenes)</li>
+          <li>Soporte tecnico por WhatsApp/email</li>
+          <li>Actualizacion de productos nuevos</li>
+          <li>Monitoreo de disponibilidad</li>
+          <li>Respaldo diario de tu tienda</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================== CTA ======================== -->
+  <section class="cta-section" id="contacto">
+    <h2 class="cta-title">Agenda una llamada de 15 minutos</h2>
+    <p class="cta-subtitle">
+      Sin compromiso. Te mostramos un demo de como se veria tu tienda con tus productos de Syscom.
+    </p>
+    <div class="cta-buttons">
+      <a href="#" class="btn-primary">Agendar Llamada</a>
+      <a href="https://wa.me/5218000000000?text=Hola%2C%20me%20interesa%20el%20servicio%20de%20tienda%20CCTV%20llave%20en%20mano" class="btn-secondary" target="_blank" rel="noopener">
+        <svg class="whatsapp-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        WhatsApp Directo
+      </a>
+    </div>
+  </section>
+
+  <!-- ======================== FAQ ======================== -->
+  <section class="faq">
+    <h2 class="faq-title">Preguntas Frecuentes</h2>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="this.parentElement.classList.toggle('active')">
+        <span>Necesito cuenta de distribuidor en Syscom?</span>
+        <span class="toggle">+</span>
+      </div>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">Si. Necesitas tu propia cuenta de distribuidor en Syscom con acceso a la API. Nosotros configuramos la conexion, pero los precios y disponibilidad vienen de tu cuenta.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="this.parentElement.classList.toggle('active')">
+        <span>Puedo elegir que productos aparecen en mi tienda?</span>
+        <span class="toggle">+</span>
+      </div>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">Si. Trabajamos contigo para seleccionar las categorias y productos que quieres vender. Podemos filtrar por marca (Hikvision, Dahua, Epcom), por tipo (camaras, NVRs, control de acceso) o por rango de precio.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="this.parentElement.classList.toggle('active')">
+        <span>Quien maneja los envios y garantias?</span>
+        <span class="toggle">+</span>
+      </div>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">Tu. Cuando recibes un pedido, compras el producto en Syscom y lo envias a tu cliente (o usas el envio directo de Syscom). Las garantias las manejas como lo haces hoy con tus ventas normales.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="this.parentElement.classList.toggle('active')">
+        <span>Cuanto cuesta Shopify aparte?</span>
+        <span class="toggle">+</span>
+      </div>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">Shopify Basic cuesta $599 MXN/mes (aprox). Es un costo aparte que pagas directo a Shopify. Tu tienda funciona sobre esa plataforma.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="this.parentElement.classList.toggle('active')">
+        <span>Que pasa si cancelo la mensualidad?</span>
+        <span class="toggle">+</span>
+      </div>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">Tu tienda Shopify sigue siendo tuya. Solo se detiene la sincronizacion automatica con Syscom y el soporte. Puedes seguir vendiendo con los productos que ya tengas cargados.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================== FOOTER ======================== -->
+  <footer class="footer">
+    <div class="footer-brand">TIENDA CCTV LLAVE EN MANO // 2026</div>
+    <div class="footer-legal">Servicio independiente. No afiliado oficialmente a Syscom o Shopify.</div>
+  </footer>
+
+</body>
+</html>
